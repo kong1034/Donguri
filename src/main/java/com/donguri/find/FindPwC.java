@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/FindC")
-public class FindC extends HttpServlet {
+@WebServlet("/FindPwC")
+public class FindPwC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		request.setAttribute("contentPage", "/jsp/find/find_select.jsp");
+		request.setAttribute("contentPage", "/jsp/find/find_pw.jsp");
 		request.getRequestDispatcher("/jsp/find/find.jsp").forward(request, response);
 	}
 
