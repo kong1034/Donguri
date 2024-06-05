@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/find/find_select.css" />
 </head>
 <body>
 <section class="content_container">
@@ -19,6 +20,6 @@
 			</div>
 		</div>
 	</section>
-	<script src="js/find/find.js"></script>
+	<script src="js/find/find_select.js"></script>
 </body>
 </html>
