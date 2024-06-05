@@ -11,8 +11,8 @@
 <section class="content_container">
 		<div class="content_box">
 			<div class="content_announce_box">
-				<span>ドングリのIDに登録しているメールアドレスと
-					ユーザー名を入力して下さい。。</span>
+				<p>ドングリのIDに登録しているメールアドレスと
+					ユーザー名を入力して下さい。。</p>
 			</div>
 			<div class="content_main_box">
 				<p>メールアドレス</p>

@@ -1,5 +1,5 @@
 function doFindId() {
-	alert(1);
+	location.href="FindIdResultC";
 }
 
 function goPrev() {
