@@ -13,8 +13,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>index.jsp</h1>
-
+index.jsp
 <!-- JS -->
 <script src="js/index.js"></script>
 </body>
