@@ -1,0 +1,74 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+header {
+  height: 100px;
+  border: 1px solid black;
+}
+.container {
+  display: grid;
+  width: 50em;
+  height: max-content;
+  margin: 40px auto 40px;
+  border: 1px solid rgb(174, 170, 170);
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.epilogue_top {
+  font-size: 2rem;
+  letter-spacing: -1px;
+  display: flex;
+  float: left;
+  margin: 20px 0 20px;
+}
+.epilogue_list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40rem;
+  border: 1px solid rgb(174, 170, 170);
+}
+.epilogue_list div {
+  align-content: center;
+  text-align: center;
+}
+.epilogue {
+  height: 4em;
+}
+.tag {
+  width: 5em;
+}
+.title {
+  width: 24em;
+  padding-left: 10px;
+  padding-right: 30px;
+}
+.writer {
+  width: 6em;
+}
+.date {
+  width: 5em;
+}
+span {
+  background-color: #cfff91;
+  border-radius: 20px;
+  font-size: 12pt;
+  font-weight: 500;
+  padding: 5px;
+}
+
+.number {
+  padding: 20px;
+  margin: auto;
+}
+.number li {
+  display: inline-block;
+  padding: 5px;
+}
+.number li a {
+  cursor: pointer;
+}
