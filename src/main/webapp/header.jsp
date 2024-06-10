@@ -8,11 +8,11 @@
 </head>
 <body>
   <header id="header_container">
-    <a href="<%= request.getContextPath() %>/" class="header_title">Donguri</a>
+    <a href="HC" class="header_title">Donguri</a>
     <ul class="header_categori_ul">
       <li class="header_categori_li"><a href="<%= request.getContextPath() %>/index.jsp">情報一覧</a></li>
       <li class="header_categori_li"><a href="<%= request.getContextPath() %>/jsp/donation/donation.jsp">ドネーション</a></li>
-      <li class="header_categori_li"><a href="<%= request.getContextPath() %>/jsp/community/community.jsp">コミュニティ</a></li>
+      <li class="header_categori_li"><a href="BoardC">コミュニティ</a></li>
       <li class="header_categori_li"><a href="<%= request.getContextPath() %>/jsp/mypage/mypage.jsp">MyPage</a></li>
       <li class="header_categori_li"><a href="<%= request.getContextPath() %>/jsp/sign/login.jsp">Login</a></li>
     </ul>

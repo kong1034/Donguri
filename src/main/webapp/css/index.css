@@ -1,1 +1,230 @@
 @charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.container_wrapper {
+  display: grid;
+  height: max-content;
+  justify-content: center;
+}
+.container_slide {
+  width: 50em;
+  height: 25em;
+  border-radius: 100px;
+  margin: 40px 0px 0px;
+  position: relative;
+}
+.container_slide img {
+  border-radius: 100px;
+  width: 50em;
+  height: 25em;
+}
+.mySlides {
+  display: none;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.container_items {
+  margin: 40px auto 40px;
+  display: flex;
+  justify-content: space-around;
+  /* border: 1px solid; */
+  /* border-radius: 20px; */
+  width: 51em;
+  height: max-content;
+  padding-top: 5px;
+  text-align: center;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle closest-corner at 50% top,
+    hsla(86, 100%, 78%, 0.29),
+    #fff,
+    #fff
+  );
+}
+.item {
+  height: 15em;
+  width: 9.7em;
+  border-radius: 30px;
+}
+.slogan {
+  margin: 0px auto 10px;
+  width: 100%;
+  padding: 35px;
+  font-size: 23pt;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+.left {
+  margin-top: 4em;
+  background-image: url("../img/local/children.jpeg");
+  background-position: center;
+  background-size: cover;
+}
+.center_left {
+  background-image: url("../img/local/old.webp");
+  background-position: center;
+  background-size: cover;
+}
+.center_center {
+  border: 1px solid;
+  height: 5em;
+  margin-top: 160px;
+  align-content: center;
+}
+.center_right {
+  background-image: url("../img/local/environment.jpeg");
+  background-position: center;
+  background-size: cover;
+}
+.right {
+  margin-top: 4em;
+  background-image: url("../img/local/animal4.jpeg");
+  background-position: center;
+  background-size: cover;
+}
+.centers {
+  display: grid;
+  width: 29.9em;
+}
+.center {
+  display: flex;
+  justify-content: space-between;
+  width: 29.9em;
+}
+.item_left_sub,
+.item_right_sub {
+  color: cadetblue;
+  height: 3em;
+  border: 1px solid;
+  border-radius: 30px;
+  margin-top: 0.3em;
+  justify-content: center;
+  align-content: center;
+  font-size: 16pt;
+}
+.item:hover {
+  -webkit-filter: blur(1px);
+  -moz-filter: blur(1px);
+  -o-filter: blur(1px);
+  -ms-filter: blur(1px);
+  filter: blur(1px);
+}
+.container_community_info {
+  display: grid;
+  margin: auto auto 40px;
+  border: 1px solid #cfff918a;
+  border-radius: 20px;
+  width: 40em;
+  height: 16em;
+  background-color: #cfff918a;
+}
+.community_info_top {
+  height: 2.5em;
+  width: 10em;
+  font-size: 20pt;
+  padding: 20px;
+}
+.community_info_wrap {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  height: 10.5em;
+}
+.info {
+  width: 12em;
+  height: 3em;
+  border: 0.1px solid;
+  color: rgba(128, 128, 128, 0.622);
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  background-color: #fff;
+}
+.acorn {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background-image: url("../img/local/icon/acorn_img.png");
+  background-size: cover;
+}
+.container_aboutus {
+  display: flex;
+  flex-direction: column;
+  margin: auto auto 40px;
+  border-radius: 20px;
+  width: 40em;
+  height: 23em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.aboutus_top {
+  padding: 20px;
+  font-size: 20pt;
+  height: 50px;
+}
+.aboutus_middle {
+  margin: auto;
+  width: 30rem;
+  align-content: center;
+  text-align: center;
+  font-size: 20pt;
+}
+.aboutus_middle span {
+  font-size: 32pt;
+  color: #f6a200;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+.aboutus_bottom {
+  display: flex;
+  justify-content: space-around;
+  width: 350px;
+  margin: auto auto 30px;
+}
+.aboutus_icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #f6a200;
+  align-content: center;
+}
+.aboutus_icon img {
+  margin: 7px 16px 0;
+  width: 40px;
+  height: 40px;
+}
+footer {
+  height: 15em;
+  border: 1px solid;
+  background-color: #45b90e;
+}
+a {
+  color: none;
+}
