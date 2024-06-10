@@ -1,2 +1,41 @@
 @charset "UTF-8";
 
+/* Header Styles */
+#header_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header_title {
+  font-size: 60px;
+  color: #F6A200;
+  text-decoration: none;
+}
+
+.header_categori_ul {
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.header_categori_li {
+  margin-left: 20px;
+}
+
+.header_categori_li a {
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s, font-size 0.3s, border 0.3s;
+}
+
+.header_categori_li a:hover {
+  color: #4CAF50;
+  font-size: 1.2em;
+  border: 1px solid #4CAF50;
+  border-radius: 5px;
+}
