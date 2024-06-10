@@ -1,0 +1,136 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+html,
+body {
+  height: 100%;
+}
+header {
+  height: 100px;
+  border: 1px solid black;
+}
+.container_board {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: -0.5px;
+  margin-top: 40px;
+}
+button {
+  height: 80px;
+  width: 80px;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  font-size: 14pt;
+  float: left;
+  cursor: pointer;
+  margin: 5px;
+}
+button:hover {
+  box-shadow: 10px 10px 10px #ddd;
+}
+.btn_make {
+  background-color: #f6a200;
+}
+.btn_comment {
+  background-color: #45b90e;
+}
+.tags {
+  width: 350px;
+  display: flex;
+  padding: 20px 20px 0px 20px;
+  justify-content: space-around;
+  margin: auto;
+  cursor: pointer;
+}
+.tags_list {
+  border: 3px solid orange;
+  border-radius: 20px;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  font-weight: 600;
+  font-size: 13pt;
+  letter-spacing: 1px;
+}
+.tags_list:hover {
+  background-color: #f6a200;
+  color: white;
+}
+.search {
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 25px;
+  width: 100px;
+  margin-bottom: 10px;
+  float: right;
+}
+
+.board {
+  padding: 10px;
+  height: 3em;
+  align-content: center;
+}
+.board_container {
+  width: 800px;
+  height: max-content;
+  border-radius: 20px;
+  border: 1px solid rgb(174, 170, 170);
+}
+.board_list {
+  text-align: center;
+  display: flex;
+  border-bottom: 1px solid rgb(174, 170, 170);
+}
+.board_list:nth-last-child(1) {
+  border-bottom: 1px solid white;
+}
+.board_list div {
+  border-right: 1px solid rgb(174, 170, 170);
+}
+.board_list div:nth-last-child(1) {
+  border-right: 1px solid rgb(255, 255, 255);
+}
+.status {
+  width: 4em;
+}
+.location {
+  width: 4em;
+}
+.group {
+  width: 6em;
+}
+.title {
+  width: 20em;
+}
+.writer {
+  width: 5em;
+}
+.date {
+  width: 3em;
+}
+.status_welcome {
+  background-color: #cfff91;
+  border-radius: 20px;
+  font-size: 12pt;
+  font-weight: 500;
+  padding: 5px;
+}
+
+.number {
+  padding: 20px;
+  margin: auto;
+}
+.number li {
+  display: inline-block;
+  padding: 5px;
+}
+.number li a {
+  cursor: pointer;
+}
