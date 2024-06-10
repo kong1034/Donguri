@@ -6,9 +6,12 @@
 <meta charset="UTF-8">
 <title>Board_detail</title>
  <link rel="stylesheet" href="css/board/board_detail.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
 </head>
 <body>
- <header></header>
+ <%@ include file="/header.jsp" %>
     <div class="container">
       <div class="container_wrapper">
         <div class="container_left">
@@ -33,5 +36,6 @@
         </div>
       </div>
     </div>
+    <%@ include file="/footer.jsp" %>
 </body>
 </html>
