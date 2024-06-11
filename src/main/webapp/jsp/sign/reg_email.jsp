@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>reg_email</title>
-<link rel="stylesheet" href="css/sign/reg_email.css" />
+<link rel="stylesheet" href="/css/sign/reg_email.css" />
 </head>
 <body>
 <form action="RegEmailC">

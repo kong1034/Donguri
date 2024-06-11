@@ -11,18 +11,18 @@
 <form action="SignInC">
       <div id="login_container">
         <div id="login_content">
-          <input type="text" / id="input_id" placeholder="ドングリID"><br />
-          <input type="password" / id="input_pw" placeholder="パスワード"><br />
+          <input type="text" / id="input_id" placeholder="ドングリID" name="id"><br />
+          <input type="password" / id="input_pw" placeholder="パスワード" name="pw"><br />
           <div id="login_links">
-            <a href="">ログインできない場合</a>
-            <a href="">新規取得</a><br />
+            <a href="FindC">ログインできない場合</a>
+            <a href="SignupInfoC">新規取得</a><br />
           </div>
           <div id="login_btn">
             <button class="btn login_don">ログイン</button><br />
-            <button class="btn login_sns">X</button>
+            <button class="btn login_sns" type="button" onclick="location.href='TwitterAuthServlet'" >X</button>
           </div>
         </div>
       </div>
-    </form>
+    </form>		
 </body>
 </html>

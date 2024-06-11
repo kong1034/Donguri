@@ -15,6 +15,9 @@
           ドングリアカウントを作成していただき<br />
           ありがとうございます。<br />
           このアカウントを利用して 希望を作って行きましょう。
+          <hr>
+           <p>${sessionScope.twitterUser }</p>
+           <p>${sessionScope.screenName }</p>
           <div id="done_btn">
             <button class="done_btn btn">戻る</button><br />
           </div>

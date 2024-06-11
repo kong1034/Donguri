@@ -43,13 +43,13 @@ form {
 #chk_btn {
   position: absolute;
   width: 70px;
-  height: 25px;
+  height: 31px;
   border-radius: 5px;
   background-color: #45b90e;
   border: none;
   color: white;
-  right: 10px;
-  top: 8px;
+  right: 0px;
+  top: 0px;
 }
 .input_val {
   outline-color: black;
@@ -58,6 +58,7 @@ form {
   font-size: 1em;
   color: rgb(159, 159, 159);
 }
+
 #next_btn {
   display: flex;
   flex-wrap: wrap;
@@ -74,4 +75,17 @@ form {
   height: 6vh;
   border-radius: 5px;
   margin-top: 30px;
+}
+
+/*dialog*/
+#reg_email_content {
+  margin: 2em;
+}
+#input_email, #input_num {
+  width: 25em;
+  height: 2em;
+}
+.dia_btn{
+	height: 4vh;
+	
 }
