@@ -1,3 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
-  // JavaScript functions for footer interactions can be added here
+document.addEventListener('DOMContentLoaded', function() {
+    // This script currently doesn't have specific functionality.
+    // Placeholder for future footer related JavaScript if needed.
 });

@@ -3,19 +3,15 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Footer Page</title>
   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/footer.css">
   <script src="<%= request.getContextPath() %>/js/footer.js"></script>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="content">
-      <!-- Content here -->
-    </div>
-    <footer id="footer_container">
+  <div id="footer_container">
+    <footer>
       <div class="footer">
         <ul class="footer_links">
-          <li><a href="#">参考サイト</a></li>
+          <li><a>参考サイト</a></li>
           <li><a> | </a></li>
           <li><a href="https://www.newneek.co/">Newneek</a></li>
           <li><a> | </a></li>

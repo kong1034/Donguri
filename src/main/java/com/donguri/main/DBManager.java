@@ -25,18 +25,12 @@ public class DBManager {
 		dataSource.setMaxOpenPreparedStatements(100);
 	}
 	
-	// 연결
+	// Connect
 	public static Connection connect() throws SQLException {
 		return dataSource.getConnection();
 	}
 
-//		// db 연결 코드
-//		String url = "jdbc:oracle:thin:@localhost:1521:XE";
-//		System.out.println("연결 성공");
-//		return DriverManager.getConnection(url, "c##cnh00", "cnh00");
-//	}
-
-	// 닫기
+	// Close
 	public static void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
 
 		try {
