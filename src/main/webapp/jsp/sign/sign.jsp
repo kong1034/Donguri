@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="css/sign/sign.css" />
 </head>
 <body>
- <div id="title"><a id="logo">Donguri</a></div>
+ <div id="title"><a id="logo" href="LoginC">Donguri</a></div>
  <jsp:include page="${contentPage }"></jsp:include>
 </body>
 </html>

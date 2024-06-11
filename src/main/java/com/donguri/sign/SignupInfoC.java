@@ -16,6 +16,10 @@ public class SignupInfoC extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("utf-8");		
+		request.setAttribute("contentPage", "/jsp/sign/signup_done.jsp");
+		request.getRequestDispatcher("/jsp/sign/sign.jsp").forward(request, response);
 	
 	}
 
