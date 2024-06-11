@@ -1,4 +1,4 @@
-package com.donguri.sign;
+package com.donguri.find;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,22 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/verify_email")
-public class EmailVerifyC extends HttpServlet {
+@WebServlet("/FindIdC")
+public class FindIdC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		request.setAttribute("contentPage", "/jsp/find/find_id.jsp");
+		request.getRequestDispatcher("/jsp/find/find.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD:src/main/java/com/donguri/sign/EmailVerifyC.java
-		System.out.println("verify called");
-		SignDAO.emailVerify(request);
-		
-	
-	
-=======
 		request.setCharacterEncoding("utf-8");
-		DAOFind.findPw(request, response);
->>>>>>> 021c94beb9c2f614a696280a1772a9c7cfe7c307:src/main/java/com/donguri/find/FindPwC.java
+		DAOFind.findId(request, response);
 	}
-
 }

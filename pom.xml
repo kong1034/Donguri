@@ -68,6 +68,7 @@
 			<artifactId>cos</artifactId>
 			<version>05Nov2002</version>
 		</dependency>
+<<<<<<< HEAD
 		<!--Scribe Java (twitter)-->
 		<dependency>
 			<groupId>com.github.scribejava</groupId>
@@ -89,6 +90,24 @@
     <artifactId>javax.mail</artifactId>
     <version>1.6.2</version>
 </dependency>
+=======
+		<!-- mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>jakarta.mail</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.activation</groupId>
+			<artifactId>jakarta.activation</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+>>>>>>> 021c94beb9c2f614a696280a1772a9c7cfe7c307
 	</dependencies>
 >>>>>>> 39935ead59240dfff85516b03cfc354cef5776db
 </project>
