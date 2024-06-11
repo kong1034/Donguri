@@ -17,16 +17,9 @@ public class DBManager {
 	private static BasicDataSource dataSource;
 	static {
 		dataSource = new BasicDataSource();
-<<<<<<< HEAD
 		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
 		dataSource.setUsername("c##cnh00");
 		dataSource.setPassword("cnh00");
-=======
-		
-		dataSource.setUrl("jdbc:oracle:thin:@LLWCNQBTJ1CUQ6X6_high?TNS_ADMIN=/Users/master/Downloads/Wallet_LLWCNQBTJ1CUQ6X6");//클라우드 지갑
-		dataSource.setUsername("DONGURI");//DB 유저명
-		dataSource.setPassword("Dongguri802!!");//DB 패스워드
->>>>>>> 021c94beb9c2f614a696280a1772a9c7cfe7c307
 		dataSource.setMinIdle(10);
 		dataSource.setMaxIdle(20);
 		dataSource.setMaxOpenPreparedStatements(100);
