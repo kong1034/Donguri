@@ -16,9 +16,9 @@
 			</div>
 			<div class="content_main_box">
 				<p>メールアドレス</p>
-				<input type="text" placeholder="メールアドレス"/>
+				<input type="text" id="email" placeholder="メールアドレス"/>
 				<p>ユーザー名</p>
-				<input type="text" placeholder="ユーザー名"/>
+				<input type="text" id="name" placeholder="ユーザー名"/>
 			</div>
 			<div class="content_btn_box">
 				<button class="mail_send_btn" onclick="doFindId()">確認メールを送信</button>

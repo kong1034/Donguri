@@ -12,9 +12,9 @@ public class DBManager {
 	static {
 		dataSource = new BasicDataSource();
 		
-		dataSource.setUrl("");//클라우드 지갑
-		dataSource.setUsername("");//DB 유저명
-		dataSource.setPassword("");//DB 패스워드
+		dataSource.setUrl("jdbc:oracle:thin:@LLWCNQBTJ1CUQ6X6_high?TNS_ADMIN=/Users/master/Downloads/Wallet_LLWCNQBTJ1CUQ6X6");//클라우드 지갑
+		dataSource.setUsername("DONGURI");//DB 유저명
+		dataSource.setPassword("Dongguri802!!");//DB 패스워드
 		dataSource.setMinIdle(10);
 		dataSource.setMaxIdle(40);
 		dataSource.setMaxOpenPreparedStatements(100);

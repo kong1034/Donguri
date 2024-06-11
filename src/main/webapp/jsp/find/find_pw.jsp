@@ -16,9 +16,9 @@
 			</div>
 			<div class="content_main_box">
 				<p>メールアドレス</p>
-				<input type="text" id="mail" placeholder="メールアドレス"/>
+				<input type="text" id="email" placeholder="メールアドレス"/>
 				<p>ログインID</p>
-				<input type="text" placeholder="ログインID"/>
+				<input type="text" id="id" placeholder="ログインID"/>
 			</div>
 			<div class="content_btn_box">
 				<button class="mail_send_btn" onclick="doFindPw()">パスワード再設定メールを送信</button>
