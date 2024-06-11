@@ -48,8 +48,8 @@ public class DAOFind {
 			if (rs.next()) {
 				// Gmail SMTP server setting
 				String host = "smtp.gmail.com";
-				final String username = "teamdongguri@gmail.com"; // Gmail 계정
-				final String password = "ffnsndpgeieipdsq"; // Gmail 계정 비밀번호
+				final String username = "teamdongguri@gmail.com"; // Gmail account
+				final String password = "ffnsndpgeieipdsq"; // Gmail account password
 				// kqyrqtymndcgmhtg
 				Properties props = new Properties();
 				props.put("mail.smtp.host", host);
@@ -69,7 +69,7 @@ public class DAOFind {
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress(username));
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-				message.setSubject("Test Email from Servlet");
+				message.setSubject("DONGGURI Find ID Result.");
 
 				message.setText("Your ID : " + rs.getString("u_id"));
 
@@ -77,12 +77,10 @@ public class DAOFind {
 				Transport.send(message);
 
 				// response
-				response.setContentType("application/json");
 				response.setStatus(HttpServletResponse.SC_OK);
 				response.getWriter().println("Email sent successfully!");
 				// account valid error
 			} else {
-				response.setContentType("application/json");
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().println("Invalid account.");
 				System.err.println("account invalid error");
@@ -114,13 +112,11 @@ public class DAOFind {
 		String sql = "select * from d_user where u_email = ? and u_id = ?";
 		String sql2 = "update d_user set u_pw = ? where u_id = ?";
 
-		// Random 객체 생성
+		// create Random number
         Random random = new Random();
-
-        // 1부터 9까지의 랜덤 숫자 생성
         StringBuilder randomNumber = new StringBuilder();
         for (int i = 0; i < 6; i++) {
-            int num = random.nextInt(9) + 1; // 1부터 9까지의 랜덤 숫자 생성
+            int num = random.nextInt(9) + 1; 
             randomNumber.append(num);
         }
 
@@ -181,7 +177,6 @@ public class DAOFind {
 				}
 				// account valid error
 			} else {
-				response.setContentType("application/json");
 				response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				response.getWriter().println("Invalid account.");
 				System.err.println("account invalid error");
@@ -193,27 +188,6 @@ public class DAOFind {
 		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
-
-	}
-
-	public static void updatePw(HttpServletRequest request, HttpServletResponse response) {
-		/*
-		 * // db setting Connection conn = null; PreparedStatement pstmt = null;
-		 * 
-		 * //sql String sql = "update d_user set u_pw=? where u_id";
-		 * 
-		 * try { conn = DBManager.connect(); pstmt = conn.prepareStatement(sql);
-		 * 
-		 * pstmt.setString(0, sql);
-		 * 
-		 * pstmt.executeQuery(sql);
-		 * 
-		 * if(pstmt.executeUpdate() == 1) {
-		 * 
-		 * } } catch(Exception e) {
-		 * 
-		 * }
-		 */
 
 	}
 }
