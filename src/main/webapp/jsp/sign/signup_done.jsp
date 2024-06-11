@@ -15,11 +15,11 @@
           ドングリアカウントを作成していただき<br />
           ありがとうございます。<br />
           このアカウントを利用して 希望を作って行きましょう。
-          <hr>
+<%--       <hr> confirm X login function
            <p>${sessionScope.twitterUser }</p>
-           <p>${sessionScope.screenName }</p>
+           <p>${sessionScope.screenName }</p> --%>
           <div id="done_btn">
-            <button class="done_btn btn">戻る</button><br />
+            <button class="done_btn btn" onclick="">戻る</button><br />
           </div>
         </div>
       </div>
