@@ -13,6 +13,7 @@ public class FindIdResultC extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		request.setAttribute("contentPage", "/jsp/find/find_id_result.jsp");
 		request.getRequestDispatcher("/jsp/find/find.jsp").forward(request, response);
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

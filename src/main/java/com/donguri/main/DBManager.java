@@ -17,9 +17,9 @@ public class DBManager {
 	private static BasicDataSource dataSource;
 	static {
 		dataSource = new BasicDataSource();
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		dataSource.setUsername("c##cnh00");
-		dataSource.setPassword("cnh00");
+		dataSource.setUrl("");
+		dataSource.setUsername("");
+		dataSource.setPassword("");
 		dataSource.setMinIdle(10);
 		dataSource.setMaxIdle(20);
 		dataSource.setMaxOpenPreparedStatements(100);
