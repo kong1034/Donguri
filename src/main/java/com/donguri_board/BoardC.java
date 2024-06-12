@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 public class BoardC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
+		DAOBoard.getAllBoardList(request);
 		request.setAttribute("content", "/jsp/board/board.jsp");
 		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
 	}

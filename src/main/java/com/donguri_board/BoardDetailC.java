@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class BoardDetailC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
+		DAOBoard.getOneBoardList(request);
 		request.setAttribute("content", "/jsp/board/board_detail.jsp");
 		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
 	
