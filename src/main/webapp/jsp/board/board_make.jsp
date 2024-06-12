@@ -11,7 +11,6 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<%@ include file="/header.jsp" %>
     <div class="container">
       <div class="group_make_top">マイグループを作る</div>
       <div class="group_make_list">
@@ -49,6 +48,5 @@
         </div>
       </div>
     </div>
-     <%@ include file="/footer.jsp" %>
 </body>
 </html>

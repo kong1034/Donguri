@@ -11,7 +11,6 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<%@ include file="/header.jsp" %>
     <div class="container">
       <div class="epilogue_top">後記 見る</div>
       <div class="epilogue_list">
@@ -62,6 +61,5 @@
         <li><a>&gt;</a></li>
       </ul>
     </div>
-     <%@ include file="/footer.jsp" %>
 </body>
 </html>

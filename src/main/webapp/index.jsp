@@ -11,7 +11,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 	crossorigin="anonymous"></script>
-	<jsp:include page="/header.jsp"></jsp:include>
 <!-- <script>
 function requestPayment() {
     var amount = $("#amount").val();
@@ -35,11 +34,10 @@ function requestPayment() {
 </script> -->
 </head>
 <body>
-<%@ include file="/header.jsp" %>
+<%@ include file="jsp/common/header.jsp" %>
 
 <h1>Main Page</h1>
 
-<%@ include file="/footer.jsp" %>
 <div class="container_wrapper">
       <div class="container_slide">
         <div class="mySlides fade">
@@ -159,7 +157,7 @@ function requestPayment() {
         </div>
       </div>
     </div>
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="jsp/common/footer.jsp"></jsp:include>
     <script src="js/index.js"></script>
 </body>
 </html>

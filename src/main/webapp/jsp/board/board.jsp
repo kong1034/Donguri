@@ -14,7 +14,6 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<%@ include file="/header.jsp" %>
     <div class="container_board">
       <div class="buttons">
         <button class="btn_make" onclick="location.href='BoardMakeC'" >グループ<br />作り</button>
@@ -70,6 +69,5 @@
         <li><a>&gt;</a></li>
       </ul>
     </div>
-    <%@ include file="/footer.jsp" %>
 </body>
 </html>

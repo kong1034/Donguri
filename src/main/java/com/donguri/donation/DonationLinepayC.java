@@ -1,24 +1,23 @@
 package com.donguri.donation;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.UUID;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 @WebServlet("/DonationLinepayC")
 public class DonationLinepayC extends HttpServlet {
@@ -26,7 +25,6 @@ public class DonationLinepayC extends HttpServlet {
     private static final String CHANNEL_SECRET = "1c9de69727cb9106bbbaea16ad0fcc03";
     private static final String API_URL = "https://sandbox-api-pay.line.me/v2/payments/request";
 
-    // Generate HMAC signature
     private static String generateHmacSignature(String channelSecret, String data) {
         try {
             Mac mac = Mac.getInstance("HmacSHA256");
@@ -41,18 +39,18 @@ public class DonationLinepayC extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String amountStr = request.getParameter("modal_amount");
+        String amountStr = request.getParameter("amount");
         BigDecimal amount = new BigDecimal(amountStr);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        try (PrintWriter out = response.getWriter()) {
+        try {
             JsonObject paymentRequest = new JsonObject();
             paymentRequest.addProperty("amount", amount);
             paymentRequest.addProperty("currency", "JPY");
             paymentRequest.addProperty("orderId", UUID.randomUUID().toString());
             paymentRequest.addProperty("productName", "Donation");
-
+            
             JsonObject redirectUrls = new JsonObject();
             redirectUrls.addProperty("confirmUrl", "http://localhost:8080/Donguri/jsp/donation/donation.jsp");
             redirectUrls.addProperty("cancelUrl", "http://localhost:8080/Donguri/jsp/donation/donation.jsp");
@@ -67,7 +65,7 @@ public class DonationLinepayC extends HttpServlet {
                     .header("Content-Type", "application/json")
                     .header("X-LINE-ChannelId", CHANNEL_ID)
                     .header("X-LINE-Authorization-Nonce", nonce)
-                    .header("Authorization", "Bearer " + signature)
+                    .header("X-LINE-Authorization", signature)
                     .POST(HttpRequest.BodyPublishers.ofString(paymentRequest.toString()))
                     .build();
 
@@ -79,20 +77,19 @@ public class DonationLinepayC extends HttpServlet {
                 JsonObject successResponse = new JsonObject();
                 successResponse.addProperty("status", "success");
                 successResponse.addProperty("paymentUrl", paymentUrl);
-                out.print(successResponse.toString());
+                response.getWriter().print(successResponse.toString());
             } else {
                 JsonObject errorResponse = new JsonObject();
                 errorResponse.addProperty("status", "error");
                 errorResponse.addProperty("message", jsonResponse.get("returnMessage").getAsString());
-                out.print(errorResponse.toString());
+                response.getWriter().print(errorResponse.toString());
             }
+
         } catch (Exception e) {
             JsonObject errorResponse = new JsonObject();
             errorResponse.addProperty("status", "error");
-            errorResponse.addProperty("message", e.getMessage());
-            try (PrintWriter out = response.getWriter()) {
-                out.print(errorResponse.toString());
-            }
+            errorResponse.addProperty("message", "Exception: " + e.getMessage());
+            response.getWriter().print(errorResponse.toString());
         }
     }
 }

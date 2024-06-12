@@ -4,20 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.sql.DataSource;
 
 public class DBManager {
-    
+
     private static BasicDataSource dataSource;
 
     @PostConstruct
     public void init() {
         dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:oracle:thin:@//adb.ap-osaka-1.oraclecloud.com:1522/gc36c38573c02c5_llwcnqbtj1cuq6x6_high.adb.oraclecloud.com?TNS_ADMIN=C:\\lmj\\Wallet_DBgc36c38573c02c5");
+        dataSource.setUrl("jdbc:oracle:thin:@//adb.ap-osaka-1.oraclecloud.com:1522/your_db_name_high.adb.oraclecloud.com");
         dataSource.setUsername("DONGURI");
         dataSource.setPassword("Dongguri802!!");
         dataSource.setMinIdle(10);
@@ -31,9 +29,9 @@ public class DBManager {
 
     public static void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
         try {
-            if(rs != null) rs.close();
-            if(pstmt != null) pstmt.close();
-            if(con != null) con.close();
+            if (rs != null) rs.close();
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
