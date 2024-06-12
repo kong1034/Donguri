@@ -65,6 +65,10 @@
   border: 1px solid rgb(174, 170, 170);
   box-shadow: 3px 3px 3px #ddd;
 }
+.input_img img{
+	height: 300px;
+  width: 350px;
+}
 .info {
   height: 25em;
   width: 350px;
