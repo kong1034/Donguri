@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="css/sign/login.css" />
 </head>
 <body>
-<form action="SignInC">
+<form action="LoginC" method="post">
       <div id="login_container">
         <div id="login_content">
           <input type="text" / id="input_id" placeholder="ドングリID" name="id"><br />
