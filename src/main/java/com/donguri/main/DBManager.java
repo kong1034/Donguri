@@ -9,25 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 public class DBManager {
-<<<<<<< HEAD
-=======
-	
-	private static BasicDataSource dataSource;
-	static {
-		dataSource = new BasicDataSource();
-		dataSource.setUrl("");
-		dataSource.setUsername("");
-		dataSource.setPassword("");
-		dataSource.setMinIdle(10);
-		dataSource.setMaxIdle(20);
-		dataSource.setMaxOpenPreparedStatements(100);
-	}
-	
-	// Connect
-	public static Connection connect() throws SQLException {
-		return dataSource.getConnection();
-	}
->>>>>>> 9e4bf912f0b605052214d86e33c374a9f7ffa227
 
     private static BasicDataSource dataSource;
 

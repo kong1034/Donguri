@@ -14,7 +14,16 @@
       <li class="header_category_li"><a href="<%= request.getContextPath() %>/jsp/donation/donation.jsp">ドネーション</a></li>
       <li class="header_category_li"><a href="<%= request.getContextPath() %>/BoardC">コミュニティ</a></li>
       <li class="header_category_li"><a href="<%= request.getContextPath() %>/jsp/mypage/mypage.jsp">MyPage</a></li>
-      <li class="header_category_li"><a href="<%= request.getContextPath() %>/jsp/sign/login.jsp">Login</a></li>
+      <li class="header_category_li">
+        <c:choose>
+          <c:when test="${not empty sessionScope.user}">
+            <a href="<%= request.getContextPath() %>/LogoutC">Logout</a>
+          </c:when>
+          <c:otherwise>
+            <a href="<%= request.getContextPath() %>/jsp/sign/login.jsp">Login</a>
+          </c:otherwise>
+        </c:choose>
+      </li>
     </ul>
   </header>
 </body>
