@@ -5,31 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 import com.donguri.main.DBManager;
 
-public class DAODonation {
-    
-    public List<DTODonation> getAllDonations() {
-        List<DTODonation> donations = new ArrayList<>();
+public class DAOPayment {
+
+    public List<DTOPayment> getAllPayments() {
+        List<DTOPayment> payments = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
             conn = DBManager.connect();
-            String sql = "SELECT * FROM d_donation_list";
+            String sql = "SELECT * FROM d_payment";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                DTODonation donation = new DTODonation();
-                donation.setD_no(rs.getInt("d_no"));
-                donation.setUser_id(rs.getString("user_id"));
-                donation.setDonation_title(rs.getString("donation_title"));
-                donation.setDonation_content(rs.getString("donation_content"));
-                donation.setDonation_date(rs.getDate("donation_date"));
-                donation.setPayment_no(rs.getInt("payment_no"));
-                donation.setPrice(rs.getDouble("price"));
-                donation.setPayment_date(rs.getDate("payment_date"));
-                donations.add(donation);
+                DTOPayment payment = new DTOPayment();
+                payment.setP_no(rs.getInt("p_no"));
+                payment.setD_no(rs.getInt("d_no"));
+                payment.setU_id(rs.getString("u_id"));
+                payment.setP_price(rs.getDouble("p_price"));
+                payment.setP_date(rs.getDate("p_date"));
+                payments.add(payment);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,6 +53,6 @@ public class DAODonation {
                 }
             }
         }
-        return donations;
+        return payments;
     }
 }

@@ -19,8 +19,8 @@ import java.util.Base64;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-@WebServlet("/DonationLinepayC")
-public class DonationLinepayC extends HttpServlet {
+@WebServlet("/PaymentC")
+public class PaymentC extends HttpServlet {
     private static final String CHANNEL_ID = "2005457884";
     private static final String CHANNEL_SECRET = "1c9de69727cb9106bbbaea16ad0fcc03";
     private static final String API_URL = "https://sandbox-api-pay.line.me/v2/payments/request";
@@ -38,6 +38,12 @@ public class DonationLinepayC extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("contentPage", "jsp/payment/payment.jsp");
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String amountStr = request.getParameter("modal_amount");
         BigDecimal amount = new BigDecimal(amountStr);
@@ -50,7 +56,7 @@ public class DonationLinepayC extends HttpServlet {
             paymentRequest.addProperty("currency", "JPY");
             paymentRequest.addProperty("orderId", UUID.randomUUID().toString());
             paymentRequest.addProperty("productName", "Donation");
-            
+
             JsonObject redirectUrls = new JsonObject();
             redirectUrls.addProperty("confirmUrl", "http://localhost:8080/Donguri/jsp/donation/donation.jsp");
             redirectUrls.addProperty("cancelUrl", "http://localhost:8080/Donguri/jsp/donation/donation.jsp");
@@ -73,8 +79,10 @@ public class DonationLinepayC extends HttpServlet {
             JsonObject jsonResponse = JsonParser.parseString(httpResponse.body()).getAsJsonObject();
 
             if ("0000".equals(jsonResponse.get("returnCode").getAsString())) {
-                String paymentUrl = jsonResponse.getAsJsonObject("info").getAsJsonObject("paymentUrl").get("web").getAsString();
-                response.sendRedirect(paymentUrl); // Redirect to the payment URL
+                JsonObject successResponse = new JsonObject();
+                successResponse.addProperty("status", "success");
+                successResponse.addProperty("paymentUrl", jsonResponse.getAsJsonObject("info").getAsJsonObject("paymentUrl").get("web").getAsString());
+                response.getWriter().print(successResponse.toString());
             } else {
                 JsonObject errorResponse = new JsonObject();
                 errorResponse.addProperty("status", "error");

@@ -3,58 +3,77 @@ package com.donguri.donation;
 import java.util.Date;
 
 public class DTODonation {
-    private int donationNo;
-    private String userId;
-    private String donationTitle;
-    private String donationContent;
-    private Date donationDate;
+    private int d_no;
+    private String user_id;
+    private String donation_title;
+    private String donation_content;
+    private Date donation_date;
+    private int payment_no;
+    private double price;
+    private Date payment_date;
 
-    public DTODonation(int donationNo, String userId, String donationTitle, String donationContent, Date donationDate) {
-        this.donationNo = donationNo;
-        this.userId = userId;
-        this.donationTitle = donationTitle;
-        this.donationContent = donationContent;
-        this.donationDate = donationDate;
+    // Getters and Setters
+    public int getD_no() {
+        return d_no;
     }
 
-    // Getters and setters
-    public int getDonationNo() {
-        return donationNo;
+    public void setD_no(int d_no) {
+        this.d_no = d_no;
     }
 
-    public void setDonationNo(int donationNo) {
-        this.donationNo = donationNo;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public String getUserId() {
-        return userId;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getDonation_title() {
+        return donation_title;
     }
 
-    public String getDonationTitle() {
-        return donationTitle;
+    public void setDonation_title(String donation_title) {
+        this.donation_title = donation_title;
     }
 
-    public void setDonationTitle(String donationTitle) {
-        this.donationTitle = donationTitle;
+    public String getDonation_content() {
+        return donation_content;
     }
 
-    public String getDonationContent() {
-        return donationContent;
+    public void setDonation_content(String donation_content) {
+        this.donation_content = donation_content;
     }
 
-    public void setDonationContent(String donationContent) {
-        this.donationContent = donationContent;
+    public Date getDonation_date() {
+        return donation_date;
     }
 
-    public Date getDonationDate() {
-        return donationDate;
+    public void setDonation_date(Date donation_date) {
+        this.donation_date = donation_date;
     }
 
-    public void setDonationDate(Date donationDate) {
-        this.donationDate = donationDate;
+    public int getPayment_no() {
+        return payment_no;
+    }
+
+    public void setPayment_no(int payment_no) {
+        this.payment_no = payment_no;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Date getPayment_date() {
+        return payment_date;
+    }
+
+    public void setPayment_date(Date payment_date) {
+        this.payment_date = payment_date;
     }
 }

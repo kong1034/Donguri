@@ -7,28 +7,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Donation Page</title>
-    <link rel="stylesheet" type="text/css" href="/css/donation/donation.css">
+    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/donation/donation.css">
+    <script src="<%= request.getContextPath() %>/js/donation/donation.js"></script>
 </head>
 <body>
     <h1>寄付ページ</h1>
 
-    <c:if test="${not empty sessionScope.user}">
-        <!-- Buttons to open modals -->
-        <button id="share_button">共有</button>
-        <button id="donate_button">寄付する</button>
-    </c:if>
+    <!-- Buttons to open modals -->
+    <button id="share_button">共有</button>
+    <button id="donate_button">寄付する</button>
 
     <!-- Donation Modal -->
     <div id="donation_modal" class="modal">
         <div class="modal_content">
             <span class="close">&times;</span>
             <h1>寄付金額を選択</h1>
-            <form id="payment_form" action="/Donguri/DonationLinepayC" method="POST">
+            <form id="payment_form" action="<%= request.getContextPath() %>/DonationLinepayC" method="POST" target="linepay_popup" onsubmit="return handlePaymentSubmit(event)">
                 <label for="modal_amount">寄付金額:</label>
                 <input type="text" id="modal_amount" name="modal_amount" value="">
                 <button type="submit">
                     <img src="https://d.line-scdn.net/linepay/merchant/center/images/devcenter/logo/logo_guide_color_default2_1.png" alt="Pay with LINE Pay" style="border: none;">
                 </button>
+                <p id="payment_message" class="message"></p>
             </form>
         </div>
     </div>
@@ -68,11 +68,11 @@
                     for (DTODonation donation : donations) {
             %>
             <tr>
-                <td><%= donation.getDonationNo() %></td>
-                <td><%= donation.getUserId() %></td>
-                <td><%= donation.getDonationTitle() %></td>
-                <td><%= donation.getDonationContent() %></td>
-                <td><%= dateFormat.format(donation.getDonationDate()) %></td>
+                <td><%= donation.getD_no() %></td>
+                <td><%= donation.getUser_id() %></td>
+                <td><%= donation.getDonation_title() %></td>
+                <td><%= donation.getDonation_content() %></td>
+                <td><%= dateFormat.format(donation.getDonation_date()) %></td>
             </tr>
             <%
                     }
@@ -87,6 +87,6 @@
         </tbody>
     </table>
 
-    <script src="/js/donation/donation.js"></script>
+    <script src="<%= request.getContextPath() %>/js/donation/donation.js"></script>
 </body>
 </html>

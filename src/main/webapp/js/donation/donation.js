@@ -1,22 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
+    var shareButton = document.getElementById("share_button");
+    var donateButton = document.getElementById("donate_button");
     var donationModal = document.getElementById("donation_modal");
     var shareModal = document.getElementById("share_modal");
-    var donateBtn = document.getElementById("donate_button");
-    var shareBtn = document.getElementById("share_button");
-    var closeButtons = document.getElementsByClassName("close");
+    var closeButtons = document.querySelectorAll(".close");
+    var copyUrlButton = document.getElementById("copy_url");
+    var shareUrlInput = document.getElementById("share_url");
 
-    donateBtn.onclick = function() {
-        donationModal.style.display = "block";
-    }
-
-    shareBtn.onclick = function() {
+    shareButton.addEventListener("click", function() {
         shareModal.style.display = "block";
-    }
+    });
 
-    Array.from(closeButtons).forEach(function(btn) {
-        btn.onclick = function() {
-            btn.parentElement.parentElement.style.display = "none";
-        }
+    donateButton.addEventListener("click", function() {
+        donationModal.style.display = "block";
+    });
+
+    closeButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            donationModal.style.display = "none";
+            shareModal.style.display = "none";
+        });
     });
 
     window.onclick = function(event) {
@@ -26,26 +29,38 @@ document.addEventListener("DOMContentLoaded", function() {
         if (event.target == shareModal) {
             shareModal.style.display = "none";
         }
-    }
+    };
 
-    document.getElementById("copy_url").onclick = function() {
-        var shareUrl = document.getElementById("share_url");
-        shareUrl.select();
+    copyUrlButton.addEventListener("click", function() {
+        shareUrlInput.select();
+        shareUrlInput.setSelectionRange(0, 99999);
         document.execCommand("copy");
-        alert("URL copied.");
-    }
+        alert("URLがコピーされました");
+    });
 
-    document.getElementById("kakao_share").onclick = function() {
-        Kakao.Link.sendDefault({
-            objectType: 'feed',
-            content: {
-                title: '寄付ページ',
-                description: 'このページを共有',
-                link: {
-                    mobileWebUrl: document.getElementById("share_url").value,
-                    webUrl: document.getElementById("share_url").value
-                }
+    document.getElementById("payment_form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var modalAmount = document.getElementById("modal_amount").value;
+
+        fetch("/PaymentC", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "modal_amount=" + encodeURIComponent(modalAmount)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                window.location.href = data.paymentUrl;
+            } else {
+                console.error("Payment failed:", data.message);
+                document.getElementById("payment_message").textContent = "Payment failed: " + data.message;
             }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            document.getElementById("payment_message").textContent = "Error: " + error.message;
         });
-    }
+    });
 });
