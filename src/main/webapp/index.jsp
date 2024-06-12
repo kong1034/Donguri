@@ -34,10 +34,14 @@ function requestPayment() {
 </script> -->
 </head>
 <body>
+<<<<<<< HEAD
 <%@ include file="jsp/common/header.jsp" %>
 
 <h1>Main Page</h1>
 
+=======
+<%@ include file="/header.jsp" %>
+>>>>>>> 9e4bf912f0b605052214d86e33c374a9f7ffa227
 <div class="container_wrapper">
       <div class="container_slide">
         <div class="mySlides fade">
