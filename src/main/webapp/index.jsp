@@ -34,7 +34,8 @@ function requestPayment() {
 </head>
 <body>
 <%@ include file="/header.jsp" %>
-<div class="container_wrapper">
+<jsp:include page="${contentPage }"></jsp:include>
+<!-- <div class="container_wrapper">
       <div class="container_slide">
         <div class="mySlides fade">
           <img src="img/local/animal.webp" />
@@ -152,7 +153,7 @@ function requestPayment() {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 <%@ include file="/footer.jsp" %>
     <script src="js/index.js"></script>
 </body>
