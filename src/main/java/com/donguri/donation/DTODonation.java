@@ -1,27 +1,60 @@
 package com.donguri.donation;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
 public class DTODonation {
-    private String orderId;
-    private BigDecimal amount;
-    private String currency;
+    private int donationNo;
+    private String userId;
+    private String donationTitle;
+    private String donationContent;
+    private Date donationDate;
 
-    public DTODonation(String orderId, BigDecimal amount, String currency) {
-        this.orderId = orderId;
-        this.amount = amount;
-        this.currency = currency;
+    public DTODonation(int donationNo, String userId, String donationTitle, String donationContent, Date donationDate) {
+        this.donationNo = donationNo;
+        this.userId = userId;
+        this.donationTitle = donationTitle;
+        this.donationContent = donationContent;
+        this.donationDate = donationDate;
     }
 
-    public String getOrderId() {
-        return orderId;
+    // Getters and setters
+    public int getDonationNo() {
+        return donationNo;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public void setDonationNo(int donationNo) {
+        this.donationNo = donationNo;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getDonationTitle() {
+        return donationTitle;
+    }
+
+    public void setDonationTitle(String donationTitle) {
+        this.donationTitle = donationTitle;
+    }
+
+    public String getDonationContent() {
+        return donationContent;
+    }
+
+    public void setDonationContent(String donationContent) {
+        this.donationContent = donationContent;
+    }
+
+    public Date getDonationDate() {
+        return donationDate;
+    }
+
+    public void setDonationDate(Date donationDate) {
+        this.donationDate = donationDate;
     }
 }

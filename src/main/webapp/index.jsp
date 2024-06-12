@@ -34,12 +34,18 @@ function requestPayment() {
 </script> -->
 </head>
 <body>
+<<<<<<< HEAD
 <%@ include file="jsp/common/header.jsp" %>
 
 <h1>Main Page</h1>
 
 <%@ include file="jsp/common/header.jsp" %>
 <div class="container_wrapper">
+=======
+<%@ include file="jsp/common/header.jsp" %>
+<jsp:include page="${contentPage }"></jsp:include>
+<!-- <div class="container_wrapper">
+>>>>>>> 21a0264ea86531207fc5b6aebbb359c18adbb591
       <div class="container_slide">
         <div class="mySlides fade">
           <img src="img/local/animal.webp" />
@@ -157,8 +163,13 @@ function requestPayment() {
           </div>
         </div>
       </div>
+<<<<<<< HEAD
     </div>
 <jsp:include page="jsp/common/footer.jsp"></jsp:include>
+=======
+    </div> -->
+<%@ include file="jsp/common/footer.jsp" %>
+>>>>>>> 21a0264ea86531207fc5b6aebbb359c18adbb591
     <script src="js/index.js"></script>
 </body>
 </html>

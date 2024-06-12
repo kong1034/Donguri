@@ -39,7 +39,7 @@ public class DonationLinepayC extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String amountStr = request.getParameter("amount");
+        String amountStr = request.getParameter("modal_amount");
         BigDecimal amount = new BigDecimal(amountStr);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -74,10 +74,7 @@ public class DonationLinepayC extends HttpServlet {
 
             if ("0000".equals(jsonResponse.get("returnCode").getAsString())) {
                 String paymentUrl = jsonResponse.getAsJsonObject("info").getAsJsonObject("paymentUrl").get("web").getAsString();
-                JsonObject successResponse = new JsonObject();
-                successResponse.addProperty("status", "success");
-                successResponse.addProperty("paymentUrl", paymentUrl);
-                response.getWriter().print(successResponse.toString());
+                response.sendRedirect(paymentUrl); // Redirect to the payment URL
             } else {
                 JsonObject errorResponse = new JsonObject();
                 errorResponse.addProperty("status", "error");

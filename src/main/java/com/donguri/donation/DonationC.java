@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @WebServlet("/DonationC")
 public class DonationC extends HttpServlet {
@@ -14,23 +15,30 @@ public class DonationC extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String orderId = request.getParameter("order_id");
-        String amountStr = request.getParameter("amount");
-        String currency = request.getParameter("currency");
+        String donationNoStr = request.getParameter("donation_no");
+        String userId = request.getParameter("user_id");
+        String donationTitle = request.getParameter("donation_title");
+        String donationContent = request.getParameter("donation_content");
+        String donationDateStr = request.getParameter("donation_date");
 
-        BigDecimal amount = new BigDecimal(amountStr);
-        boolean success = daoDonation.saveDonation(orderId, amount, currency);
+        int donationNo = Integer.parseInt(donationNoStr);
+        Date donationDate = java.sql.Date.valueOf(donationDateStr);
 
-        if (success) {
-            request.setAttribute("message", "Payment successful.");
-        } else {
-            request.setAttribute("message", "Payment failed. Please try again.");
-        }
-        request.getRequestDispatcher("/index.jsp?page=jsp/donation/donation.jsp").forward(request, response);
+        daoDonation.saveDonation(donationNo, userId, donationTitle, donationContent, donationDate);
+
+        List<DTODonation> donations = daoDonation.getAllDonations();
+        request.setAttribute("donations", donations);
+        request.setAttribute("contentPage", "jsp/donation/donation.jsp");
+
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "GET method is not supported");
+        List<DTODonation> donations = daoDonation.getAllDonations();
+        request.setAttribute("donations", donations);
+        request.setAttribute("contentPage", "jsp/donation/donation.jsp");
+
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

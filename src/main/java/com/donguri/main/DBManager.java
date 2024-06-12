@@ -5,25 +5,29 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.apache.commons.dbcp2.BasicDataSource;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 public class DBManager {
 
     private static BasicDataSource dataSource;
 
-    @PostConstruct
-    public void init() {
-        dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:oracle:thin:@//adb.ap-osaka-1.oraclecloud.com:1522/your_db_name_high.adb.oraclecloud.com");
-        dataSource.setUsername("DONGURI");
-        dataSource.setPassword("Dongguri802!!");
-        dataSource.setMinIdle(10);
-        dataSource.setMaxIdle(20);
-        dataSource.setMaxOpenPreparedStatements(100);
+    static {
+        try {
+            dataSource = new BasicDataSource();
+            dataSource.setUrl("jdbc:oracle:thin:@//adb.ap-osaka-1.oraclecloud.com:1522/your_db_name_high.adb.oraclecloud.com");
+            dataSource.setUsername("DONGURI");
+            dataSource.setPassword("Dongguri802!!");
+            dataSource.setMinIdle(10);
+            dataSource.setMaxIdle(20);
+            dataSource.setMaxOpenPreparedStatements(100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static Connection connect() throws SQLException {
+        if (dataSource == null) {
+            throw new SQLException("DataSource is not initialized.");
+        }
         return dataSource.getConnection();
     }
 
@@ -37,8 +41,7 @@ public class DBManager {
         }
     }
 
-    @PreDestroy
-    public void closeDataSource() {
+    public static void closeDataSource() {
         try {
             if (dataSource != null) {
                 dataSource.close();
