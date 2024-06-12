@@ -15,6 +15,7 @@
 </head>
 <body>
     <div class="container_board">
+    <p>Community</p>
       <div class="buttons">
         <button class="btn_make" onclick="location.href='BoardMakeC'" >グループ<br />作り</button>
         <button class="btn_comment" onclick="location.href='BoardEpilogueC'">後記 見る</button>
@@ -48,16 +49,20 @@
           <div class="board writer">作成者</div>
           <div class="board date">作成日</div>
         </div>
+        <c:forEach var="b" items="${ boardlists}">
         <div div class="board_list">
           <div class="board status">
             <div class="status_welcome">募集中</div>
           </div>
-          <div class="board location"></div>
+          <div class="board location">${b.place }</div>
           <div class="board group"></div>
-          <div class="board title"><a href="BoardDetailC"> detail</a> </div>
-          <div class="board writer"></div>
-          <div class="board date"></div>
+          <div class="board title"><a href="BoardDetailC?no=${b.no }"> ${b.title }</a> </div>
+          <div class="board writer">${b.id }</div>
+          <div class="board date">
+          <fmt:formatDate value="${b.date }"/>
+          </div>
         </div>
+        </c:forEach>
       </div>
       <ul class="number">
         <li><a>&lt;</a></li>

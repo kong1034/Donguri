@@ -14,16 +14,16 @@
     <div class="container">
       <div class="container_wrapper">
         <div class="container_left">
-          <div class="input_img">image</div>
+          <div class="input_img">${boardlists.img }</div>
           <div class="tag">#環境</div>
           <div class="group_wrapper">
-            <div class="group title">タイトル</div>
-            <div class="group date">デート</div>
+            <div class="group title">タイトル: ${boardlists.title }</div>
+            <div class="group date">デート: ${boardlists.date }</div>
             <div class="group during">募集期間</div>
           </div>
         </div>
         <div class="container_right">
-          <div class="info">information</div>
+          <div class="info">information: ${boardlists.content }</div>
           <div class="button_wrapper">
             <button class="btn_share">
               シェア <br />
