@@ -14,6 +14,17 @@ public class InfoAllC extends HttpServlet {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		if(num < 5 && num >= 0){
+			if(num == 0) {
+				
+			} else if(num == 1) {
+				request.setAttribute("contents", "/jsp/info/info_child.jsp");
+			} else if(num == 2) {
+				
+			} else if(num == 3) {
+				
+			} else if(num == 4) {
+				
+			}
 			request.setAttribute("contentPage", "/jsp/info/info_all.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {
