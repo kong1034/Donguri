@@ -7,7 +7,7 @@
   display: grid;
   width: 50em;
   height: max-content;
-  margin: 40px auto 40px;
+  margin: 40px auto 10px;
   border: 1px solid rgb(174, 170, 170);
   border-radius: 20px;
 }
@@ -70,3 +70,11 @@ select {
 textarea {
   margin-left: 10px;
 }
+.add_btn{
+	width: 200px;
+	height: 50px;
+	margin-bottom: 40px;
+	border-radius: 20px;
+	font-size: 20pt;
+	margin: auto auto 30px;
+	}

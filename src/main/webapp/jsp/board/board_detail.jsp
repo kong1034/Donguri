@@ -14,7 +14,9 @@
     <div class="container">
       <div class="container_wrapper">
         <div class="container_left">
-          <div class="input_img">${boardlists.img }</div>
+          <div class="input_img">
+          <img alt="" src="img/local/board/${boardlists.img }">
+         </div>
           <div class="tag">#環境</div>
           <div class="group_wrapper">
             <div class="group title">タイトル: ${boardlists.title }</div>

@@ -1,4 +1,4 @@
-package com.donguri_board;
+package com.donguri.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,18 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/BoardDetailC")
-public class BoardDetailC extends HttpServlet {
+@WebServlet("/BoardMakeC")
+public class BoardMakeC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		request.setCharacterEncoding("utf-8");
 		
-		DAOBoard.getOneBoardList(request);
-		request.setAttribute("content", "/jsp/board/board_detail.jsp");
+		request.setAttribute("content", "/jsp/board/board_make.jsp");
 		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		DAOBoard.getAllBoardList(request);
+		DAOBoard.makeBoard(request);
+		request.setAttribute("content", "/jsp/board/board.jsp");
+		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
+		
 	}
 
 }

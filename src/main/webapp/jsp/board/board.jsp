@@ -17,7 +17,7 @@
     <div class="container_board">
     <p>Community</p>
       <div class="buttons">
-        <button class="btn_make" onclick="location.href='BoardMakeC'" >グループ<br />作り</button>
+        <button class="btn_make" onclick="location.href='BoardMakeC?id=${ id}'" >グループ<br />作り</button>
         <button class="btn_comment" onclick="location.href='BoardEpilogueC'">後記 見る</button>
       </div>
 
@@ -44,7 +44,7 @@
         <div class="board_list">
           <div class="board status">状態</div>
           <div class="board location">場所</div>
-          <div class="board group">グループ名</div>
+          <div class="board group">tag</div>
           <div class="board title">タイトル</div>
           <div class="board writer">作成者</div>
           <div class="board date">作成日</div>
@@ -66,11 +66,11 @@
       </div>
       <ul class="number">
         <li><a>&lt;</a></li>
-        <li><a>1</a></li>
-        <li><a>2</a></li>
-        <li><a>3</a></li>
-        <li><a>4</a></li>
-        <li><a>5</a></li>
+        <li>
+        <c:forEach begin="1" end="${pageCount }" var="i">
+				<a href="BoardPageC?p=${i }">${i }</a>
+			</c:forEach>
+			</li>
         <li><a>&gt;</a></li>
       </ul>
     </div>
