@@ -1,4 +1,4 @@
-package com.donguri_board;
+package com.donguri.board;
 
 import java.util.Date;
 
