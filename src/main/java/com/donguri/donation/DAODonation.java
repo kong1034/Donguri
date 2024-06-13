@@ -6,19 +6,13 @@ import java.util.List;
 import com.donguri.main.DBManager;
 
 public class DAODonation {
-    
+
     public List<DTODonation> getAllDonations() {
         List<DTODonation> donations = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-
-        try {
-            conn = DBManager.connect();
-            String sql = "SELECT * FROM d_donation_list";
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-
+        try (Connection conn = DBManager.connect();
+             PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM d_donation_list");
+             ResultSet rs = pstmt.executeQuery()) {
+             
             while (rs.next()) {
                 DTODonation donation = new DTODonation();
                 donation.setD_no(rs.getInt("d_no"));
@@ -33,28 +27,6 @@ public class DAODonation {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return donations;
     }

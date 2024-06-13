@@ -1,14 +1,12 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.donguri.donation.DTODonation" %>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.util.List, com.donguri.donation.DTODonation, java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>Donation Page</title>
-    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/donation/donation.css">
-    <script src="<%= request.getContextPath() %>/js/donation/donation.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/donation/donation.css">
+    <script src="${pageContext.request.contextPath}/js/donation/donation.js"></script>
 </head>
 <body>
     <h1>寄付ページ</h1>
@@ -22,12 +20,10 @@
         <div class="modal_content">
             <span class="close">&times;</span>
             <h1>寄付金額を選択</h1>
-            <form id="payment_form" action="<%= request.getContextPath() %>/DonationLinepayC" method="POST" target="linepay_popup" onsubmit="return handlePaymentSubmit(event)">
+            <form id="payment_form" action="${pageContext.request.contextPath}/DonationC" method="POST">
                 <label for="modal_amount">寄付金額:</label>
                 <input type="text" id="modal_amount" name="modal_amount" value="">
-                <button type="submit">
-                    <img src="https://d.line-scdn.net/linepay/merchant/center/images/devcenter/logo/logo_guide_color_default2_1.png" alt="Pay with LINE Pay" style="border: none;">
-                </button>
+                <img id="linepay_image" src="https://d.line-scdn.net/linepay/merchant/center/images/devcenter/logo/logo_guide_color_default2_1.png" alt="Pay with LINE Pay" style="border: none; cursor: pointer;">
                 <p id="payment_message" class="message"></p>
             </form>
         </div>
@@ -38,13 +34,12 @@
         <div class="modal_content">
             <span class="close">&times;</span>
             <h1>このページを共有</h1>
-            <input type="text" id="share_url" value="<%= request.getRequestURL().toString() %>" readonly>
+            <input type="text" id="share_url" value="${pageContext.request.requestURL}" readonly>
             <button id="copy_url">URLをコピー</button>
             <br>
-            <a href="https://twitter.com/share?url=<%= request.getRequestURL().toString() %>" target="_blank">Twitter</a>
-            <a href="https://www.instagram.com/?url=<%= request.getRequestURL().toString() %>" target="_blank">Instagram</a>
-            <a href="https://line.me/R/msg/text/?<%= request.getRequestURL().toString() %>" target="_blank">LINE</a>
-            <a href="#" id="kakao_share">KakaoTalk</a>
+            <a href="https://twitter.com/share?url=${pageContext.request.requestURL}" target="_blank">Twitter</a>
+            <a href="https://www.instagram.com/?url=${pageContext.request.requestURL}" target="_blank">Instagram</a>
+            <a href="https://line.me/R/msg/text/?${pageContext.request.requestURL}" target="_blank">LINE</a>
         </div>
     </div>
 
@@ -86,7 +81,5 @@
             %>
         </tbody>
     </table>
-
-    <script src="<%= request.getContextPath() %>/js/donation/donation.js"></script>
 </body>
 </html>

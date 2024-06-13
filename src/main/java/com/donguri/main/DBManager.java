@@ -19,6 +19,7 @@ public class DBManager {
             dataSource.setMinIdle(10);
             dataSource.setMaxIdle(20);
             dataSource.setMaxOpenPreparedStatements(100);
+            dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
         } catch (Exception e) {
             e.printStackTrace();
         }
