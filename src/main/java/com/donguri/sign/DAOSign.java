@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.donguri.main.DBManager;
 
@@ -35,6 +37,7 @@ public class DAOSign {
 		
 		String sql = "select * from d_user where u_id = ?";
 		
+		
 		try {
 			con = DBManager.connect();
 			pstmt = con.prepareStatement(sql);
@@ -50,16 +53,16 @@ public class DAOSign {
 					Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 				//Generate JST Token
 					String jwtToken = Jwts.builder()
-							.setSubject(dbID)
+							.setSubject(id)
 							.setIssuedAt(new Date())
 							.setExpiration(new Date(System.currentTimeMillis()+3600000))
 							.signWith(key)
 							.compact();
 					
 					// Test
-					  System.out.println("Generated JWT Token: " + jwtToken);
+//					  System.out.println("Generated JWT Token: " + jwtToken);
 					  
-					 request.setAttribute("jstToken", jwtToken);
+					 request.setAttribute("jwtToken", jwtToken);
 					
 				}else {
 					System.out.println("Password error");
@@ -78,5 +81,25 @@ public class DAOSign {
 		
 		request.setAttribute("result", result);
 	}
+
+
+	public static void logout(HttpServletRequest request, HttpServletResponse response) {
+		
+		 Cookie[] cookies = request.getCookies();
+		 if (cookies != null) {
+		        for (Cookie cookie : cookies) {
+		            if ("jwtToken".equals(cookie.getName())) {
+		                cookie.setValue("");
+		                cookie.setMaxAge(0); 
+		                cookie.setPath("/"); 
+		                response.addCookie(cookie); 
+		                	System.out.println("쿠키 제거");
+		                break;
+		            }
+		        }
+		    }
+		
+	}
+
 
 }
