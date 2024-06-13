@@ -21,10 +21,17 @@
 				<button class="info_all" onclick="goInfo(1)">More</button>
 			</div>
 			<ul class="info_ul_container">
-				<li><img src="" /></li>
-				<li><img src="" /></li>
-				<li><img src="" /></li>
-				<li><img src="" /></li>
+				<li><img src="https://ecolife-coco.com/wp-content/themes/coco/assets/images/logo_main.png" onclick="goSite(1)" class="content_img"/></li>
+				<li><img src="https://www.osaka-kodomoshien.com/images/ver3/fusho.png" onclick="goSite(2)" class="content_img" /></li>
+				<li><img src="https://jspedanes.smoosy.atlas.jp/files/SITE_HEADER?locale=ja" onclick="goSite(3)" class="content_img" /></li>
+				<li><img src="https://litalico-c.jp/packs/assets/9b31c2e6612b0df64362ebf233df0386.svg" onclick="goSite(4)" class="content_img" /></li>
+				<li><img src="https://www.cfa.go.jp/themes/custom/gov_theme_cfa_2023/logo.svg" onclick="goSite(5)" class="content_img" /></li>
+				<li><img src="https://www.mcfh.or.jp/images/c-sprite01.png" onclick="goSite(6)" class="content_img" /></li>
+				<li><img src="http://www.rehab.go.jp/application/files/thumbnails/large/9115/1428/0851/footer_img_nrco.png" onclick="goSite(7)" class="content_img" /></li>
+				<li><img src="https://www.midwife.or.jp/user/media/midwife/layout/header/logo.png" onclick="goSite(8)" class="content_img" /></li>
+				<li><img src="https://d2goguvysdoarq.cloudfront.net/packs/style_images/logo-bd347d2462459d7eca37.svg" onclick="goSite(9)" class="content_img" /></li>
+				<li><img src="https://tokyo-eventplus.com/wp-content/themes/tep/img/common/header_logo.jpg" onclick="goSite(10)" class="content_img" /></li>
+				<li><img src="https://static.wixstatic.com/media/5a3a17_788f7e83b8504defbf47f20ab57b4b91~mv2.png/v1/fill/w_59,h_59,al_c,q_85,enc_auto/logo.png" onclick="goSite(11)" class="content_img" /></li>
 			</ul>
 		</div>
 
