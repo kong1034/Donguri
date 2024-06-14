@@ -22,6 +22,7 @@
   border-radius: 100px;
   width: 50em;
   height: 25em;
+  object-fit:contain;
 }
 .mySlides {
   display: none;
@@ -133,6 +134,10 @@
   -o-filter: blur(1px);
   -ms-filter: blur(1px);
   filter: blur(1px);
+}
+.item_right_sub:hover, .item_left_sub:hover {
+	background-color: cadetblue;
+	color:#fff;
 }
 .container_community_info {
   display: grid;
