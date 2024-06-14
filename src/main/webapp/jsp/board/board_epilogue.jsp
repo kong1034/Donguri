@@ -39,7 +39,7 @@
       <div class="epilogue_list">
         <div class="epilogue tag"><span>#${e.tag }</span></div>
         <div class="epilogue title">
-          ${e.content }
+          ${e.title }
         </div>
         <div class="epilogue writer">${e.id }</div>
         <div class="epilogue date" style="font-size: 14pt;">
