@@ -13,8 +13,8 @@ public class BoardDetailC extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		DAOBoard.getOneBoardList(request);
-		request.setAttribute("content", "/jsp/board/board_detail.jsp");
-		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
+		request.setAttribute("contentPage", "/jsp/board/board_detail.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	
 	}
 
