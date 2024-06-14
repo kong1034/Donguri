@@ -11,19 +11,18 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<%@ include file="/header.jsp" %>
 <form action="BoardMakeC" method="post" enctype="multipart/form-data" >
-    <div class="container">
-      <div class="group_make_top">マイグループを作る</div>
+    <div class="container_b">
+   <p>マイコミュニティを作る</p>
       <div class="group_make_list">
         <div class="group_make title">
           <span>タイトル</span>
           <input type="text" name="title" id="" />
         </div>
         <div class="group_make tag">
-          <span>タグ</span>
+          <span>分類</span>
           <select name="tag" id="">
-            <option value="こども">#こども</option>
+            <option value="子供">#子供</option>
             <option value="老人">#老人</option>
             <option value="環境">#環境</option>
             <option value="動物">#動物</option>
@@ -44,14 +43,13 @@
           <span>募集期間 </span>
           <input type="date" /> &nbsp;&nbsp;~&nbsp;&nbsp; <input type="date" />
         </div>
-        <div class="group_make info">
+        <div class="group_make info_">
           <span>インフォメーション</span>
-          <textarea name="info" id="" cols="50" rows="10"></textarea>
+          <textarea name="info" id="" cols="78" rows="10"></textarea>
         </div>
       </div>
       <button class="add_btn">登録</button>
     </div>
     </form>
-     <%@ include file="/footer.jsp" %>
 </body>
 </html>

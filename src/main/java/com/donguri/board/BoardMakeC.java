@@ -13,16 +13,16 @@ public class BoardMakeC extends HttpServlet {
 	
 		request.setCharacterEncoding("utf-8");
 		
-		request.setAttribute("content", "/jsp/board/board_make.jsp");
-		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
+		request.setAttribute("contentPage", "/jsp/board/board_make.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DAOBoard.getAllBoardList(request);
 		DAOBoard.makeBoard(request);
-		request.setAttribute("content", "/jsp/board/board.jsp");
-		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
+		request.setAttribute("contentPage", "/jsp/board/board.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
 

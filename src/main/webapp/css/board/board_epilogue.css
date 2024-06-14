@@ -4,55 +4,104 @@
   padding: 0;
   border: 0;
 }
-.container {
+html, body {
+	height: 100%;
+}
+.container_b {
   display: grid;
-  width: 50em;
   height: max-content;
-  margin: 40px auto 40px;
-  border: 1px solid rgb(174, 170, 170);
-  border-radius: 20px;
   justify-content: center;
   align-items: center;
 }
-.epilogue_top {
-  font-size: 2rem;
+p {
+  font-size: 36pt;
+  padding: 0px 10px 20px;
   letter-spacing: -1px;
+  margin: 40px 0 20px;
+}
+.search_wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-top: 30px;
+}
+.selectBox{
+	display: flex;
+	height: 50px;
+	width: 100px;
+	border: 1px solid #45b90e;
+	border-radius: 15px;
+	margin-right: 5px 
+}
+.select{
+	font-size: 13pt;
+	width: 80px;
+	padding-left: 8px;
+	border-radius: 15px;
+	outline: 0 none;
+}
+.arrow {
+  width: 35px; 
   display: flex;
-  float: left;
-  margin: 20px 0 20px;
+  justify-content: center;
+  align-items: center;
+}
+.arrow img {
+  width: 20px;
+  transition: .1s; 
+}
+.selectBox .select:focus + .arrow img {
+  transform: rotate(180deg);
+}
+.search {
+	border: 1px solid #45b90e;
+	border-radius: 15px;
+	height: 50px;
+	width: 200px;
+	margin-bottom: 20px;
+	font-size: 14pt;
+}
+.btn_search {
+	height: 50px;
+	width: 50px;
+	margin: 0px 10px 10px;
+}
+.epilogue_wrap {
+  width: 1200px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  text-align: center;
 }
 .epilogue_list {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40rem;
-  border: 1px solid rgb(174, 170, 170);
+  border-bottom: 1px solid #ccc;
+  font-size: 16pt;
 }
-.epilogue_list div {
-  align-content: center;
-  text-align: center;
+.epilogue_list:nth-last-child(1) {
+	border-bottom: none;
 }
 .epilogue {
   height: 4em;
+  align-content: center;
 }
 .tag {
-  width: 5em;
+  width: 150px;
 }
 .title {
-  width: 24em;
+  width: 800px;
   padding-left: 10px;
   padding-right: 30px;
 }
 .writer {
-  width: 6em;
+  width: 150px;
 }
 .date {
-  width: 5em;
+  width: 150px;
 }
-span {
-  background-color: #cfff91;
-  border-radius: 20px;
-  font-size: 12pt;
+.epilogue span {
+  border: 3px solid orange;
+  border-radius: 30px;
+  font-size: 16pt;
   font-weight: 500;
   padding: 5px;
 }
