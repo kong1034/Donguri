@@ -2,32 +2,33 @@ package com.donguri.board;
 
 import java.util.Date;
 
-public class DTOBoard {
+public class DTOBoard2 {
+	
 	private int no;
+	private int v_no;
+	private int g_no;
 	private String id;
+	private String tag;
 	private String title;
 	private String content;
 	private Date date;
-	private String tag;
-	private String status;
-	private String place;
 	private String img;
-
-	public DTOBoard() {
+	
+	public DTOBoard2() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DTOBoard(int no, String id, String title, String content, Date date, String tag, String status, String place,
+	public DTOBoard2(int no, int v_no, int g_no, String id, String tag, String title, String content, Date date,
 			String img) {
 		super();
 		this.no = no;
+		this.v_no = v_no;
+		this.g_no = g_no;
 		this.id = id;
+		this.tag = tag;
 		this.title = title;
 		this.content = content;
 		this.date = date;
-		this.tag = tag;
-		this.status = status;
-		this.place = place;
 		this.img = img;
 	}
 
@@ -39,12 +40,36 @@ public class DTOBoard {
 		this.no = no;
 	}
 
+	public int getV_no() {
+		return v_no;
+	}
+
+	public void setV_no(int v_no) {
+		this.v_no = v_no;
+	}
+
+	public int getG_no() {
+		return g_no;
+	}
+
+	public void setG_no(int g_no) {
+		this.g_no = g_no;
+	}
+
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	public String getTitle() {
@@ -71,30 +96,6 @@ public class DTOBoard {
 		this.date = date;
 	}
 
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getPlace() {
-		return place;
-	}
-
-	public void setPlace(String place) {
-		this.place = place;
-	}
-
 	public String getImg() {
 		return img;
 	}
@@ -105,9 +106,7 @@ public class DTOBoard {
 
 	@Override
 	public String toString() {
-		return "DTOBoard [no=" + no + ", id=" + id + ", title=" + title + ", content=" + content + ", date=" + date
-				+ ", tag=" + tag + ", status=" + status + ", place=" + place + ", img=" + img + "]";
+		return "DTOBoard2 [no=" + no + ", v_no=" + v_no + ", g_no=" + g_no + ", id=" + id + ", tag=" + tag + ", title="
+				+ title + ", content=" + content + ", date=" + date + ", img=" + img + "]";
 	}
-
-	
 }

@@ -35,7 +35,13 @@ public class DAOBoard {
 				b.setTitle(rs.getString("g_title"));
 				b.setContent(rs.getString("g_content"));
 				b.setDate(rs.getDate("g_date"));
-				b.setStatus(rs.getString("g_status"));
+				b.setTag(rs.getString("g_tag"));
+				if (rs.getString("g_status").equals("구")) {
+					b.setStatus("募集中");
+				}else {
+					b.setStatus("募集終了");
+				}
+				
 				b.setPlace(rs.getString("g_place"));
 				b.setImg(rs.getString("g_img"));
 				boardlists.add(b);
@@ -72,6 +78,7 @@ public class DAOBoard {
 				b.setTitle(rs.getString("g_title"));
 				b.setContent(rs.getString("g_content"));
 				b.setDate(rs.getDate("g_date"));
+				b.setTag(rs.getString("g_tag"));
 				b.setStatus(rs.getString("g_status"));
 				b.setPlace(rs.getString("g_place"));
 				b.setImg(rs.getString("g_img"));
@@ -91,7 +98,7 @@ public class DAOBoard {
 	public static void makeBoard(HttpServletRequest request) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String sql = "insert into d_group_list values(d_group_list_seq.nextval,?,?,?,?,?,?,?)";
+		String sql = "insert into d_group_list values(d_group_list_seq.nextval,?,?,?,?,?,?,?,?)";
 		try {
 			con = DBManager.connect();
 			pstmt = con.prepareStatement(sql);
@@ -113,9 +120,10 @@ public class DAOBoard {
 			pstmt.setString(2, title);
 			pstmt.setString(3, info);
 			pstmt.setString(4, date);
-			pstmt.setString(5, "구");
-			pstmt.setString(6, place);
-			pstmt.setString(7, file);
+			pstmt.setString(5, tag);
+			pstmt.setString(6, "구");
+			pstmt.setString(7, place);
+			pstmt.setString(8, file);
 			if (pstmt.executeUpdate() == 1) {
 				System.out.println("등록성공");
 			}
@@ -147,6 +155,59 @@ public class DAOBoard {
 			pages.add(boardlists.get(i));
 		}
 		request.setAttribute("boardlists", pages);
+	}
+
+	public static void search(HttpServletRequest request) {
+		String field = request.getParameter("f");
+		String query = request.getParameter("q");
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * from d_group_list where g_title like '%'||?||'%' order by g_date desc" ;
+		if (field.equals("id")) {
+			sql = "select * from d_group_list where u_id like '%'||?||'%' order by g_date desc" ;
+		} 
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			if (query == null) {
+				pstmt.setString(1, field);
+			}
+			pstmt.setString(1, query);
+			rs = pstmt.executeQuery();
+			
+			boardlists = new ArrayList<DTOBoard>();
+			DTOBoard b = null;
+			while (rs.next()) {
+				b = new DTOBoard();
+				b.setNo(rs.getInt("g_no"));
+				b.setId(rs.getString("u_id"));
+				b.setTitle(rs.getString("g_title"));
+				b.setContent(rs.getString("g_content"));
+				b.setDate(rs.getDate("g_date"));
+				b.setTag(rs.getString("g_tag"));
+				if (rs.getString("g_status").equals("구")) {
+					b.setStatus("募集中");
+				}else {
+					b.setStatus("募集終了");
+				}
+				
+				b.setPlace(rs.getString("g_place"));
+				b.setImg(rs.getString("g_img"));
+				boardlists.add(b);
+			}
+			request.setAttribute("boardlists", boardlists);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("서버에러");
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+
+		
 	}
 	
 	
