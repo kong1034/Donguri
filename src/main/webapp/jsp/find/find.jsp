@@ -12,9 +12,6 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<header class="find_header_container">
-		<p>Donguri</p>
-	</header>
 	<jsp:include page="${contentPage}"/>
 </body>
 </html>
