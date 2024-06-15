@@ -17,9 +17,9 @@ public class DBManager {
 	private static BasicDataSource dataSource;
 	static {
 		dataSource = new BasicDataSource();
-		dataSource.setUrl("");
-		dataSource.setUsername("");
-		dataSource.setPassword("");
+		dataSource.setUrl(Common.db_url);
+		dataSource.setUsername(Common.db_name);
+		dataSource.setPassword(Common.db_pw);
 		dataSource.setMinIdle(10);
 		dataSource.setMaxIdle(20);
 		dataSource.setMaxOpenPreparedStatements(100);

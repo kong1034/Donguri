@@ -27,7 +27,7 @@ nb-configuration.xml
 .classpath
 .project
 .settings/
-
+Common.java
 # Intellij
 .idea/
 *.iml

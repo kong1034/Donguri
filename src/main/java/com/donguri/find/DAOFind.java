@@ -15,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.donguri.main.Common;
 import com.donguri.main.DBManager;
 
 public class DAOFind {
@@ -48,8 +49,8 @@ public class DAOFind {
 			if (rs.next()) {
 				// Gmail SMTP server setting
 				String host = "smtp.gmail.com";
-				final String username = "teamdongguri@gmail.com"; // Gmail account
-				final String password = "ffnsndpgeieipdsq"; // Gmail account password
+				final String username = Common.google_email; // Gmail account
+				final String password = Common.google_pw; // Gmail account password
 				// kqyrqtymndcgmhtg
 				Properties props = new Properties();
 				props.put("mail.smtp.host", host);
@@ -144,8 +145,8 @@ public class DAOFind {
 				if (pstmt2.executeUpdate() == 1) {
 					// Gmail SMTP server setting
 					String host = "smtp.gmail.com";
-					final String username = "teamdongguri@gmail.com"; // Gmail accpunt
-					final String password = "ffnsndpgeieipdsq"; // Gmail account password
+					final String username = Common.google_email; // Gmail accpunt
+					final String password = Common.google_pw; // Gmail account password
 
 					Properties props = new Properties();
 					props.put("mail.smtp.host", host);

@@ -12,7 +12,7 @@ public class FindPwC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		request.setAttribute("contentPage", "/jsp/find/find_pw.jsp");
-		request.getRequestDispatcher("/jsp/find/find.jsp").forward(request, response);
+		request.getRequestDispatcher("l_index.jsp").forward(request, response);
 		
 	}
 

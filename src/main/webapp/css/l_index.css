@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+.header_container {
+	font-size: 4em;
+	width: 100%;
+	height: auto;
+	color: #F6A200;
+	margin: 1em 0 0 0;
+	padding: 0;
+	text-align: center;
+}
+
+.header_container p {
+	margin: 0;
+	padding: 0;
+}
+
+.rocknroll-one-regular {
+  font-family: "RocknRoll One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
