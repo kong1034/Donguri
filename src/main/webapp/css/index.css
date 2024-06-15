@@ -6,6 +6,13 @@
   box-sizing: border-box;
 }
 
+.rocknroll-one-regular {
+  font-family: "RocknRoll One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .container_wrapper {
   display: grid;
   height: max-content;
