@@ -13,13 +13,16 @@ public class DTOBoard2 {
 	private String content;
 	private Date date;
 	private String img;
+	 private int c_no;
+	 private String c_content;
+	 private Date c_date;
 	
 	public DTOBoard2() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public DTOBoard2(int no, int v_no, int g_no, String id, String tag, String title, String content, Date date,
-			String img) {
+			String img, int c_no, String c_content, Date c_date) {
 		super();
 		this.no = no;
 		this.v_no = v_no;
@@ -30,6 +33,9 @@ public class DTOBoard2 {
 		this.content = content;
 		this.date = date;
 		this.img = img;
+		this.c_no = c_no;
+		this.c_content = c_content;
+		this.c_date = c_date;
 	}
 
 	public int getNo() {
@@ -104,9 +110,30 @@ public class DTOBoard2 {
 		this.img = img;
 	}
 
-	@Override
-	public String toString() {
-		return "DTOBoard2 [no=" + no + ", v_no=" + v_no + ", g_no=" + g_no + ", id=" + id + ", tag=" + tag + ", title="
-				+ title + ", content=" + content + ", date=" + date + ", img=" + img + "]";
+	public int getC_no() {
+		return c_no;
 	}
+
+	public void setC_no(int c_no) {
+		this.c_no = c_no;
+	}
+
+	public String getC_content() {
+		return c_content;
+	}
+
+	public void setC_content(String c_content) {
+		this.c_content = c_content;
+	}
+
+	public Date getC_date() {
+		return c_date;
+	}
+
+	public void setC_date(Date c_date) {
+		this.c_date = c_date;
+	}
+
+	
+	
 }

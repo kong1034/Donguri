@@ -11,6 +11,7 @@ import com.donguri.main.DBManager;
 
 public class DAOBoard2 {
 	private static ArrayList<DTOBoard2> epilogues;
+	private static ArrayList<DTOBoard2> comments;
 
 	public static void getAllEpilogue(HttpServletRequest request) {
 		Connection con = null;
@@ -48,8 +49,46 @@ public class DAOBoard2 {
 		}		
 	}
 
+
+	public static void getOneEpilogue(HttpServletRequest request) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from review where r_no=?";
+
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, request.getParameter("no"));
+			rs = pstmt.executeQuery();
+
+			DTOBoard2 r = null;
+			if (rs.next()) {
+				r = new DTOBoard2();
+				r.setNo(rs.getInt("r_no"));
+				r.setV_no(rs.getInt("v_no"));
+				r.setG_no(rs.getInt("g_no"));
+				r.setId(rs.getString("u_id"));
+				r.setTag(rs.getString("r_tag"));
+				r.setTitle(rs.getString("r_title"));
+				r.setContent(rs.getString("r_content"));
+				r.setDate(rs.getDate("r_date"));
+				r.setImg(rs.getString("r_img"));
+
+				request.setAttribute("epilogues", r);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("서버에러");
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+
+		
+	}
+
 	public static void search(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		String field = request.getParameter("f");
 		String query = request.getParameter("q");
 		
@@ -96,8 +135,68 @@ public class DAOBoard2 {
 
 	}
 	
+	public static void getComment(HttpServletRequest request) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from d_comment";
+
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			comments = new ArrayList<DTOBoard2>();
+			DTOBoard2 c = null;
+			while (rs.next()) {
+				c = new DTOBoard2();
+				c.setC_no(rs.getInt("c_no"));
+				c.setId(rs.getString("u_id"));
+				c.setG_no(rs.getInt("r_no"));
+				c.setC_content(rs.getString("c_content"));
+				c.setC_date(rs.getDate("c_date"));
+				comments.add(c);
+				
+				request.setAttribute("comments", comments);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("서버에러");
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+
+		
+	}
+
+	public static void insertComment(HttpServletRequest request) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql="insert into d_comment values (d_comment_seq.nextval,?,?,?,sysdate)";
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			System.out.println(request.getParameter("u_id"));
+			System.out.println(request.getParameter("g_no"));
+			System.out.println(request.getParameter("reply_contents"));
+			
+			pstmt.setString(1, "yrr");
+			pstmt.setString(2, request.getParameter("g_no"));
+			pstmt.setString(3, request.getParameter("reply_contents"));
+			
+			if (pstmt.executeUpdate() == 1) {
+				System.out.println("등록성공");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("server error");
+		}finally {
+			DBManager.close(con, pstmt, null);
+		}
+	}
 	public static void paging(int page, HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		request.setAttribute("curPageNo", page);
 		int cnt = 4;		// 한페이지당 보여줄 개수
 		int total = epilogues.size();	// 총 데이터 개수
