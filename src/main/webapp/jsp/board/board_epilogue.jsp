@@ -8,9 +8,6 @@
 <meta charset="UTF-8">
 <title>Board_epilogue</title>
   <link rel="stylesheet" href="css/board/board_epilogue.css" />
-<script src="https://code.jquery.com/jquery-3.7.1.js"
-	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-	crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container_b">
@@ -24,7 +21,7 @@
      		 </select>
       	 <span class="arrow"><img src="img/local/board/arrow.png" alt=""></span>
        </div>
-        <input name="q" type="text" class="search" placeholder="   search" />
+        <input name="q" type="text" class="search" placeholder="search" />
         <input class="btn_search" type="submit" value="검색" ></input>
       </form>
       
@@ -39,7 +36,7 @@
       <div class="epilogue_list">
         <div class="epilogue tag"><span>#${e.tag }</span></div>
         <div class="epilogue title">
-          ${e.content }
+         <a href="BoardEpilogueDetailC?no=${e.no }">${e.title }</a> 
         </div>
         <div class="epilogue writer">${e.id }</div>
         <div class="epilogue date" style="font-size: 14pt;">

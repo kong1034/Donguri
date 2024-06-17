@@ -1,4 +1,4 @@
-package com.donguri.find;
+package com.donguri.board;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,18 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/FindPwC")
-public class FindPwC extends HttpServlet {
+@WebServlet("/BoardEpilogueDetailC")
+public class BoardEpilogueDetailC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		request.setAttribute("contentPage", "/jsp/find/find_pw.jsp");
-		request.getRequestDispatcher("l_index.jsp").forward(request, response);
 		
-	}
+		DAOBoard2.getOneEpilogue(request);
+		DAOBoard2.getComment(request);
+		request.setAttribute("contentPage", "/jsp/board/board_epilogue_detail.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		DAOFind.findPw(request, response);
-	}
+		
+		DAOBoard2.getOneEpilogue(request);
+		DAOBoard2.insertComment(request);
+		request.setAttribute("contentPage", "/jsp/board/board_epilogue_detail.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);}
+	
 
 }

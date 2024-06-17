@@ -27,15 +27,24 @@
         <div class="container_right">
           <div class="info_b">information: ${boardlists.content }</div>
           <div class="button_wrapper">
-            <button class="btn_share">
+            <button class="btn_share" id="shareTw" onclick="javascript:shareTwitter()">
               シェア <br />
               X
             </button>
-            <button class="btn_chat">チャット</button>
+            <button class="btn_chat" onclick="chatPopUp();">チャット</button>
             <button class="btn_apply">アプライ</button>
           </div>
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+    function shareTwitter() {
+        window.open("http://twitter.com/share?url=" + encodeURIComponent(location.href) +"&text=" + document.title);
+    }
+    
+   function chatPopUp() {
+	  window.open("","chatting","width=400, height=600, left=100, top=50")
+}
+    </script>
 </body>
 </html>
