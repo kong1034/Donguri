@@ -43,7 +43,7 @@
      		 </select>
       	 <span class="arrow"><img src="img/local/board/arrow.png" alt=""></span>
        </div>
-        <input name="q" type="text" class="search" placeholder="   search" />
+        <input name="q" type="text" class="search" placeholder="search" />
         <input class="btn_search" type="submit" value="검색" ></input>
       </form>
 
@@ -57,7 +57,7 @@
           <div class="board date">作成日</div>
         </div>
         <c:forEach var="b" items="${ boardlists}">
-        <div div class="board_list">
+        <div class="board_list">
           <div class="board status">
             <div class="status_welcome">${b.status }</div>
           </div>

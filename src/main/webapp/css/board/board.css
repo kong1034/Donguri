@@ -48,6 +48,9 @@ html, body {
 .container_board button:hover {
 	box-shadow: 10px 10px 10px #ddd;
 }
+.search{
+	padding-left: 15px;
+}
 .btn_search {
 	height: 50px;
 	width: 50px;
