@@ -166,5 +166,6 @@ function requestPayment() {
       </div>
     </div> -->
 	<%@ include file="/footer.jsp"%>
+	<script src="js/index.js"></script>
 </body>
 </html>
