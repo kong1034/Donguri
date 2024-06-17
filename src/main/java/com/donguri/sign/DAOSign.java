@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -27,7 +28,19 @@ public class DAOSign {
 	
 	private static final String SECRET_KEY = Common.SECRET_KEY;
 	
-
+	
+	
+	
+	// JWT Validation Method
+    public static Claims validateToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+	
+	// Login Method(JWT Token/Gson)
 	public static void login(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
@@ -80,11 +93,9 @@ public class DAOSign {
 					
 					 //JSON Key, Json Value
 			         Gson gson = new Gson();
-					 
-					String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
-//				
-//					request.setAttribute("user", userJson);
-					response.getWriter().print(userJson);
+			         String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
+			         response.getWriter().print(userJson);
+			         System.out.println(userJson);
 					
 				// 256-bit random key
 					Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -116,7 +127,7 @@ public class DAOSign {
 		request.setAttribute("result", result);
 	}
 
-
+	// Logout method
 	public static void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		Cookie jwtCookie = new Cookie("jwtToken", "");
@@ -128,7 +139,7 @@ public class DAOSign {
 
 	}
 
-
+	// SignIn method
 	public static void signUp(HttpServletRequest request) throws IOException {
 		
 		String path = request.getServletContext().getRealPath("img/server");
