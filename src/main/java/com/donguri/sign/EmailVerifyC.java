@@ -14,7 +14,7 @@ public class EmailVerifyC extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("verify called");
-		SignDAO.emailVerify(request);
+		SignDAO.emailVerify(request,response);
 		
 	
 	
