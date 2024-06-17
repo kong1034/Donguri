@@ -45,7 +45,7 @@
         </div>
         <div class="group_make info_">
           <span>インフォメーション</span>
-          <textarea name="info" id="" cols="78" rows="10"></textarea>
+          <textarea name="info" id="" cols="49" rows="10"></textarea>
         </div>
       </div>
       <button class="add_btn">登録</button>
