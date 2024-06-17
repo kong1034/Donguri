@@ -3,6 +3,7 @@ package com.donguri.find;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
 
@@ -19,9 +20,19 @@ import com.donguri.main.Common;
 import com.donguri.main.DBManager;
 
 public class DAOFind {
-	public static void findId(HttpServletRequest request, HttpServletResponse response) {
+	private Connection conn = null;
+	public static final DAOFind RDAO = new DAOFind();
+	
+	private DAOFind() {
+		try {
+			conn = DBManager.connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void findId(HttpServletRequest request, HttpServletResponse response) {
 		// db setting
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -95,9 +106,8 @@ public class DAOFind {
 		}
 	}
 
-	public static void findPw(HttpServletRequest request, HttpServletResponse response) {
+	public void findPw(HttpServletRequest request, HttpServletResponse response) {
 		// db setting
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		ResultSet rs = null;
