@@ -36,6 +36,18 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class DAOSign {
+	
+	private Connection con = null;
+	public static final DAOSign RDAO = new DAOSign();
+	
+	private DAOSign() {
+		try {
+			con = DBManager.connect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// SECRET_KEY
 	private static final String SECRET_KEY = Common.SECRET_KEY;
 	// Create RandomNumber for e-maiil Chk
@@ -51,7 +63,7 @@ public class DAOSign {
     }
 	
 	// Login Method(JWT Token/Gson)
-	public static void login(HttpServletRequest request, HttpServletResponse response) {
+	public void login(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
 		String pw =  request.getParameter("pw");
@@ -63,7 +75,6 @@ public class DAOSign {
 		
 		String result;
 		
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -150,7 +161,7 @@ public class DAOSign {
 	}
 
 	// SignIn method
-	public static void signUp(HttpServletRequest request) throws IOException {
+	public void signUp(HttpServletRequest request) throws IOException {
 		
 		String path = request.getServletContext().getRealPath("img/server");
 		
@@ -172,10 +183,7 @@ public class DAOSign {
 		String u_email = mr.getParameter("u_email");
 		String u_birth = mr.getParameter("u_birth");
 		String u_profileimg = mr.getFilesystemName("u_profileimg"); 
-		
-		
-		
-		Connection con = null;
+
 		PreparedStatement pstmt = null;
 		
 		String sql = "insert into D_USER values (?, ?, ?, DEFAULT, d_user_seq.nextval, DEFAULT, ?, ?, ?, ? )";
