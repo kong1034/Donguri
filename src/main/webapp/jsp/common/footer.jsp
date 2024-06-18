@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Footer</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/footer.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/commom/footer.css">
     <script src="${pageContext.request.contextPath}/js/common/footer.js"></script>
 </head>
 <body>
