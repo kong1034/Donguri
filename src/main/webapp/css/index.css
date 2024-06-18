@@ -12,11 +12,11 @@
   font-style: normal;
 }
 
-
 .container_wrapper {
   display: grid;
   height: max-content;
   justify-content: center;
+  overflow: auto;
 }
 .container_slide {
   width: 50em;
