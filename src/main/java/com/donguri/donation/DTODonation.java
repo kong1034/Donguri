@@ -1,79 +1,80 @@
 package com.donguri.donation;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class DTODonation {
-    private int d_no;
-    private String user_id;
-    private String donation_title;
-    private String donation_content;
-    private Date donation_date;
-    private int payment_no;
-    private double price;
-    private Date payment_date;
+    private String id;
+    private String imageUrl;
+    private String tag;
+    private BigDecimal amount;
+    private int progress;
+    private Date startDate;
+    private Date endDate;
+    private String description;
 
-    // Getters and Setters
-    public int getD_no() {
-        return d_no;
+    // Getters and setters for all fields
+    public String getId() {
+        return id;
     }
 
-    public void setD_no(int d_no) {
-        this.d_no = d_no;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public String getDonation_title() {
-        return donation_title;
+    public String getTag() {
+        return tag;
     }
 
-    public void setDonation_title(String donation_title) {
-        this.donation_title = donation_title;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
-    public String getDonation_content() {
-        return donation_content;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setDonation_content(String donation_content) {
-        this.donation_content = donation_content;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public Date getDonation_date() {
-        return donation_date;
+    public int getProgress() {
+        return progress;
     }
 
-    public void setDonation_date(Date donation_date) {
-        this.donation_date = donation_date;
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
-    public int getPayment_no() {
-        return payment_no;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setPayment_no(int payment_no) {
-        this.payment_no = payment_no;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public double getPrice() {
-        return price;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public Date getPayment_date() {
-        return payment_date;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPayment_date(Date payment_date) {
-        this.payment_date = payment_date;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

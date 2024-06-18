@@ -12,8 +12,11 @@ public class DBManager {
 
     static {
         try {
+            // Load the JDBC driver
+            Class.forName("oracle.jdbc.OracleDriver");
+
             dataSource = new BasicDataSource();
-            dataSource.setUrl("jdbc:oracle:thin:@//adb.ap-osaka-1.oraclecloud.com:1522/your_db_name_high.adb.oraclecloud.com");
+            dataSource.setUrl("jdbc:oracle:thin:@//adb.ap-osaka-1.oraclecloud.com:1522/your_actual_db_name_high.adb.oraclecloud.com"); // Replace with actual database name
             dataSource.setUsername("DONGURI");
             dataSource.setPassword("Dongguri802!!");
             dataSource.setMinIdle(10);

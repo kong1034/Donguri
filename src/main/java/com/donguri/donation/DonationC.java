@@ -8,105 +8,224 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
+import java.io.PrintWriter;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 @WebServlet("/DonationC")
 public class DonationC extends HttpServlet {
-    private DAODonation daoDonation = new DAODonation();
     private static final String CHANNEL_ID = "2005457884";
     private static final String CHANNEL_SECRET = "1c9de69727cb9106bbbaea16ad0fcc03";
-    private static final String API_URL = "https://sandbox-api-pay.line.me/v2/payments/request";
-    private static final String DEVICE_PROFILE_ID = "6313907";
+    private static final String LINE_PAY_URL = "https://sandbox-api-pay.line.me/v3/payments/request";
 
-    // Method to generate HMAC signature
-    private static String generateHmacSignature(String channelSecret, String data) {
-        try {
-            Mac mac = Mac.getInstance("HmacSHA256");
-            SecretKeySpec secretKeySpec = new SecretKeySpec(channelSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-            mac.init(secretKeySpec);
-            byte[] hmacSha256 = mac.doFinal(data.getBytes(StandardCharsets.UTF_8));
-            return Base64.getEncoder().encodeToString(hmacSha256);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to generate HMAC signature", e);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        String amount = request.getParameter("modal_amount");
+        String orderId = UUID.randomUUID().toString();
+        String nonce = UUID.randomUUID().toString();
+
+        // Construct request body
+        PaymentRequest paymentRequest = new PaymentRequest();
+        paymentRequest.setAmount(Integer.parseInt(amount));
+        paymentRequest.setCurrency("JPY");
+        paymentRequest.setOrderId(orderId);
+
+        PaymentPackage paymentPackage = new PaymentPackage();
+        paymentPackage.setId("packageId");
+        paymentPackage.setAmount(Integer.parseInt(amount));
+        paymentPackage.setName("Donation");
+
+        Product product = new Product();
+        product.setId("productId");
+        product.setName("Donation Product");
+        product.setQuantity(1);
+        product.setPrice(Integer.parseInt(amount));
+        paymentPackage.setProducts(new Product[]{product});
+
+        paymentRequest.setPackages(new PaymentPackage[]{paymentPackage});
+
+        RedirectUrls redirectUrls = new RedirectUrls();
+        redirectUrls.setConfirmUrl("https://yourdomain.com/confirm");
+        redirectUrls.setCancelUrl("https://yourdomain.com/cancel");
+        paymentRequest.setRedirectUrls(redirectUrls);
+
+        Gson gson = new Gson();
+        String requestBody = gson.toJson(paymentRequest);
+
+        String signature = HmacSignature.encrypt(CHANNEL_SECRET, CHANNEL_SECRET + LINE_PAY_URL + requestBody + nonce);
+
+        // Mock response for testing
+        String paymentUrl = "https://sandbox-web-pay.line.me/web/pay?transactionId=TEST_TRANSACTION_ID";
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.print("{\"status\":\"success\", \"paymentUrl\":\"" + paymentUrl + "\"}");
+        out.flush();
+    }
+
+    static class HmacSignature {
+        public static String encrypt(final String key, final String data) {
+            try {
+                Mac mac = Mac.getInstance("HmacSHA256");
+                SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "HmacSHA256");
+                mac.init(secretKeySpec);
+                byte[] rawHmac = mac.doFinal(data.getBytes());
+                return Base64.getEncoder().encodeToString(rawHmac);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to generate HMAC", e);
+            }
         }
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("donations", daoDonation.getAllDonations());
-        request.setAttribute("contentPage", "jsp/donation/donation.jsp");
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+    static class PaymentRequest {
+        private int amount;
+        private String currency;
+        private String orderId;
+        private PaymentPackage[] packages;
+        private RedirectUrls redirectUrls;
+
+        // Getters and setters
+        public int getAmount() {
+            return amount;
+        }
+
+        public void setAmount(int amount) {
+            this.amount = amount;
+        }
+
+        public String getCurrency() {
+            return currency;
+        }
+
+        public void setCurrency(String currency) {
+            this.currency = currency;
+        }
+
+        public String getOrderId() {
+            return orderId;
+        }
+
+        public void setOrderId(String orderId) {
+            this.orderId = orderId;
+        }
+
+        public PaymentPackage[] getPackages() {
+            return packages;
+        }
+
+        public void setPackages(PaymentPackage[] packages) {
+            this.packages = packages;
+        }
+
+        public RedirectUrls getRedirectUrls() {
+            return redirectUrls;
+        }
+
+        public void setRedirectUrls(RedirectUrls redirectUrls) {
+            this.redirectUrls = redirectUrls;
+        }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String amountStr = request.getParameter("modal_amount");
-        BigDecimal amount = new BigDecimal(amountStr);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+    static class PaymentPackage {
+        private String id;
+        private int amount;
+        private String name;
+        private Product[] products;
 
-        try {
-            JsonObject paymentRequest = new JsonObject();
-            paymentRequest.addProperty("amount", amount);
-            paymentRequest.addProperty("currency", "JPY");
-            paymentRequest.addProperty("orderId", UUID.randomUUID().toString());
-            paymentRequest.addProperty("productName", "Donation");
+        // Getters and setters
+        public String getId() {
+            return id;
+        }
 
-            JsonObject redirectUrls = new JsonObject();
-            redirectUrls.addProperty("confirmUrl", "http://localhost:8080/Donguri/DonationC");
-            redirectUrls.addProperty("cancelUrl", "http://localhost:8080/Donguri/DonationC");
-            paymentRequest.add("redirectUrls", redirectUrls);
+        public void setId(String id) {
+            this.id = id;
+        }
 
-            String nonce = UUID.randomUUID().toString();
-            String signature = generateHmacSignature(CHANNEL_SECRET, CHANNEL_SECRET + "/v2/payments/request" + paymentRequest.toString() + nonce);
+        public int getAmount() {
+            return amount;
+        }
 
-            HttpClient client = HttpClient.newHttpClient();
-            String paymentRequestJson = new Gson().toJson(paymentRequest);
+        public void setAmount(int amount) {
+            this.amount = amount;
+        }
 
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(URI.create(API_URL))
-                    .header("Content-Type", "application/json")
-                    .header("X-LINE-ChannelId", CHANNEL_ID)
-                    .header("X-LINE-Authorization-Nonce", nonce)
-                    .header("X-LINE-Authorization", signature)
-                    .header("X-LINE-MerchantDeviceProfileId", DEVICE_PROFILE_ID)
-                    .POST(HttpRequest.BodyPublishers.ofString(paymentRequestJson))
-                    .build();
+        public String getName() {
+            return name;
+        }
 
-            HttpResponse<String> httpResponse = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        public void setName(String name) {
+            this.name = name;
+        }
 
-            JsonObject jsonResponse = JsonParser.parseString(httpResponse.body()).getAsJsonObject();
+        public Product[] getProducts() {
+            return products;
+        }
 
-            if ("0000".equals(jsonResponse.get("returnCode").getAsString())) {
-                JsonObject successResponse = new JsonObject();
-                successResponse.addProperty("status", "success");
-                successResponse.addProperty("paymentUrl", jsonResponse.getAsJsonObject("info").getAsJsonObject("paymentUrl").get("web").getAsString());
-                response.getWriter().print(new Gson().toJson(successResponse));
-            } else {
-                JsonObject errorResponse = new JsonObject();
-                errorResponse.addProperty("status", "error");
-                errorResponse.addProperty("message", jsonResponse.get("returnMessage").getAsString());
-                response.getWriter().print(new Gson().toJson(errorResponse));
-            }
+        public void setProducts(Product[] products) {
+            this.products = products;
+        }
+    }
 
-        } catch (Exception e) {
-            JsonObject errorResponse = new JsonObject();
-            errorResponse.addProperty("status", "error");
-            errorResponse.addProperty("message", "Exception: " + e.getMessage());
-            response.getWriter().print(new Gson().toJson(errorResponse));
+    static class Product {
+        private String id;
+        private String name;
+        private int quantity;
+        private int price;
+
+        // Getters and setters
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+    }
+
+    static class RedirectUrls {
+        private String confirmUrl;
+        private String cancelUrl;
+
+        // Getters and setters
+        public String getConfirmUrl() {
+            return confirmUrl;
+        }
+
+        public void setConfirmUrl(String confirmUrl) {
+            this.confirmUrl = confirmUrl;
+        }
+
+        public String getCancelUrl() {
+            return cancelUrl;
+        }
+
+        public void setCancelUrl(String cancelUrl) {
+            this.cancelUrl = cancelUrl;
         }
     }
 }
