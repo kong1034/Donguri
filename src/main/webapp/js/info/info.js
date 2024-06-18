@@ -6,6 +6,16 @@ $(function() {
 		autoplaySpeed: 2000,
 		arrows:false
 	})
+	
+	$("#info_all").mouseenter(function() {
+		$("#info_title_img").css('transition', 'all 2s ease');
+		$("#info_title_img").css('transform', 'translateX(1150px) rotate(1800deg)');		
+	})
+	
+	$("#info_all").mouseleave(function() {
+		$("#info_title_img").css('transition', 'all 2s ease');
+		$("#info_title_img").css('transform', 'translateX(0px) rotate(0deg)');
+	})
 })
 function goInfo(number) {
 	location.href = "InfoAllC?num=" + number;

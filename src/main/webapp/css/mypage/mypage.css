@@ -1,0 +1,156 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+  font-size: 14pt;
+}
+.mypage_title {
+  width: 1000px;
+  margin: 60px auto 20px;
+  font-size: 36pt;
+  padding: 0px 10px 20px;
+  letter-spacing: -1px;
+}
+.container_mp {
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  height: max-content;
+  margin: 0 auto 60px;
+  border: 1px solid rgb(174, 170, 170);
+  border-radius: 20px;
+  padding-bottom: 50px;
+}
+.mypage_top {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.my_info {
+  display: grid;
+  width: 600px;
+  height: 200px;
+}
+.my_grade {
+  align-content: end;
+  font-size: 18pt;
+}
+.my_id {
+  font-size: 28pt;
+}
+.my_profile {
+  display: grid;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #44b90e;
+  float: right;
+}
+.my_profile img {
+  width: 150px;
+  height: 150px;
+  margin: 20px 20px 0;
+}
+.my_profile button {
+  margin: 40px auto;
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  font-size: 12pt;
+}
+.mypage_middle {
+  width: 800px;
+  height: 50px;
+  background-color: #cfff91;
+  margin: 30px auto 5px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.bar {
+  border-radius: 20px;
+  width: 130px;
+  height: 35px;
+  justify-content: center;
+  text-align: center;
+  align-content: center;
+  background-color: #fff;
+}
+.mypage_bottom {
+  width: 800px;
+  height: max-content;
+  margin: auto;
+}
+.mypage_bottom p {
+  padding: 20px;
+}
+.donation_info {
+  border: 1px solid rgb(174, 170, 170);
+  border-radius: 20px;
+  height: 200px;
+  margin-bottom: 5px;
+  display: flex;
+  box-shadow: 3px 3px 3px #ddd;
+}
+.donation_info_left {
+  display: grid;
+  width: 550px;
+}
+.donation_info_right {
+  display: grid;
+  height: 150px;
+  width: 150px;
+  align-content: center;
+  margin: auto;
+}
+.donation_info_right_detail {
+  text-align: end;
+}
+.donation_info_right span {
+  float: right;
+}
+.community_history {
+  border: 1px solid rgb(174, 170, 170);
+  border-radius: 20px;
+  height: 200px;
+  margin-bottom: 5px;
+  box-shadow: 3px 3px 3px #ddd;
+}
+.community_history_list,
+.community_ing_list {
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto 3px;
+  border-bottom: 1px solid rgb(174, 170, 170);
+}
+.community_ing {
+  border: 1px solid rgba(174, 170, 170, 0.475);
+  border-radius: 20px;
+  height: 200px;
+  box-shadow: 3px 3px 3px #ddd;
+}
+.c_date,
+.ing_date {
+  width: 150px;
+  justify-content: left;
+}
+.c_title,
+.ing_title {
+  width: 400px;
+  justify-content: left;
+  font-size: 15pt;
+}
+.donation_info_right_detail:hover,
+.c_epilogue:hover,
+.ing_epilogue:hover {
+  color: #4b4b4b;
+  text-shadow: 1px 1px 1px rgb(174, 170, 170);
+}

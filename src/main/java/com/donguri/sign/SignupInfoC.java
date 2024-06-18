@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 public class SignupInfoC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		request.setAttribute("contentPage", "/jsp/sign/signup_info.jsp");
 		request.getRequestDispatcher("/jsp/sign/sign.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");	
 		
-		request.setCharacterEncoding("utf-8");		
+		DAOSign.RDAO.signUp(request);
+		
 		request.setAttribute("contentPage", "/jsp/sign/signup_done.jsp");
 		request.getRequestDispatcher("/jsp/sign/sign.jsp").forward(request, response);
 	

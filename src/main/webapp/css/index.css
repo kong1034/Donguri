@@ -6,10 +6,17 @@
   box-sizing: border-box;
 }
 
+.rocknroll-one-regular {
+  font-family: "RocknRoll One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .container_wrapper {
   display: grid;
   height: max-content;
   justify-content: center;
+  overflow: auto;
 }
 .container_slide {
   width: 50em;
@@ -22,6 +29,7 @@
   border-radius: 100px;
   width: 50em;
   height: 25em;
+  object-fit:contain;
 }
 .mySlides {
   display: none;
@@ -134,6 +142,10 @@
   -ms-filter: blur(1px);
   filter: blur(1px);
 }
+.item_right_sub:hover, .item_left_sub:hover {
+	background-color: cadetblue;
+	color:#fff;
+}
 .container_community_info {
   display: grid;
   margin: auto auto 40px;
@@ -181,7 +193,7 @@
   margin: auto auto 40px;
   border-radius: 20px;
   width: 40em;
-  height: 23em;
+  height: auto;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 .aboutus_top {
@@ -206,7 +218,7 @@
   display: flex;
   justify-content: space-around;
   width: 350px;
-  margin: auto auto 30px;
+  margin: 12% auto 30px;
 }
 .aboutus_icon {
   width: 70px;
@@ -219,6 +231,28 @@
   margin: 7px 16px 0;
   width: 40px;
   height: 40px;
+}
+.aboutus_icon {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	background-color: #f6a200;
+	align-content: center;
+	position: relative;
+}
+
+#heart_color, #dog_color, #tree_color, #elder_color {
+	position: absolute;
+	left: 0;
+	top: 0;
+	visibility: hidden;
+}
+
+.icon_color {
+	visibility: visible;
+	transform: translateY(-60px);
+	transition: transform 2s ease;
+	z-index:-1;
 }
 footer {
   height: 15em;

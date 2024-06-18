@@ -1,39 +1,43 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Add any common JS functionality here
+$(function() {
+	
 
-    // Example for modal handling
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = "block";
-    }
+	
+	
+	//headrt hover
+	$("#heart_icon").mouseenter(function() {
+		$("#heart_color").css("visibility","visible");
+		$("#heart_color").addClass("icon_color");
+	})
+	$("#heart_icon").mouseleave(function() {
+		$("#heart_color").css("visibility","hidden");
+		$("#heart_color").removeClass("icon_color");
+	})
+	//dog hover
+	$("#dog_icon").mouseenter(function() {
+		$("#dog_color").css("visibility","visible");
+		$("#dog_color").addClass("icon_color");
+	})
+	$("#dog_icon").mouseleave(function() {
+		$("#dog_color").css("visibility","hidden");
+		$("#dog_color").removeClass("icon_color");
+	})
+	//tree hover
+	$("#tree_icon").mouseenter(function() {
+		$("#tree_color").css("visibility","visible");
+		$("#tree_color").addClass("icon_color");
+	})
+	$("#tree_icon").mouseleave(function() {
+		$("#tree_color").css("visibility","hidden");
+		$("#tree_color").removeClass("icon_color");
+	})
+	//elder hover
+	$("#elder_icon").mouseenter(function() {
+		$("#elder_color").css("visibility","visible");
+		$("#elder_color").addClass("icon_color");
+	})
+	$("#elder_icon").mouseleave(function() {
+		$("#elder_color").css("visibility","hidden");
+		$("#elder_color").removeClass("icon_color");
+	})
+})
 
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = "none";
-    }
-
-    document.querySelectorAll(".close").forEach(function(element) {
-        element.onclick = function() {
-            closeModal(element.closest(".modal").id);
-        };
-    });
-
-    document.getElementById("shareButton").onclick = function() {
-        openModal("shareModal");
-    };
-
-    document.getElementById("donateButton").onclick = function() {
-        openModal("donationModal");
-    };
-
-    document.getElementById("copyUrl").onclick = function() {
-        var copyText = document.getElementById("shareUrl");
-        copyText.select();
-        document.execCommand("copy");
-        alert("URL copied: " + copyText.value);
-    };
-
-    // KakaoTalk Share Button
-    document.getElementById("kakaoShare").onclick = function() {
-        // Add KakaoTalk sharing functionality here
-        alert("KakaoTalk sharing is not yet implemented.");
-    };
-});

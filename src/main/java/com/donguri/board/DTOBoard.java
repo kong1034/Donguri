@@ -8,6 +8,7 @@ public class DTOBoard {
 	private String title;
 	private String content;
 	private Date date;
+	private String tag;
 	private String status;
 	private String place;
 	private String img;
@@ -16,7 +17,7 @@ public class DTOBoard {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DTOBoard(int no, String id, String title, String content, Date date, String status, String place,
+	public DTOBoard(int no, String id, String title, String content, Date date, String tag, String status, String place,
 			String img) {
 		super();
 		this.no = no;
@@ -24,6 +25,7 @@ public class DTOBoard {
 		this.title = title;
 		this.content = content;
 		this.date = date;
+		this.tag = tag;
 		this.status = status;
 		this.place = place;
 		this.img = img;
@@ -69,6 +71,14 @@ public class DTOBoard {
 		this.date = date;
 	}
 
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -96,9 +106,8 @@ public class DTOBoard {
 	@Override
 	public String toString() {
 		return "DTOBoard [no=" + no + ", id=" + id + ", title=" + title + ", content=" + content + ", date=" + date
-				+ ", status=" + status + ", place=" + place + ", img=" + img + "]";
+				+ ", tag=" + tag + ", status=" + status + ", place=" + place + ", img=" + img + "]";
 	}
 
 	
-
 }

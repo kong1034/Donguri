@@ -12,12 +12,12 @@ public class BoardPageC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		DAOBoard.getAllBoardList(request);
+		DAOBoard2.getAllEpilogue(request);
 		int p = Integer.parseInt(request.getParameter("p"));
-		DAOBoard.paging(p, request);
+		DAOBoard2.paging(p, request);
 
-		request.setAttribute("content", "/jsp/board/board.jsp");
-		request.getRequestDispatcher("/jsp/board/board_main.jsp").forward(request, response);
+		request.setAttribute("contentPage", "/jsp/board/board_epilogue.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -17,8 +17,11 @@
 		<!-- child -->
 		<div class="info_child_container">
 			<div class="info_ul_title_box">
-				<p class="info_title"># 子供</p>
-				<button class="info_all" onclick="goInfo(1)">More</button>
+				<p class="info_title" id="info_title"># 子供</p>
+				<div class="info_title_img_box" id="info_title_img_box">
+					<img class="info_title_img" id="info_title_img" src="img/local/dongguri.svg"/>
+				</div>
+				<button class="info_all" id="info_all" onclick="goInfo(1)">More</button>
 			</div>
 			<ul class="info_ul_container">
 				<li><img src="https://ecolife-coco.com/wp-content/themes/coco/assets/images/logo_main.png" onclick="goSite(1)" class="content_img"/></li>

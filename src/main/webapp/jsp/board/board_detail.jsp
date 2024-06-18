@@ -11,31 +11,40 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
-      <div class="container_wrapper">
+    <div class="container_b">
+      <div class="container_b_wrapper">
         <div class="container_left">
           <div class="input_img">
           <img alt="" src="img/local/board/${boardlists.img }">
          </div>
           <div class="tag">#環境</div>
           <div class="group_wrapper">
-            <div class="group title">タイトル: ${boardlists.title }</div>
-            <div class="group date">デート: ${boardlists.date }</div>
-            <div class="group during">募集期間</div>
+            <div class="group title_b">タイトル: ${boardlists.title }</div>
+            <div class="group date_b">デート: ${boardlists.date }</div>
+            <div class="group during_b">募集期間</div>
           </div>
         </div>
         <div class="container_right">
-          <div class="info">information: ${boardlists.content }</div>
+          <div class="info_b">information: ${boardlists.content }</div>
           <div class="button_wrapper">
-            <button class="btn_share">
+            <button class="btn_share" id="shareTw" onclick="javascript:shareTwitter()">
               シェア <br />
               X
             </button>
-            <button class="btn_chat">チャット</button>
+            <button class="btn_chat" onclick="chatPopUp();">チャット</button>
             <button class="btn_apply">アプライ</button>
           </div>
         </div>
       </div>
     </div>
+    <script type="text/javascript">
+    function shareTwitter() {
+        window.open("http://twitter.com/share?url=" + encodeURIComponent(location.href) +"&text=" + document.title);
+    }
+    
+   function chatPopUp() {
+	  window.open("","chatting","width=400, height=600, left=100, top=50")
+}
+    </script>
 </body>
 </html>

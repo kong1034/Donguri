@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 public class RegEmailC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		request.setAttribute("contentPage", "/jsp/sign/reg_email.jsp");
-		request.getRequestDispatcher("/jsp/sign/sign.jsp").forward(request, response);
+		// send e-mail confirm code & create the RandomNum Session 
+		DAOSign.emailVerify(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		// comparison between input code and confirmation code
+		DAOSign.codeVerify(request, response);
 	}
 
 }
