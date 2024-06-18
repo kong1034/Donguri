@@ -1,16 +1,27 @@
 package com.donguri.sign;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Properties;
+import java.util.Random;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.donguri.main.Common;
 import com.donguri.main.DBManager;
@@ -25,11 +36,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class DAOSign {
-	
+	// SECRET_KEY
 	private static final String SECRET_KEY = Common.SECRET_KEY;
-	
-	
-	
+	// Create RandomNumber for e-maiil Chk
+	static StringBuilder randomNumber = new StringBuilder();
 	
 	// JWT Validation Method
     public static Claims validateToken(String token) {
@@ -201,4 +211,90 @@ public class DAOSign {
 		
 		
 	}
+	
+	// EmailVerify method for signIn
+	public static void emailVerify(HttpServletRequest request, HttpServletResponse response) {
+		// parameter
+		String email = request.getParameter("email");
+
+		System.out.println("check email => " + email);
+
+		// create Random number
+		 Random random = new Random();
+	        StringBuilder randomNumber = new StringBuilder();
+	        for (int i = 0; i < 6; i++) {
+	            int num = random.nextInt(9) + 1; 
+	            randomNumber.append(num);
+	        }
+
+		// set RandomNum (For confirm user's e-mail)
+	    HttpSession session2 = request.getSession();
+		session2.setAttribute("randomNumber", randomNumber.toString());
+		System.out.println("Generated random number: " + randomNumber);
+
+		try {
+			// Gmail SMTP server setting
+			String host = "smtp.gmail.com";
+			final String username = Common.google_email; // Gmail accpunt
+			final String password = Common.google_pw; // Gmail account password
+
+			Properties props = new Properties();
+			props.put("mail.smtp.host", host);
+			props.put("mail.smtp.port", "587");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+			// create session
+			Session session = Session.getInstance(props, new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			});
+
+			// create email message
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+			message.setSubject("DONGGURI Register Email");
+			message.setText("確認コード : " + randomNumber);
+
+			// send message
+			Transport.send(message);
+			// response
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println("Email sent successfully!");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("server error");
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
+	// compare input code and confirmation code for signIn
+	public static void codeVerify(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		try {
+			// Do not remove this 
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("application/json; charset=utf-8");
+			HttpSession session = request.getSession();
+			String randomNumber = (String) session.getAttribute("randomNumber");
+			String code = request.getParameter("code");
+			System.out.println("랜덤 숫자 값: " + randomNumber);
+			System.out.println("입력 숫자 값: " + request.getParameter("code"));
+			if (code.equals(randomNumber)) {
+				// send server(boolean)
+					response.getWriter().print(true);
+					System.out.println("조건문 통과");
+			}
+
+	}catch(IOException e)
+	{
+			
+			e.printStackTrace();
+		}
+	}
+
 }
