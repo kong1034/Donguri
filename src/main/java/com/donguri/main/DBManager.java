@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.commons.dbcp2.BasicDataSource;
+
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 
 public class DBManager {
 	private static BasicDataSource dataSource;
