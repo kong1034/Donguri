@@ -9,8 +9,6 @@
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
-  height:10%;
-  width: 100%;
 }
 
 .header_title {
@@ -76,26 +74,4 @@
 
 #header_container:hover::after {
   transform: scale(1);
-}
-
-.header_logo_box {
-	display: flex;
-    position: absolute;
-    height: 100%;
-    align-items: center;
-    width: 12%;
-    justify-content: center;
-    left: 0;
-    z-index: 1;
-}
-
-.header_title {
-	z-index:2;
-	background-color:#fff;
-}
-
-.header_logo_img {
-	width: 55%;
-    height: 55%;
-    z-index:-1;
 }
