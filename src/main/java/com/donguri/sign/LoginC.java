@@ -26,7 +26,7 @@ public class LoginC extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		DAOSign.login(request, response);
+		DAOSign.RDAO.login(request, response);
 		
 		String loginChk = (String)request.getAttribute("result");
 		System.out.println("check in loginc post");

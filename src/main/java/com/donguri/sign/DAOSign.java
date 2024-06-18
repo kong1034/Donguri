@@ -1,16 +1,27 @@
 package com.donguri.sign;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Properties;
+import java.util.Random;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.donguri.main.Common;
 import com.donguri.main.DBManager;
@@ -19,16 +30,40 @@ import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 public class DAOSign {
 	
-	private static final String SECRET_KEY = Common.SECRET_KEY;
+	private Connection con = null;
+	public static final DAOSign RDAO = new DAOSign();
 	
-
-	public static void login(HttpServletRequest request, HttpServletResponse response) {
+	private DAOSign() {
+		try {
+			con = DBManager.connect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// SECRET_KEY
+	private static final String SECRET_KEY = Common.SECRET_KEY;
+	// Create RandomNumber for e-maiil Chk
+	static StringBuilder randomNumber = new StringBuilder();
+	
+	// JWT Validation Method
+    public static Claims validateToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+	
+	// Login Method(JWT Token/Gson)
+	public void login(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
 		String pw =  request.getParameter("pw");
@@ -40,7 +75,6 @@ public class DAOSign {
 		
 		String result;
 		
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -80,11 +114,9 @@ public class DAOSign {
 					
 					 //JSON Key, Json Value
 			         Gson gson = new Gson();
-					 
-					String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
-//				
-//					request.setAttribute("user", userJson);
-					response.getWriter().print(userJson);
+			         String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
+			         response.getWriter().print(userJson);
+			         System.out.println(userJson);
 					
 				// 256-bit random key
 					Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -116,7 +148,7 @@ public class DAOSign {
 		request.setAttribute("result", result);
 	}
 
-
+	// Logout method
 	public static void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		Cookie jwtCookie = new Cookie("jwtToken", "");
@@ -128,8 +160,8 @@ public class DAOSign {
 
 	}
 
-
-	public static void signUp(HttpServletRequest request) throws IOException {
+	// SignIn method
+	public void signUp(HttpServletRequest request) throws IOException {
 		
 		String path = request.getServletContext().getRealPath("img/server");
 		
@@ -151,10 +183,7 @@ public class DAOSign {
 		String u_email = mr.getParameter("u_email");
 		String u_birth = mr.getParameter("u_birth");
 		String u_profileimg = mr.getFilesystemName("u_profileimg"); 
-		
-		
-		
-		Connection con = null;
+
 		PreparedStatement pstmt = null;
 		
 		String sql = "insert into D_USER values (?, ?, ?, DEFAULT, d_user_seq.nextval, DEFAULT, ?, ?, ?, ? )";
@@ -190,4 +219,90 @@ public class DAOSign {
 		
 		
 	}
+	
+	// EmailVerify method for signIn
+	public static void emailVerify(HttpServletRequest request, HttpServletResponse response) {
+		// parameter
+		String email = request.getParameter("email");
+
+		System.out.println("check email => " + email);
+
+		// create Random number
+		 Random random = new Random();
+	        StringBuilder randomNumber = new StringBuilder();
+	        for (int i = 0; i < 6; i++) {
+	            int num = random.nextInt(9) + 1; 
+	            randomNumber.append(num);
+	        }
+
+		// set RandomNum (For confirm user's e-mail)
+	    HttpSession session2 = request.getSession();
+		session2.setAttribute("randomNumber", randomNumber.toString());
+		System.out.println("Generated random number: " + randomNumber);
+
+		try {
+			// Gmail SMTP server setting
+			String host = "smtp.gmail.com";
+			final String username = Common.google_email; // Gmail accpunt
+			final String password = Common.google_pw; // Gmail account password
+
+			Properties props = new Properties();
+			props.put("mail.smtp.host", host);
+			props.put("mail.smtp.port", "587");
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+			// create session
+			Session session = Session.getInstance(props, new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			});
+
+			// create email message
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(username));
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+			message.setSubject("DONGGURI Register Email");
+			message.setText("確認コード : " + randomNumber);
+
+			// send message
+			Transport.send(message);
+			// response
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().println("Email sent successfully!");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("server error");
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
+	// compare input code and confirmation code for signIn
+	public static void codeVerify(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		try {
+			// Do not remove this 
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("application/json; charset=utf-8");
+			HttpSession session = request.getSession();
+			String randomNumber = (String) session.getAttribute("randomNumber");
+			String code = request.getParameter("code");
+			System.out.println("랜덤 숫자 값: " + randomNumber);
+			System.out.println("입력 숫자 값: " + request.getParameter("code"));
+			if (code.equals(randomNumber)) {
+				// send server(boolean)
+					response.getWriter().print(true);
+					System.out.println("조건문 통과");
+			}
+
+	}catch(IOException e)
+	{
+			
+			e.printStackTrace();
+		}
+	}
+
 }

@@ -11,25 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 public class RegEmailC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
 		// send e-mail confirm code & create the RandomNum Session 
-		SignDAO.emailVerify(request,response);
-		
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("UTF-8");
-//		response.getWriter().print("{\"message\": \"Email sent successfully!\"}");
-//		response.getWriter().flush();
-
+		DAOSign.emailVerify(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		SignDAO.chkConfirmNum(request);
-		
-		SignDAO.codeVerify(request,response);
-		
-		
-		
-		
+		// comparison between input code and confirmation code
+		DAOSign.codeVerify(request, response);
 	}
 
 }
