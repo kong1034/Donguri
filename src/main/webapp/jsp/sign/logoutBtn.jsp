@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<button onclick="location.href='LoginC?logout=1'" style="width: 4em;
+	<button onclick="location.href='LogoutC'" style="width: 4em;
     height: 2em;">Logout</button>
 </body>
 </html>
