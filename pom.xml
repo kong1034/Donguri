@@ -62,5 +62,11 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.2</version>
 		</dependency>
+		<!-- Apache Commons DBCP -->
+	    <dependency>
+	        <groupId>commons-dbcp</groupId>
+	        <artifactId>commons-dbcp</artifactId>
+	        <version>1.4</version>
+	    </dependency>
 	</dependencies>
 </project>
