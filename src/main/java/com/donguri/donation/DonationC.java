@@ -13,6 +13,7 @@ import java.util.Base64;
 import java.util.UUID;
 import com.google.gson.Gson;
 
+// Servlet for handling donation requests
 @WebServlet("/DonationC")
 public class DonationC extends HttpServlet {
     private static final String CHANNEL_ID = "2005457884";
@@ -22,7 +23,7 @@ public class DonationC extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        String amount = request.getParameter("modal_amount");
+        String amount = request.getParameter("amount");
         String orderId = UUID.randomUUID().toString();
         String nonce = UUID.randomUUID().toString();
 

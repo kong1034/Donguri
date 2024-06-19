@@ -10,23 +10,14 @@ import java.io.IOException;
 @WebServlet("/DonationDetailC")
 public class DonationDetailC extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String donationId = request.getParameter("id");
-//        if (donationId == null) {
-//            response.sendRedirect("/DonationC");
-//            return;
-//        }
-//
-//        DAODonation daoDonation = new DAODonation();
-//        DTODonation donation = daoDonation.getDonationById(donationId);
-//
-//        if (donation == null) {
-//            response.sendRedirect("/DonationC");
-//            return;
-//        }
+        String donationId = request.getParameter("id");
 
-        // Set any additional attributes if needed
+        DAODonation daoDonation = new DAODonation();
+        DTODonation donation = daoDonation.getDonationById(donationId);
+
+        request.setAttribute("donation", donation);
         request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
 
-        request.getRequestDispatcher("index.jsp").include(request, response);
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

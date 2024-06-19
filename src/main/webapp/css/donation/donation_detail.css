@@ -1,4 +1,6 @@
-/* Set body styling */
+@charset "UTF-8";
+
+/* Body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -7,62 +9,7 @@ body {
     animation: fadeIn 1s;
 }
 
-/* Set header styling */
-header {
-    background-color: #fff;
-    border-bottom: 2px solid #ddd;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Set nav styling */
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 20px;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #4CAF50;
-}
-
-/* Set header right styling */
-.header_right {
-    display: flex;
-    gap: 10px;
-}
-
-.mypage_button,
-.login_button {
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 2px solid #333;
-    border-radius: 5px;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.mypage_button:hover,
-.login_button:hover {
-    background-color: #333;
-    color: #fff;
-}
-
-/* Set donation container styling */
+/* Donation container styling */
 .donation_container {
     display: flex;
     justify-content: center;
@@ -86,7 +33,7 @@ nav ul li a:hover {
     animation: bounceIn 1s;
 }
 
-/* Set button container styling */
+/* Button container styling */
 .button_container {
     display: flex;
     justify-content: space-around;
@@ -109,7 +56,7 @@ nav ul li a:hover {
     background-color: #45a049;
 }
 
-/* Set modal styling */
+/* Modal styling */
 .modal {
     display: none;
     position: fixed;
@@ -149,15 +96,7 @@ nav ul li a:hover {
     cursor: pointer;
 }
 
-/* Set social icons styling */
-.social_icons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-/* Add animation for fadeIn */
+/* Animation for fadeIn */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -167,7 +106,7 @@ nav ul li a:hover {
     }
 }
 
-/* Add animation for bounceIn */
+/* Animation for bounceIn */
 @keyframes bounceIn {
     from {
         transform: scale(0.5);
@@ -177,7 +116,7 @@ nav ul li a:hover {
     }
 }
 
-/* Add animation for slideIn */
+/* Animation for slideIn */
 @keyframes slideIn {
     from {
         transform: translateY(-50%);
@@ -187,7 +126,7 @@ nav ul li a:hover {
     }
 }
 
-/* Set responsive styling */
+/* Responsive styling */
 @media (max-width: 768px) {
     .donation_container {
         flex-direction: column;
