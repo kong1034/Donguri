@@ -160,7 +160,7 @@ public class DAOSign {
 
 	}
 
-	// SignIn method
+	// SignUp method
 	public void signUp(HttpServletRequest request) throws IOException {
 		
 		String path = request.getServletContext().getRealPath("img/server");
@@ -183,7 +183,17 @@ public class DAOSign {
 		String u_email = mr.getParameter("u_email");
 		String u_birth = mr.getParameter("u_birth");
 		String u_profileimg = mr.getFilesystemName("u_profileimg"); 
-
+		
+		System.out.println(u_id);
+		System.out.println(u_name);
+		System.out.println(u_pw);
+		System.out.println(u_telenumber);
+		System.out.println(u_email);
+		System.out.println(u_profileimg);
+		
+		
+		
+		
 		PreparedStatement pstmt = null;
 		
 		String sql = "insert into D_USER values (?, ?, ?, DEFAULT, d_user_seq.nextval, DEFAULT, ?, ?, ?, ? )";
@@ -204,9 +214,7 @@ public class DAOSign {
 	        pstmt.setString(7, u_profileimg);
 	        
 	       if (pstmt.executeUpdate() == 1) {
-			
 	    	   System.out.println("SignUp Complete!");
-	    	   request.getRequestDispatcher("jsp/sign/sign_done.jsp");
 		}
 			
 		} catch (Exception e) {
@@ -215,8 +223,6 @@ public class DAOSign {
 		}finally {
 			DBManager.close(con, pstmt, null);
 		}
-		
-		
 		
 	}
 	
