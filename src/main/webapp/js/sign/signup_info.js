@@ -20,8 +20,10 @@ function chkCode() {
 				console.log('Code matched');
 				registerEmail = document.querySelector('#input_email').value; // u_email view
 				let openModalInput = document.querySelector('#openModal');
-			    openModalInput.disabled = true;
+			    openModalInput.style.pointerEvents = "none";
 		        openModalInput.placeholder = registerEmail;  // placeholder val
+		        openModalInput.setAttribute("value", registerEmail);
+				
 			} else {
 				console.log('Unmatched');
 			} 

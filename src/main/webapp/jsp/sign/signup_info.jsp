@@ -23,7 +23,7 @@ dialog:-internal-dialog-in-top-layer::backdrop {
 </style>
 </head>
 <body>
-	<form action="SignupInfoC" method="post">
+	<form action="SignupInfoC" method="post" enctype="multipart/form-data">
 		<div id="signup_info_container">
 			<div id="signup_info_content">
 				<div class="subtitle">ログインID</div>
@@ -31,7 +31,7 @@ dialog:-internal-dialog-in-top-layer::backdrop {
 				<div class="ex_text">半角英数字</div>
 				<div class="subtitle">email</div>
 				<input id="openModal" type="email" class="input_val input_email"
-					/placeholder="入力後確認コードの確認が必要です" value=""><br >
+					/placeholder="入力後確認コードの確認が必要です" value="" name="u_email"><br >
 				<div class="subtitle" style="padding-top: 20px">パスワード</div>
 				<input type="password" class="input_val input_pw" name="u_pw"><br />
 				<div class="ex_text">半角英数字</div>
@@ -45,11 +45,12 @@ dialog:-internal-dialog-in-top-layer::backdrop {
 				<div class="ex_text">例: 010-1234-5678</div>
 				<div class="subtitle" style="padding-top: 20px">アイコン</div>
 				<input type="file" class="input_val input_img" name="u_profileimg"><br />
-				<div class="ex_text">img, jpgのみ</div>
+				<div class="ex_text">img, jpg、jpegのみ</div>
 				<div class="subtitle" style="padding-top: 20px">生年月日</div>
-				<input type="date" class="input_val input_birth" lang="ja" name="u_birth"><br />
+				<input type="date" id="input_birth" class="input_val input_birth"
+				 lang="ja" name="u_birth" min="1900-01-01"><br />
 				<div id="next_btn">
-					<button class="btn next">次へ</button>
+					<button class="btn next" onclick="validation()">次へ</button>
 				</div>
 			</div>
 		</div>
