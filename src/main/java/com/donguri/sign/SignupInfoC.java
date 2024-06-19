@@ -22,7 +22,7 @@ public class SignupInfoC extends HttpServlet {
 		DAOSign.RDAO.signUp(request);
 		
 		request.setAttribute("contentPage", "/jsp/sign/signup_done.jsp");
-		request.getRequestDispatcher("/jsp/sign/sign.jsp").forward(request, response);
+		request.getRequestDispatcher("l_index.jsp").forward(request, response);
 	
 	}
 
