@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
     <meta charset="UTF-8" />
     <link
       rel="stylesheet"
-      href="<%=request.getContextPath()%>/css/header.css"
+      href="<%=request.getContextPath()%>/css/common/header.css"
     />
     <script src="<%=request.getContextPath()%>/js/common/header.js"></script>
   </head>

@@ -21,18 +21,22 @@ body {
   border-radius: 20px;
   text-align: center;
 }
+/* ---epilogue--- */
 .container_ed .epilogue {
   border-bottom: 1px solid #ccc;
 }
-.container_ed .tag,
-.container_ed .title,
-.container_ed .writer,
-.container_ed .date {
+.container_ed .title {
   height: 100px;
 }
+.epilogue_center{
+  width: 1200px;
+  display: flex;
+  justify-content:space-between;
+  border-bottom: 1px solid #ccc;
+}
 .container_ed span {
-  width: 200px;
   padding: 30px;
+  width: 200px;
   float: left;
   border-right: 1px solid #ccc;
 }
@@ -40,9 +44,14 @@ body {
   height: 200px;
 }
 .container_ed .content span {
+  padding-top: 30px;
   height: 200px;
   border-right: 1px solid #ccc;
+  
 }
+
+
+/* ---comment--- */
 .comment-group p {
   font-weight: bold;
   font-size: 18pt;
@@ -56,24 +65,39 @@ body {
 .comment {
   width: 1000px;
   border: 1px solid #ccc;
-   border-radius: 20px;
+  border-radius: 20px;
   margin: 0px auto 40px;
   padding: 20px;
 }
 .comment_list{
 	display: flex;
-	justify-content: space-around;
 	padding: 10px;
 	border: 1px solid #ccc;
 }
-
-.comment_input{
-	display: flex;
-	border: 1px solid #ccc;
-	 border-radius: 20px;
-	 margin: 30px auto 30px;
-	 align-content: center;
+.comment_list .comment_writer{
+	text-align: left;
+	width: 200px;
+}
+.comment_list .comment_contents{
+	text-align: left;
+	width: 550px;
+}
+.comment_list .comment_date{
+	width: 200px;
+}
+.comment_list .comment_delete{
+	width: 80px;
+}
+.comment_list .comment_update{
+	width: 80px;
 	
+}
+.comment_input{
+	 width: 1000px;
+	 display: flex;
+	 align-content: center;
+	 text-align: center;
+	 margin: 10px auto 0;
 }
 .comment_input textarea{
 	font-size: 18pt;
@@ -81,7 +105,10 @@ body {
 	border: 1px solid #f6a200;
 	
 }
-.btn_reg{
+.bottom p {
+	     padding: 0px;
+}
+.btn_register{
 	background-color: #f6a200;
 	height: 110px;
 	width: 110px;
@@ -91,5 +118,14 @@ body {
 	font-size: 18pt;
 	cursor: pointer;
 	margin: 5px;
+	
+}
+.btn_delete img{
+	width: 35px;
+	cursor: pointer;
+}
+.error-message{
+	 color: red;
+    font-size: 20px;
 	
 }

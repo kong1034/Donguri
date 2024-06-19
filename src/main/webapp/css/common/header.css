@@ -53,6 +53,13 @@
   color: #4CAF50;
 }
 
+.profile_img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .header_categori_li a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;

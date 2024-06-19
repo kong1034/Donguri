@@ -106,7 +106,7 @@ public class DAOBoard {
 			String path = request.getServletContext().getRealPath("img/local/board");
 			MultipartRequest mr = new MultipartRequest(request, path, 1024*1024*20,"utf-8", new DefaultFileRenamePolicy());
 			
-			String id = request.getParameter("id"); 
+			String userid = request.getParameter("id"); 
 			String title = mr.getParameter("title");
 			String tag = mr.getParameter("tag");
 			String file = mr.getFilesystemName("file");
@@ -114,7 +114,7 @@ public class DAOBoard {
 			String date = mr.getParameter("date");
 			String info = mr.getParameter("info");
 			
-			System.out.println(id);
+			System.out.println(userid);
 			
 			pstmt.setString(1, "yuree");
 			pstmt.setString(2, title);
