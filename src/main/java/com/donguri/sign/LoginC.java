@@ -17,7 +17,7 @@ public class LoginC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
         request.setAttribute("contentPage", "/jsp/sign/login.jsp");
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("l_index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
