@@ -2,6 +2,8 @@ package com.donguri.board;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class DTOBoard2 {
 	
 	private int no;
@@ -134,6 +136,17 @@ public class DTOBoard2 {
 		this.c_date = c_date;
 	}
 
+	@Override
+	public String toString() {
+		return "DTOBoard2 [no=" + no + ", v_no=" + v_no + ", g_no=" + g_no + ", id=" + id + ", tag=" + tag + ", title="
+				+ title + ", content=" + content + ", date=" + date + ", img=" + img + ", c_no=" + c_no + ", c_content="
+				+ c_content + ", c_date=" + c_date + "]";
+	}
+	
+	public String toJSON() {
+		Gson g = new Gson();
+		return g.toJson(this);
+	}
 	
 	
 }

@@ -45,7 +45,7 @@ html, body {
 .btn_epilogue {
 	background-color: #45b90e;
 }
-.container_board button:hover {
+.container_board .buttons button:hover {
 	box-shadow: 10px 10px 10px #ddd;
 }
 .search{
@@ -77,7 +77,10 @@ html, body {
 }
 .tags_list:hover {
 	background-color: #f6a200;
+}
+.tags_list a:hover{
 	color: white;
+	
 }
 .search_wrap {
 	display: flex;
@@ -88,31 +91,19 @@ html, body {
 .selectBox{
 	display: flex;
 	height: 50px;
-	width: 100px;
+	width: 110px;
 	border: 1px solid #45b90e;
 	border-radius: 15px;
-	margin-right: 5px 
+	margin-right: 5px;
 }
 .select{
 	font-size: 13pt;
-	width: 80px;
+	width: 120px;
 	padding-left: 8px;
 	border-radius: 15px;
 	outline: 0 none;
 }
-.arrow {
-  width: 35px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.arrow img {
-  width: 20px;
-  transition: .1s; 
-}
-.selectBox .select:focus + .arrow img {
-  transform: rotate(180deg);
-}
+
 .container_board .search {
 	border: 1px solid #45b90e;
 	border-radius: 15px;
