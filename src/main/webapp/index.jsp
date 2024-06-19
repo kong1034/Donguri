@@ -43,7 +43,7 @@ function requestPayment() {
 </script> -->
 </head>
 <body class="rocknroll-one-regular">
-	<%@ include file="/header.jsp"%>
+	<%@ include file="jsp/common/header.jsp"%>
 		<jsp:include page="${contentPage }"></jsp:include>
 	<!-- <div class="container_wrapper">
       <div class="container_slide">

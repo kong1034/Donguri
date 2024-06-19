@@ -47,7 +47,7 @@ public class DAODonation {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<DTODonation> donations = new ArrayList<>();
+        List<DTODonation> donations = new ArrayList<DTODonation>();
 
         try {
             con = DBManager.connect();
