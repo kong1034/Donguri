@@ -26,7 +26,7 @@ function Validation(){
 	
 }
 function userBirth(){
-	/**birth min: 5 max: 120 **/
+	/**birth min: 5 max: 100**/
 	var birth = document.getElementById('input_birth');
 	
 	

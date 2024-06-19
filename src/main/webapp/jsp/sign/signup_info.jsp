@@ -48,7 +48,7 @@ dialog:-internal-dialog-in-top-layer::backdrop {
 				<div class="ex_text">img, jpg、jpegのみ</div>
 				<div class="subtitle" style="padding-top: 20px">生年月日</div>
 				<input type="date" id="input_birth" class="input_val input_birth"
-				 lang="ja" name="u_birth" min="1900-01-01"><br />
+				 lang="ja" name="u_birth"><br />
 				<div id="next_btn">
 					<button class="btn next" onclick="validation()">次へ</button>
 				</div>
