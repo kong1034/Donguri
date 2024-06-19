@@ -21,18 +21,10 @@
       </div>
 
       <div class="tags">
-        <a>
-        <div class="tags_list">#子供</div>
-        </a>
-        <a>
-        <div class="tags_list">#老人</div>
-        </a> 
-        <a>
-        <div class="tags_list">#環境</div>
-        </a>
-        <a>
-        <div class="tags_list">#動物</div>
-        </a>
+        <div class="tags_list"><a> #子供</a></div>
+        <div class="tags_list"><a> #老人</a></div>
+        <div class="tags_list"><a> #環境</a></div>
+        <div class="tags_list"><a> #動物</a></div>
       </div>
 
       <form class="search_wrap" action="BoardC" method="post" >
@@ -41,7 +33,6 @@
       			<option value="title">タイトル</option>
      			<option value="id">作成者</option>
      		 </select>
-      	 <span class="arrow"><img src="img/local/board/arrow.png" alt=""></span>
        </div>
         <input name="q" type="text" class="search" placeholder="search" />
         <input class="btn_search" type="submit" value="검색" ></input>
