@@ -9,6 +9,7 @@ pageEncoding="UTF-8"%>
       href="<%=request.getContextPath()%>/css/common/header.css"
     />
     <script src="<%=request.getContextPath()%>/js/common/header.js"></script>
+
   </head>
   <body>
     <header id="header_container">
@@ -22,23 +23,28 @@ pageEncoding="UTF-8"%>
         </li>
         <li class="header_categori_li">
           <a href="<%=request.getContextPath()%>/jsp/donation/donation.jsp"
-            >ドネーション</a
-          >
+            >ドネーション</a>
         </li>
         <li class="header_categori_li"><a href="BoardC">コミュニティ</a></li>
-        <li class="header_categori_li">
-          <a href="MyPageC"
-            ><jsp:include page="${MyPage}"></jsp:include
-            ><span id="hidden">MyPage</span></a
-          >
-        </li>
-        <li class="header_categori_li">
-          <a href="LoginC"
-            ><jsp:include page="${LoginBtn}"></jsp:include
-            ><span id="hidden">Login</span></a
-          >
-        </li>
+      <li class="header_categori_li"><jsp:include page="${MyPage}"></jsp:include><span class="hidden"><a href="MyPageC">MyPage</a></span></li>
+      <li class="header_categori_li"><jsp:include page="${LoginBtn}"></jsp:include><span class="hidden"><a href="LoginC">Login</a></span></li>
       </ul>
     </header>
   </body>
+      <script>
+    /* unlogged user viewer  */
+    var loginChk = '${loginChk}';
+    console.log(loginChk);
+
+    const spans = document.querySelectorAll('.hidden');
+    if (loginChk != 'logout') {
+        spans.forEach(function(span) {
+        span.style.display = 'none';
+      });
+    }
+    if(loginChk == '') {
+       spans[1].style.display = 'block';
+    	
+    }
+</script>
 </html>
