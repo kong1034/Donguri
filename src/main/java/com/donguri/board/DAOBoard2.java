@@ -1,13 +1,22 @@
 package com.donguri.board;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.donguri.main.DBManager;
+
+import twitter4j.JSONObject;
 
 public class DAOBoard2 {
 	private static ArrayList<DTOBoard2> epilogues;
@@ -139,11 +148,12 @@ public class DAOBoard2 {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from d_comment";
+		String sql = "select * from d_comment where r_no=? order by c_date";
 
 		try {
 			con = DBManager.connect();
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, request.getParameter("no"));
 			rs = pstmt.executeQuery();
 			
 			comments = new ArrayList<DTOBoard2>();
@@ -152,7 +162,7 @@ public class DAOBoard2 {
 				c = new DTOBoard2();
 				c.setC_no(rs.getInt("c_no"));
 				c.setId(rs.getString("u_id"));
-				c.setG_no(rs.getInt("r_no"));
+				c.setNo(rs.getInt("r_no"));
 				c.setC_content(rs.getString("c_content"));
 				c.setC_date(rs.getDate("c_date"));
 				comments.add(c);
@@ -169,33 +179,87 @@ public class DAOBoard2 {
 		
 	}
 
-	public static void insertComment(HttpServletRequest request) {
+	public static void insertComment(HttpServletRequest request, HttpServletResponse response) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql="insert into d_comment values (d_comment_seq.nextval,?,?,?,sysdate)";
+		
+	    
 		try {
+			StringBuilder sb = new StringBuilder();
+			BufferedReader reader = request.getReader();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			
 			con = DBManager.connect();
 			pstmt = con.prepareStatement(sql);
-			System.out.println(request.getParameter("u_id"));
-			System.out.println(request.getParameter("g_no"));
-			System.out.println(request.getParameter("reply_contents"));
 			
-			pstmt.setString(1, "yrr");
-			pstmt.setString(2, request.getParameter("g_no"));
-			pstmt.setString(3, request.getParameter("reply_contents"));
+			JSONObject jsonObject = new JSONObject(sb.toString());
+			
+			request.setAttribute("userId", jsonObject.getString("userId"));
+			request.setAttribute("reviewId", jsonObject.getString("reviewId"));
+			request.setAttribute("content", jsonObject.getString("content"));
+			
+			 String userId = (String) request.getAttribute("userId");
+		     String reviewId = (String) request.getAttribute("reviewId");
+		     String content = (String) request.getAttribute("content");
+
+		     pstmt.setString(1, userId);
+		     pstmt.setString(2, reviewId);
+		     pstmt.setString(3, content);
 			
 			if (pstmt.executeUpdate() == 1) {
 				System.out.println("등록성공");
 			}
 			
+			JSONObject jsonResponse = new JSONObject();
+		    jsonResponse.put("userId", userId);
+		    jsonResponse.put("content", content);
+		    jsonResponse.put("date", new SimpleDateFormat("yy.MM.dd hh:mm").format(new Date()));
+		    
+			PrintWriter out = response.getWriter();
+			out.print(jsonResponse.toString());
+			out.flush();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("server error");
+		}  catch (Exception e) {
+	        e.printStackTrace();
 		}finally {
 			DBManager.close(con, pstmt, null);
 		}
 	}
+	
+
+	public static void deleteComment(HttpServletRequest request, HttpServletResponse response) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql="delete from d_comment where c_no=?";
+		
+		try {
+			
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, request.getParameter("c_no"));
+			
+			if (pstmt.executeUpdate() == 1) {
+				System.out.println("삭제성공");
+				 response.getWriter().write("{\"status\": \"success\"}");
+			}else {
+				response.getWriter().write("{\"status\": \"error\", \"message\": \"Failed to delete comment\"}");
+			}
+			response.setContentType("application/json");
+			 response.setCharacterEncoding("utf-8");
+			 request.setAttribute("c_no", "c_no");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(con, pstmt, null);
+		}		
+	}
+
 	public static void paging(int page, HttpServletRequest request) {
 		request.setAttribute("curPageNo", page);
 		int cnt = 4;		// 한페이지당 보여줄 개수
@@ -215,5 +279,9 @@ public class DAOBoard2 {
 		}
 		request.setAttribute("epilogues", pages);
 	}
+
+
+
+
 
 }
