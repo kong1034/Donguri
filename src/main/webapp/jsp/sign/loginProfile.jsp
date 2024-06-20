@@ -13,6 +13,6 @@
     height: 2.5em;
     border: 1px solid black;
     border-radius: 50%;"
-    onclick="location.href='MyPageC?result=${loginChk}'">
+    onclick="location.href='MyPageC'">
 </body>
 </html>
