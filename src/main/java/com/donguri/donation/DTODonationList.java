@@ -3,7 +3,7 @@ package com.donguri.donation;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class DTODonation {
+public class DTODonationList {
     private String id;
     private String imageUrl;
     private String tag;

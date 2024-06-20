@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import com.donguri.main.DBManager;
 
-public class DAODonation {
+public class DAODonationList {
 
-    public DTODonation getDonationById(String id) {
+    public DTODonationList getDonationById(String id) {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        DTODonation donation = null;
+        DTODonationList donation = null;
 
         try {
             con = DBManager.connect();
@@ -24,7 +24,7 @@ public class DAODonation {
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                donation = new DTODonation();
+                donation = new DTODonationList();
                 donation.setId(rs.getString("id"));
                 donation.setImageUrl(rs.getString("image_url"));
                 donation.setTag(rs.getString("tag"));
@@ -43,11 +43,11 @@ public class DAODonation {
         return donation;
     }
 
-    public List<DTODonation> getAllDonations() {
+    public List<DTODonationList> getAllDonations() {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<DTODonation> donations = new ArrayList<DTODonation>();
+        List<DTODonationList> donations = new ArrayList<DTODonationList>();
 
         try {
             con = DBManager.connect();
@@ -56,7 +56,7 @@ public class DAODonation {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                DTODonation donation = new DTODonation();
+                DTODonationList donation = new DTODonationList();
                 donation.setId(rs.getString("id"));
                 donation.setImageUrl(rs.getString("image_url"));
                 donation.setTag(rs.getString("tag"));
