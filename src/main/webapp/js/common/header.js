@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
             span.style.display = 'none';
         });
     }
+})
+$(function () {
 
     // Logo img animation
     $(".header_logo_img").css("transform", "translateX(81%) rotate(1110deg)");
