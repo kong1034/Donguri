@@ -20,7 +20,7 @@
 </head>
 <body class="rocknroll-one-regular">
 	<header class="header_container">
-		<p>Donguri</p>
+		<p onclick ="location.href='HC'">Donguri</p>
 	</header>
 	<jsp:include page="${contentPage}"></jsp:include>
 </body>
