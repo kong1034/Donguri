@@ -22,32 +22,46 @@ body {
   text-align: center;
 }
 /* ---epilogue--- */
-.container_ed .epilogue {
+.epilogue_list .epilogue {
   border-bottom: 1px solid #ccc;
 }
-.container_ed .title {
+.epilogue_list .title {
   height: 100px;
 }
 .epilogue_center{
   width: 1200px;
+  height: 100px;
   display: flex;
   justify-content:space-between;
-  border-bottom: 1px solid #ccc;
 }
+.epilogue_center div{
+  border-right: 1px solid #ccc;
+  width: 400px;
+	
+}
+
 .container_ed span {
-  padding: 30px;
   width: 200px;
+  height: 100px;
   float: left;
   border-right: 1px solid #ccc;
+}
+.tag_class {
+	border: 3px solid orange;
+	border-radius: 30px;
+	width: 90px;
+	height: 45px;
+	text-align: center;
+	align-content: center;
+	font-weight: 600;
+	font-size: 16pt;
+	letter-spacing: 1px;
 }
 .container_ed .content {
   height: 200px;
 }
 .container_ed .content span {
-  padding-top: 30px;
   height: 200px;
-  border-right: 1px solid #ccc;
-  
 }
 
 
@@ -73,6 +87,7 @@ body {
 	display: flex;
 	padding: 10px;
 	border: 1px solid #ccc;
+	align-items: center;
 }
 .comment_list .comment_writer{
 	text-align: left;
@@ -90,7 +105,6 @@ body {
 }
 .comment_list .comment_update{
 	width: 80px;
-	
 }
 .comment_input{
 	 width: 1000px;
@@ -101,9 +115,9 @@ body {
 }
 .comment_input textarea{
 	font-size: 18pt;
-	outline-color: #f6a200;
 	border: 1px solid #f6a200;
-	
+	border-radius: 20px;
+	padding: 20px;
 }
 .bottom p {
 	     padding: 0px;
@@ -118,14 +132,65 @@ body {
 	font-size: 18pt;
 	cursor: pointer;
 	margin: 5px;
-	
+}
+.comment_delete{
+	border: 3px solid #f6a200;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	padding-top: 5px;
 }
 .btn_delete img{
 	width: 35px;
 	cursor: pointer;
+	margin: auto;
 }
 .error-message{
-	 color: red;
+	color: red;
     font-size: 20px;
+}
+.comment_update{
+	font-size: 15pt;
+	border: 3px solid #f6a200;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	padding-top: 5px;
+	cursor: pointer;
+}
+.commentModal{
+	display: none; 
+	width: 650px; 
+	border: 3px solid #f6a200;
+	padding: 20px;
+	border-radius: 20px;
+	margin: auto;
+    position: fixed; 
+    top: 30%; 
+    left: 50%;
+    transform: translateX(-50%); 
+    background-color: white; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    z-index: 1000; 
+}
+.commentModal p{
+	padding: 0 10px 0;
 	
+}
+#comment_text{
+	padding:10px;
+	font-size: 16pt;
+	outline-color: #f6a200;
+	border: 1px solid #f6a200;
+	border-radius: 20px;
+}
+.commentModal button{
+	width: 150px;
+	height: 50px;
+	font-size: 16pt;
+	font-weight: 600;
+	color:#f6a200;
+	background-color: #fff;
+	border-radius: 20px;
+	border: 1px solid #f6a200;
 }
