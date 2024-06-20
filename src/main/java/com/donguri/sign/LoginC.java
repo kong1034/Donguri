@@ -30,7 +30,6 @@ public class LoginC extends HttpServlet {
 		
 		
 		if (loginChk!= "logout") {
-			
 			String jwtToken = (String) request.getAttribute("jwtToken");
 			Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
 			// login status time limit
