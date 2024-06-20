@@ -61,7 +61,6 @@ body {
   border-radius: 50%;
   background-color: #44b90e;
   margin: auto;
-	
 }
 .my_profile img {
   width: 120px;
@@ -79,44 +78,57 @@ body {
   font-size: 12pt;
 }
 .mypage_middle {
-  width: 800px;
-  height: 60px;
-  background-color: #cfff91;
-  margin: 30px auto 0px;
-  border-radius: 30px;
+  width: 760px;
+  height: 40px;
+  /* background-color: #cfff91; */
+  margin: auto ;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: flex-end;
 }
 .bar {
   border-radius: 30px 30px 0px 0px;
-  width: 160px;
+  width: 180px;
   height: 45px;
   justify-content: center;
   text-align: center;
   align-content: center;
+  border: 3px solid #cfff91;
+  cursor: pointer;
   background-color: #fff;
-  border-bottom: #cfff91;
+}
+.bar.active {
+  border: 5px solid #fff;
+    background-color: #cfff91;
+    
 }
 .mypage_bottom {
   width: 850px;
   height: max-content;
   margin: auto;
   padding: 20px 0 20px;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 30px;
 }
 .mypage_bottom p {
   padding: 20px;
 }
-.donation_info {
+.donation_info,
+.community_history,
+.community_ing{
   width: 800px;
+  min-height: 200px;
   border: 1px solid #ccc;
-  border-radius: 20px;
-  height: 200px;
   margin: auto;
-  display: flex;
+  border-radius: 20px;
   box-shadow: 3px 3px 3px #ddd;
+  background-color: #fff;
+  padding-bottom: 20px; 
+}
+.donation_info {
+  display: flex;
+  margin: 0 auto 8px;
+  
 }
 .donation_info_left {
   display: grid;
@@ -135,13 +147,13 @@ body {
 .donation_info_right span {
   float: right;
 }
+.community_ing_list a{
+	text-decoration: none;
+	color:black;
+}
+
 .community_history {
-  width: 800px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  min-height: 200px;
-  margin: 5px auto 5px;
-  box-shadow: 3px 3px 3px #ddd;
+  margin: 0 auto 8px;
 }
 .community_history_list,
 .community_ing_list {
@@ -150,14 +162,6 @@ body {
   justify-content: space-between;
   margin: 0 auto 3px;
   border-bottom: 1px solid #ccc;
-}
-.community_ing {
-  width: 800px;
-  margin: auto;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  min-height: 200px;
-  box-shadow: 3px 3px 3px #ddd;
 }
 .c_date,
 .ing_date {
