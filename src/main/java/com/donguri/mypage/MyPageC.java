@@ -15,6 +15,8 @@ import com.donguri.sign.DAOSign;
 public class MyPageC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
+		DAOBoard.getMyBoard(request);
 		//Get Session
 		DAOSign.RDAO.getUserSession(request, response);
 		request.setAttribute("contentPage", "/jsp/mypage/mypage.jsp");

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +20,7 @@ public class DAOBoard {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from d_group_list order by g_date desc" ;
+		String sql = "select * from d_group_list order by g_date" ;
 
 		try {
 			con = DBManager.connect();
@@ -94,7 +95,45 @@ public class DAOBoard {
 		}
 
 	}
+	public static List<DTOBoard> getMyBoard(HttpServletRequest request) {
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from d_group_list where u_id=? order by g_date desc";
+
+		 List<DTOBoard> boardList = new ArrayList<>();
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "yuree");
+			rs = pstmt.executeQuery();
+
+			DTOBoard mb = null;
+			while (rs.next()) {
+				mb = new DTOBoard();
+				mb.setNo(rs.getInt("g_no"));
+				mb.setId(rs.getString("u_id"));
+				mb.setTitle(rs.getString("g_title"));
+				mb.setContent(rs.getString("g_content"));
+				mb.setDate(rs.getDate("g_date"));
+				mb.setTag(rs.getString("g_tag"));
+				mb.setStatus(rs.getString("g_status"));
+				mb.setPlace(rs.getString("g_place"));
+				mb.setImg(rs.getString("g_img"));
+				boardList.add(mb);
+
+			 request.setAttribute("myboard", boardList);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("서버에러");
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+			return boardList;
+	}
 	public static void makeBoard(HttpServletRequest request) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -139,7 +178,7 @@ public class DAOBoard {
 
 	public static void paging(int page, HttpServletRequest request) {
 		request.setAttribute("curPageNo", page);
-		int cnt = 4;		// 한페이지당 보여줄 개수
+		int cnt = 10;		// 한페이지당 보여줄 개수
 		int total = boardlists.size();	// 총 데이터 개수
 		
 		// 총 페이지수  = 곧 마지막페이지 
