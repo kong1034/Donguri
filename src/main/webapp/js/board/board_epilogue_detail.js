@@ -5,7 +5,7 @@ function saveComment(userId, reviewId) {
 	var c_no = $('#delete_no').val();
 
 	if (content.trim() === "") {
-		$("#add_message").html("내용을 입력하세요").addClass("error-message");
+		$("#add_message").html("内容を入力してください").addClass("error-message");
 		$("#content").focus();
 		return;
 	}
@@ -37,14 +37,13 @@ function saveComment(userId, reviewId) {
 								<a class="btn_delete" onclick="deleteComment(`+ response.c_no + `)"><img alt=""
 									src="img/local/board/delete_button.png"></a></div>
 							<div class="comment_update">
-							<a class="btn_update" onclick="UpdateComment()">수정</a>
+							<a class="btn_update" onclick="updateComment(this, `+ response.c_no + `, '` + response.content + `')">수정</a>
 							</div>`;
 
 			$(".top").append(newComment);
 
 			$("#add_message").html(response.message);
 			$("#content").val("");
-
 		},
 		error: function(xhr, status, error) {
 			console.error("Error: ", error);
@@ -56,32 +55,85 @@ function saveComment(userId, reviewId) {
 }
 
 function deleteComment(c_no) {
-	let ok = confirm('정말 삭제하시겠습니까?');
+	let ok = confirm('削除しますか？');
 	console.log(c_no);
 	if (ok) {
 		$.ajax({
-			url: 'CommentDeleteC?c_no=' + c_no,
+			url: 'CommentDeleteC',
 			data: { c_no },
-			dataType:'json'
-			})
-			.done(function(resData) {
+			dataType: 'json',
+			success: function(resData) {
 				console.log(resData);
 				if (resData.status === 'success') {
 					$('#comment_' + c_no).remove();
+					location.reload();
 				} else {
-					alert('삭제 오류'+ resData.message );
+					alert('削除 エラー' + resData.message);
 				}
-				})
+			}
+		})
 			.fail(function(xhr) {
 				console.log(xhr);
-		
-				});
-	
+			});
+	}
 }
+
+function openModal() {
+	$(".commentModal").show();
 }
-function updateComment(c_no){
-	
-	
-	
+
+function closeModal() {
+	$(".commentModal").hide();
+	$("#comment_no").val('');
+	$("#comment_text").val('');
 }
+
+let activeContent;
+function updateComment(content, comment_no, comment_content) {
+
+	activeContent = content;
+	console.log(activeContent);
+	$("#comment_no").val(comment_no);
+	$("#comment_text").val($(content).closest('.comment_list').find('.comment_contents').text());
+	openModal();
+}
+
+$(document).ready(function() {
+	$("#modalModBtn").on("click", function() {
+		const comment_no = $("#comment_no").val();
+		const comment_content = $("#comment_text").val();
+		var data = {
+			comment_no: comment_no,
+			comment_content: comment_content
+		}
+
+		console.log(comment_no, comment_content);
+		if (!confirm("コメントを修正しますか？")) {
+			return false;
+		} else {
+			$.ajax({
+				url: "CommentUpdateC",
+				type: "POST",
+				data: JSON.stringify(data),
+				dataType: 'json',
+				contentType: "application/json; charset=utf-8",
+				success: function(result) {
+					console.log(result);
+					if (result.status == "success") {
+						alert("修正完了");
+						closeModal();
+						console.log(activeContent);
+						$(activeContent).closest('.comment_list').find('.comment_contents').text(comment_content);
+
+					} else {
+						alert("error");
+					}
+				},
+				error: function(request, status, error) {
+					alert("code: " + request.status + "\n" + "error: " + error);
+				}
+			});
+		}
+	});
+});
 
