@@ -1,31 +1,19 @@
 @charset "UTF-8";
 
 /* Footer styles */
-body, html {
-    height: 100%;
-    margin: 0;
-}
-
-.wrapper {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.content {
-    flex: 1;
-}
-
 #footer_container {
-    background-color: #4CAF50;
+    background-color: #f8f8f8; /* Same as header for consistency */
     border-top: 1px solid #ddd;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
-    position: relative;
-    height: 50px;
+    padding: 5px 0; /* Reduced padding */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    transition: border-color 0.3s ease; /* Transition for border color */
 }
 
 .footer {
@@ -51,27 +39,43 @@ body, html {
 
 .footer_links a {
     text-decoration: none;
-    color: #fff;
+    color: #333; /* Consistent with header */
+    transition: color 0.3s ease; /* Transition for color change */
 }
 
+.footer_links a:hover {
+    color: #4CAF50; /* Change to green on hover */
+}
+
+/* Reduce footer padding to make it smaller */
 .footer_nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 10px;
+    padding: 5px; /* Reduced padding */
 }
 
 .footer_nav a {
     text-decoration: none;
-    color: #fff;
-    padding: 10px;
-    background-color: #333;
+    color: #333; /* Consistent with header */
+    padding: 5px; /* Reduced padding */
+    background-color: #ddd; /* Same as hover color in header */
     border-radius: 5px;
-    margin: 0 10px;
+    margin: 0 5px;
     transition: background-color 0.3s;
 }
 
 .footer_nav a:hover {
     background-color: #555;
+}
+
+/* Ensure the main content has padding at the bottom to not overlap with the fixed footer */
+.content {
+    padding-bottom: 50px; /* Adjust according to the footer height */
+}
+
+/* Change footer border color on scroll */
+body {
+    padding-bottom: 50px; /* Adjust according to the footer height */
 }

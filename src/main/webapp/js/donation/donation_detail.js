@@ -1,30 +1,52 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var shareBtn = document.getElementById('share_button');
-    var shareModal = document.getElementById('share_modal');
-    var shareCloseBtn = document.getElementById('share_close');
+    var openDonationModalBtn = document.getElementById('open_donation_modal');
+    var donationModal = document.getElementById('donation_modal');
+    var donationCloseBtn = document.getElementById('donation_close');
+    var donationBtn = document.getElementById('process_donation_button');
 
-    shareBtn.addEventListener('click', function() {
-        shareModal.style.display = "block";
-    });
+    if (openDonationModalBtn) {
+        openDonationModalBtn.addEventListener('click', function() {
+            donationModal.style.display = "block";
+        });
+    }
 
-    shareCloseBtn.addEventListener('click', function() {
-        shareModal.style.display = "none";
-    });
+    if (donationCloseBtn) {
+        donationCloseBtn.addEventListener('click', function() {
+            donationModal.style.display = "none";
+        });
+    }
 
     window.addEventListener('click', function(event) {
-        if (event.target == shareModal) {
-            shareModal.style.display = "none";
+        if (event.target == donationModal) {
+            donationModal.style.display = "none";
         }
     });
-});
 
-function copyToClipboard(selector) {
-    var text = document.querySelector(selector).value;
-    var tempInput = document.createElement('input');
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempInput);
-    alert('Link copied to clipboard');
-}
+    if (donationBtn) {
+        donationBtn.addEventListener('click', function() {
+            var form = document.getElementById('donation_form');
+            var amount = document.getElementById('donation_amount').value;
+
+            if (amount) {
+                fetch('/DonationC', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams(new FormData(form))
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        window.open(data.paymentUrl, 'LinePay', 'width=800,height=600');
+                    } else {
+                        alert('Payment initiation failed. Please try again.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert('Please enter a valid amount.');
+            }
+        });
+    }
+});

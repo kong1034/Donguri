@@ -7,13 +7,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Base64;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import com.google.gson.Gson;
 
-// Servlet for handling donation requests
 @WebServlet("/DonationC")
 public class DonationC extends HttpServlet {
     private static final String CHANNEL_ID = "2005457884";
@@ -23,46 +29,89 @@ public class DonationC extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        String amount = request.getParameter("amount");
-        String orderId = UUID.randomUUID().toString();
-        String nonce = UUID.randomUUID().toString();
+        String amountStr = request.getParameter("amount");
 
-        // Construct request body
-        PaymentRequest paymentRequest = new PaymentRequest();
-        paymentRequest.setAmount(Integer.parseInt(amount));
-        paymentRequest.setCurrency("JPY");
-        paymentRequest.setOrderId(orderId);
+        if (amountStr == null || amountStr.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print("{\"status\":\"error\", \"message\":\"Amount is required.\"}");
+            out.flush();
+            return;
+        }
 
-        PaymentPackage paymentPackage = new PaymentPackage();
-        paymentPackage.setId("packageId");
-        paymentPackage.setAmount(Integer.parseInt(amount));
-        paymentPackage.setName("Donation");
+        try {
+            int amount = Integer.parseInt(amountStr);
+            String orderId = UUID.randomUUID().toString();
+            String nonce = UUID.randomUUID().toString();
 
-        Product product = new Product();
-        product.setId("productId");
-        product.setName("Donation Product");
-        product.setQuantity(1);
-        product.setPrice(Integer.parseInt(amount));
-        paymentPackage.setProducts(new Product[]{product});
+            // Construct request body
+            PaymentRequest paymentRequest = new PaymentRequest();
+            paymentRequest.setAmount(amount);
+            paymentRequest.setCurrency("JPY");
+            paymentRequest.setOrderId(orderId);
 
-        paymentRequest.setPackages(new PaymentPackage[]{paymentPackage});
+            PaymentPackage paymentPackage = new PaymentPackage();
+            paymentPackage.setId("packageId");
+            paymentPackage.setAmount(amount);
+            paymentPackage.setName("Donation");
 
-        RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setConfirmUrl("https://yourdomain.com/confirm");
-        redirectUrls.setCancelUrl("https://yourdomain.com/cancel");
-        paymentRequest.setRedirectUrls(redirectUrls);
+            Product product = new Product();
+            product.setId("productId");
+            product.setName("Donation Product");
+            product.setQuantity(1);
+            product.setPrice(amount);
+            paymentPackage.setProducts(new Product[]{product});
 
-        Gson gson = new Gson();
-        String requestBody = gson.toJson(paymentRequest);
+            paymentRequest.setPackages(new PaymentPackage[]{paymentPackage});
 
-        String signature = HmacSignature.encrypt(CHANNEL_SECRET, CHANNEL_SECRET + LINE_PAY_URL + requestBody + nonce);
+            RedirectUrls redirectUrls = new RedirectUrls();
+            redirectUrls.setConfirmUrl("http://localhost:8080/Donguri/DonationC");
+            redirectUrls.setCancelUrl("http://localhost:8080/Donguri/DonationC");
+            paymentRequest.setRedirectUrls(redirectUrls);
 
-        // Mock response for testing
-        String paymentUrl = "https://sandbox-web-pay.line.me/web/pay?transactionId=TEST_TRANSACTION_ID";
+            Gson gson = new Gson();
+            String requestBody = gson.toJson(paymentRequest);
 
-        response.setStatus(HttpServletResponse.SC_OK);
-        out.print("{\"status\":\"success\", \"paymentUrl\":\"" + paymentUrl + "\"}");
-        out.flush();
+            String signature = HmacSignature.encrypt(CHANNEL_SECRET, CHANNEL_SECRET + LINE_PAY_URL + requestBody + nonce);
+
+            // Send request to LINE Pay
+            URL url = new URL(LINE_PAY_URL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("X-LINE-ChannelId", CHANNEL_ID);
+            connection.setRequestProperty("X-LINE-Authorization-Nonce", nonce);
+            connection.setRequestProperty("X-LINE-Authorization", signature);
+            connection.setDoOutput(true);
+
+            OutputStream os = connection.getOutputStream();
+            os.write(requestBody.getBytes());
+            os.flush();
+            os.close();
+
+            if (connection.getResponseCode() == 200) {
+                // Read response
+                InputStream is = connection.getInputStream();
+                String responseStr = new BufferedReader(new InputStreamReader(is))
+                    .lines().collect(Collectors.joining("\n"));
+                is.close();
+
+                // Parse response to get paymentUrl
+                PaymentResponse paymentResponse = gson.fromJson(responseStr, PaymentResponse.class);
+                String paymentUrl = paymentResponse.getInfo().getPaymentUrl().getWeb();
+
+                response.setStatus(HttpServletResponse.SC_OK);
+                out.print("{\"status\":\"success\", \"paymentUrl\":\"" + paymentUrl + "\"}");
+            } else {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                out.print("{\"status\":\"error\", \"message\":\"Failed to create payment.\"}");
+            }
+
+            out.flush();
+        } catch (NumberFormatException e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            out.print("{\"status\":\"error\", \"message\":\"Invalid amount.\"}");
+            out.flush();
+        }
     }
 
     static class HmacSignature {
@@ -227,6 +276,42 @@ public class DonationC extends HttpServlet {
 
         public void setCancelUrl(String cancelUrl) {
             this.cancelUrl = cancelUrl;
+        }
+    }
+
+    static class PaymentResponse {
+        private PaymentInfo info;
+
+        public PaymentInfo getInfo() {
+            return info;
+        }
+
+        public void setInfo(PaymentInfo info) {
+            this.info = info;
+        }
+    }
+
+    static class PaymentInfo {
+        private PaymentUrl paymentUrl;
+
+        public PaymentUrl getPaymentUrl() {
+            return paymentUrl;
+        }
+
+        public void setPaymentUrl(PaymentUrl paymentUrl) {
+            this.paymentUrl = paymentUrl;
+        }
+    }
+
+    static class PaymentUrl {
+        private String web;
+
+        public String getWeb() {
+            return web;
+        }
+
+        public void setWeb(String web) {
+            this.web = web;
         }
     }
 }

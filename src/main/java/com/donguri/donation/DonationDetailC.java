@@ -10,14 +10,27 @@ import java.io.IOException;
 @WebServlet("/DonationDetailC")
 public class DonationDetailC extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String donationId = request.getParameter("id");
+        String donationIdStr = request.getParameter("id");
 
-        DAODonation daoDonation = new DAODonation();
-        DTODonation donation = daoDonation.getDonationById(donationId);
+        if (donationIdStr != null) {
+            try {
+                int donationId = Integer.parseInt(donationIdStr);
 
-        request.setAttribute("donation", donation);
-        request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
+                DAODonationList daoDonation = new DAODonationList();
+                DTODonationList donation = daoDonation.getDonationById(donationId);
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+                if (donation != null) {
+                    request.setAttribute("donation", donation);
+                    request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
+                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                } else {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Donation not found");
+                }
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid donation ID");
+            }
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Donation ID is required");
+        }
     }
 }

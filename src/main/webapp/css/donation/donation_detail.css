@@ -6,6 +6,7 @@ body {
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
+    padding-top: 70px; /* Ensure there is space for the fixed header */
     animation: fadeIn 1s;
 }
 
@@ -78,6 +79,7 @@ body {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    max-width: 500px;
     border-radius: 10px;
     animation: slideIn 0.5s;
 }
@@ -127,7 +129,7 @@ body {
 }
 
 /* Responsive styling */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
     .donation_container {
         flex-direction: column;
         padding: 20px;
