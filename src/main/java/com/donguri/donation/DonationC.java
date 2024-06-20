@@ -64,8 +64,8 @@ public class DonationC extends HttpServlet {
             paymentRequest.setPackages(new PaymentPackage[]{paymentPackage});
 
             RedirectUrls redirectUrls = new RedirectUrls();
-            redirectUrls.setConfirmUrl("http://localhost:8080/Donguri/DonationC");
-            redirectUrls.setCancelUrl("http://localhost:8080/Donguri/DonationC");
+            redirectUrls.setConfirmUrl("http://localhost:8080/Donguri/DonationC?status=confirm");
+            redirectUrls.setCancelUrl("http://localhost:8080/Donguri/DonationC?status=cancel");
             paymentRequest.setRedirectUrls(redirectUrls);
 
             Gson gson = new Gson();
@@ -92,7 +92,7 @@ public class DonationC extends HttpServlet {
                 // Read response
                 InputStream is = connection.getInputStream();
                 String responseStr = new BufferedReader(new InputStreamReader(is))
-                    .lines().collect(Collectors.joining("\n"));
+                        .lines().collect(Collectors.joining("\n"));
                 is.close();
 
                 // Parse response to get paymentUrl
@@ -111,6 +111,21 @@ public class DonationC extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             out.print("{\"status\":\"error\", \"message\":\"Invalid amount.\"}");
             out.flush();
+        }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String status = request.getParameter("status");
+        if ("confirm".equals(status)) {
+            // Handle confirmation logic here
+            request.setAttribute("message", "Payment confirmed successfully.");
+            request.getRequestDispatcher("/confirmation_page.jsp").forward(request, response);
+        } else if ("cancel".equals(status)) {
+            // Handle cancellation logic here
+            request.setAttribute("message", "Payment cancelled.");
+            request.getRequestDispatcher("/cancellation_page.jsp").forward(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid status");
         }
     }
 

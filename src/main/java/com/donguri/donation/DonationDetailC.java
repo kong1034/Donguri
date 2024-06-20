@@ -12,6 +12,8 @@ public class DonationDetailC extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String donationIdStr = request.getParameter("id");
 
+        DAODonation.model(request, response);
+
         if (donationIdStr != null) {
             try {
                 int donationId = Integer.parseInt(donationIdStr);
