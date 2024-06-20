@@ -13,14 +13,13 @@ form {
 }
 #signup_info_container {
   border: 1px solid black;
-  width: 40%;
+  width: 33%;
   height: 100%;
   box-sizing: border-box;
   margin: 40px auto 45px;
   padding: 0 69px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  
 }
 #signup_info_content {
   padding: 50px 0 55px;
