@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,16 +20,16 @@
 			<div class="image">
 				<img src="" alt="" />
 			</div>
-				<button class="my_info_update" onclick="location.href='MyPageUpdateC'">정보수정</button>
+<button class="my_info_update" onclick="location.href='MyPageUpdateC'">정보수정</button>
 			</div>
 		</div>
+		<div class="mypage_bottom">
 		<div class="mypage_middle">
-			<div id="all_history" class="middle bar">전체 내역</div>
+			<div id="all_history" class="middle bar active">전체 내역</div>
 			<div id="donation_history" class="middle bar">기부 내역</div>
 			<div id="participation_history" class="middle bar">참여 내역</div>
 			<div id="current_meetings" class="middle bar">모집중인 모임</div>
 		</div>
-		<div class="mypage_bottom">
 			<div id="all_content" class="content-section">
 				<div class="donation_info">
 					<div class="donation_info_left">
@@ -50,22 +51,23 @@
 					<p style="font-size: 18pt">내가 참여한 모임</p>
 					<div class="community_history_bottom">
 						<div class="community_history_list">
-							<div class="c_date">24.6.1.</div>
-							<div class="c_title">유기묘 보호기관 봉사활동</div>
-							<div class="c_epilogue">후기 작성하기</div>
+							<div class="c_date"></div>
+							<div class="c_title"></div>
+							<div class="c_epilogue"><a href="BoardEpilogueMakeC">후기 작성하기</a> 
+							</div>
 						</div>
-
 					</div>
 				</div>
 				<div class="community_ing">
 					<p style="font-size: 18pt">내가 모집중인 모임</p>
 					<div class="community_ing_bottom">
+					<c:forEach items="${myboard}" var="b">
 						<div class="community_ing_list">
-							<div class="ing_date">24.6.1. ~ 24.6.9.</div>
-							<div class="ing_title">한강 플로깅</div>
-							<div class="ing_epilogue">상세 내역 보기</div>
+							<div class="ing_date">${b.date }</div>
+							<div class="ing_title">${b.title }</div>
+							<div class="ing_epilogue"><a href="BoardDetailC?no=${b.no }">상세 내역 보기</a></div>
 						</div>
-
+						</c:forEach>
 					</div>
 				</div>
 
@@ -95,11 +97,13 @@
 				<div class="community_history">
 					<p style="font-size: 18pt">내가 참여한 모임</p>
 					<div class="community_history_bottom">
+					<c:forEach items="" var="">
 						<div class="community_history_list">
-							<div class="c_date">24.6.1.</div>
-							<div class="c_title">유기묘 보호기관 봉사활동</div>
+							<div class="c_date"></div>
+							<div class="c_title"></div>
 							<div class="c_epilogue">후기 작성하기</div>
 						</div>
+					</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -108,11 +112,13 @@
 				<div class="community_ing">
 					<p style="font-size: 18pt">내가 모집중인 모임</p>
 					<div class="community_ing_bottom">
+					<c:forEach items="${myboard}" var="b">
 						<div class="community_ing_list">
-							<div class="ing_date">24.6.1. ~ 24.6.9.</div>
-							<div class="ing_title">한강 플로깅</div>
-							<div class="ing_epilogue">상세 내역 보기</div>
+							<div class="ing_date">${b.date }</div>
+							<div class="ing_title">${b.title }</div>
+							<div class="ing_epilogue"><a href="BoardDetailC?no=${b.no }">상세 내역 보기</a></div>
 						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

@@ -18,7 +18,9 @@
 				</div>
 				<div class="epilogue_center">
 					<div class="epilogue tag">
-						<span>タグ</span> ${epilogues.tag }
+						<span>タグ</span> <p class="tag_class">
+						${epilogues.tag }
+						</p> 
 					</div>
 					<div class="epilogue writer">
 						<span>作成者</span> ${epilogues.id }
@@ -28,12 +30,12 @@
 					</div>
 				</div>
 				<div class="epilogue content">
-					<span>내용</span>${epilogues.content }
+					<span>内容</span>${epilogues.content }
 				</div>
 			</div>
 
 			<div class="comment-group">
-				<p>댓글</p>
+				<p>コメント</p>
 				<div class="comment top">
 					<c:forEach items="${comments }" var="c">
 						<div class="comment_list" id="comment_${c.c_no}">
@@ -48,19 +50,30 @@
 									type="hidden" id="delete_no" value="${c.c_no}">
 							</div>
 							<div class="comment_update">
-								<a class="btn_update" onclick="updateComment(${c.c_no})">수정</a>
-							</div>
+								<a class="btn_update"
+									onclick="updateComment(this, ${c.c_no}, '${c.c_content}')">修正</a>
+					</div>
 						</div>
 					</c:forEach>
+						<div id="commentModal_${c.c_no}" class="commentModal" >
+							<p>コメント 修正</p>
+						<input type="hidden" id="comment_no" value="${contents.c_no }">
+						<textarea id="comment_text" rows="3" cols="50"></textarea>
+						<button id="modalModBtn">チェック</button>
+						<button onclick="closeModal()">キャンセル</button>
+					</div>
 				</div>
+				
+				
+					
 				<div class="comment bottom">
-					<p>댓글 쓰기</p>
+					<p>コメントをつける</p>
 					<p>${id }</p>
 					<div class="comment_input">
-						<textarea rows="2" cols="70" placeholder="댓글을 남겨주세요 "
+						<textarea rows="2" cols="65" placeholder="댓글을 남겨주세요 "
 							name="reply_contents" id="content"></textarea>
 						<button class="btn_register" id="add_btn"
-							onclick="saveComment('yuree', '${epilogues.no}')">등록</button>
+							onclick="saveComment('yuree', '${epilogues.no}')">登錄</button>
 					</div>
 					<div id="add_message">&nbsp;</div>
 				</div>
