@@ -19,7 +19,7 @@
 			<div class="image">
 				<img src="" alt="" />
 			</div>
-				<button class="my_info_update">정보수정</button>
+				<button class="my_info_update" onclick="location.href='MyPageUpdateC'">정보수정</button>
 			</div>
 		</div>
 		<div class="mypage_middle">
