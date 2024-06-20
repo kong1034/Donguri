@@ -48,10 +48,26 @@ public class DAOSign {
 		}
 	}
 	
+	
 	// SECRET_KEY
 	private static final String SECRET_KEY = Common.SECRET_KEY;
 	// Create RandomNumber for e-maiil Chk
 	static StringBuilder randomNumber = new StringBuilder();
+	
+	//Get User Session
+	public void getUserSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		HttpSession session = request.getSession();
+		
+		if (session != null) {
+			UserDTO user = (UserDTO) session.getAttribute("user");
+			System.out.println("세션 불러오기 성공");
+		}else {
+			System.out.println("로그인 하세요");
+			response.sendRedirect("LoginC");
+		}
+		
+	}
 	
 	// JWT Validation Method
     public static Claims validateToken(String token) {
@@ -98,7 +114,7 @@ public class DAOSign {
 					user = new UserDTO(
 							rs.getString(1), 
 							rs.getString(2), 
-						null, // User_PW
+							rs.getString(3),
 							rs.getString(4), 
 							rs.getString(5), 
 							rs.getString(6), 
@@ -108,16 +124,20 @@ public class DAOSign {
 							rs.getString(10)
 							);
 					
-					
 					response.setContentType("application/json");
 					response.setCharacterEncoding("utf-8");
 					
-					 //JSON Key, Json Value
+					// Session
+					HttpSession session = request.getSession();
+					session.setAttribute("user", user);
+					session.setMaxInactiveInterval(600);
+					
+					//JSON Key, Json Value
 			         Gson gson = new Gson();
 			         String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
 			         response.getWriter().print(userJson);
 			         System.out.println(userJson);
-					
+			         
 				// 256-bit random key
 					Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 				//Generate JST Token
@@ -176,9 +196,6 @@ public class DAOSign {
 		String u_id = mr.getParameter("u_id");
 		String u_name = mr.getParameter("u_name");
 		String u_pw = mr.getParameter("u_pw");
-//		String u_grade;
-//		String u_no;
-//		String u_type;
 		String u_telenumber = mr.getParameter("u_telenumber");
 		String u_email = mr.getParameter("u_email");
 		String u_birth = mr.getParameter("u_birth");
@@ -190,9 +207,6 @@ public class DAOSign {
 		System.out.println(u_telenumber);
 		System.out.println(u_email);
 		System.out.println(u_profileimg);
-		
-		
-		
 		
 		PreparedStatement pstmt = null;
 		
