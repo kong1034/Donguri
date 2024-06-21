@@ -18,6 +18,7 @@ public class DTOBoard2 {
 	 private int c_no;
 	 private String c_content;
 	 private Date c_date;
+	 private Date v_date;
 	
 	public DTOBoard2() {
 		// TODO Auto-generated constructor stub
@@ -38,6 +39,11 @@ public class DTOBoard2 {
 		this.c_no = c_no;
 		this.c_content = c_content;
 		this.c_date = c_date;
+	}
+
+	public DTOBoard2(Date v_date) {
+		super();
+		this.v_date = v_date;
 	}
 
 	public int getNo() {
@@ -135,14 +141,24 @@ public class DTOBoard2 {
 	public void setC_date(Date c_date) {
 		this.c_date = c_date;
 	}
+	
 
+	public Date getV_date() {
+		return v_date;
+	}
+
+	public void setV_date(Date v_date) {
+		this.v_date = v_date;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "DTOBoard2 [no=" + no + ", v_no=" + v_no + ", g_no=" + g_no + ", id=" + id + ", tag=" + tag + ", title="
 				+ title + ", content=" + content + ", date=" + date + ", img=" + img + ", c_no=" + c_no + ", c_content="
-				+ c_content + ", c_date=" + c_date + "]";
+				+ c_content + ", c_date=" + c_date + ", v_date=" + v_date + "]";
 	}
-	
+
 	public String toJSON() {
 		Gson g = new Gson();
 		return g.toJson(this);

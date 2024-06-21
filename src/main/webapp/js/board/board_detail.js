@@ -9,7 +9,7 @@
 function confirmApply(g_no){
 	let ok = confirm("정말 지원하시겠습니까?");
 	if(ok){
-		location.href="BoradDetailC?g_no=" + g_no;
+		location.href="BoradDetailApplyC?no=" + g_no;
 	}
 	
 	

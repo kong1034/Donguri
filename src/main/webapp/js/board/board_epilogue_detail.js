@@ -37,7 +37,7 @@ function saveComment(userId, reviewId) {
 								<a class="btn_delete" onclick="deleteComment(`+ response.c_no + `)"><img alt=""
 									src="img/local/board/delete_button.png"></a></div>
 							<div class="comment_update">
-							<a class="btn_update" onclick="updateComment(this, `+ response.c_no + `, '` + response.content + `')">수정</a>
+							<a class="btn_update" onclick="updateComment(this, `+ response.c_no + `, '` + response.content + `')">修正</a>
 							</div>`;
 
 			$(".top").append(newComment);
