@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
             >ドネーション</a>
         </li>
         <li class="header_categori_li"><a href="BoardC">コミュニティ</a></li>
-      <li class="header_categori_li"><img src="https://item.kakaocdn.net/do/296cc3e891afb5542018b43229eb30ccac8e738cb631e72fdb9a96b36413984e"
+      <li class="header_categori_li" class="login"><img src="https://item.kakaocdn.net/do/296cc3e891afb5542018b43229eb30ccac8e738cb631e72fdb9a96b36413984e"
 	style=" 
 	width: 2.5em;
     height: 2.5em;

@@ -63,17 +63,15 @@
 						<button onclick="closeModal()">キャンセル</button>
 					</div>
 				</div>
-				
-				
-					
+									
 				<div class="comment bottom">
 					<p>コメントをつける</p>
-					<p>${id }</p>
+					<p>${sessionScope.user.u_id }</p>
 					<div class="comment_input">
 						<textarea rows="2" cols="65" placeholder="댓글을 남겨주세요 "
 							name="reply_contents" id="content"></textarea>
 						<button class="btn_register" id="add_btn"
-							onclick="saveComment('yuree', '${epilogues.no}')">登錄</button>
+							onclick="saveComment('${sessionScope.user.u_id }', '${epilogues.no}')">登錄</button>
 					</div>
 					<div id="add_message">&nbsp;</div>
 				</div>
