@@ -10,7 +10,6 @@ import com.donguri.main.DBManager;
 
 public class DAODonationList {
 
-    public DTODonationList getDonationById(String id) {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
