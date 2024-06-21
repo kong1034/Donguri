@@ -19,7 +19,6 @@
       			<option value="title">タイトル</option>
      			<option value="id">作成者</option>
      		 </select>
-      	 <span class="arrow"><img src="img/local/board/arrow.png" alt=""></span>
        </div>
         <input name="q" type="text" class="search" placeholder="search" />
         <input class="btn_search" type="submit" value="검색" ></input>
