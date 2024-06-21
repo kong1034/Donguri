@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Footer Page</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/footer.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common/footer.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common/footer.js" defer></script>
 </head>
 <body>
 <footer id="footer_container">

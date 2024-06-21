@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,60 +9,50 @@
     <script src="${pageContext.request.contextPath}/js/donation/donation_detail.js" defer></script>
 </head>
 <body>
-    <header>
-        <div class="header_container">
-            <h1>Donguri</h1>
-            <nav>
-                <ul>
-                    <li>情報一覧</li>
-                    <li>ドネーション</li>
-                    <li>コミュニティ</li>
-                </ul>
-                <div class="user_options">
-                    <button class="mypage_button">MyPage</button>
-                    <button class="login_button">Login</button>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <jsp:include page="/jsp/common/header.jsp" />
     <main>
         <div class="donation_container">
             <div class="image_container">
-                <img src="${pageContext.request.contextPath}/img/donation_image.jpg" alt="Donation Image">
-            </div>
-            <div class="details_container">
-                <h2>寄付する</h2>
-                <p>ここに説明が入ります。</p>
+                <div class="image_item">
+                    <img src="${pageContext.request.contextPath}/img/donation_image.jpg" alt="Donation Image">
+                </div>
                 <div class="amount_container">
-                    <span>#環境</span>
-                    <span class="amount">12,345 円</span>
-                    <span class="percentage">60%</span>
-                    <div class="progress_bar">
-                        <div class="progress" style="width: 60%;"></div>
-                    </div>
+                    <div>#環境</div>
+                    <div class="amount">募金目標: 12,345 円</div>
+                    <div class="percentage" data-percentage="50"></div> <!-- Example percentage data -->
                 </div>
                 <div class="period_container">
                     <div>募金期間</div>
                     <div>2023.01.01 ~ 2023.12.31</div>
                 </div>
+            </div>
+            <div class="details_container">
+                <h2>寄付する</h2>
+                <p>ここに説明が入ります。</p>
                 <div class="button_container">
-                    <button class="share_button">共有する</button>
-                    <button id="open_donation_modal" class="donate_button">寄付する</button>
+                    <button id="share_button" class="share_button round_button">共有する</button>
+                    <input type="number" id="donation_amount" name="amount" min="1" placeholder="金額を入力" required>
+                    <button id="process_donation_button" class="donate_button round_button">寄付する</button>
                 </div>
             </div>
         </div>
-        <div id="donation_modal" class="modal">
-            <div class="modal_content">
-                <span id="donation_close" class="close">&times;</span>
-                <h2>寄付する</h2>
-                <form id="donation_form">
-                    <label for="donation_amount">金額: </label>
-                    <input type="number" id="donation_amount" name="amount" min="1" required>
-                    <input type="hidden" id="donation_id" value="<%=request.getParameter("id")%>">
-                    <button type="button" id="process_donation_button" class="donate_button">寄付する</button>
-                </form>
+    </main>
+
+    <!-- Share Modal -->
+    <div id="share_modal" class="modal">
+        <div class="modal_content">
+            <a id="share_close" class="close">&times;</a>
+            <h2>共有する</h2>
+            <input type="text" id="share_link" value="" readonly>
+            <button onclick="copyToClipboard('#share_link')" class="share_option_button">リンクコピー</button>
+            <div class="sns_buttons">
+                <a id="twitter_share" href="#" target="_blank" class="sns_button">Twitter</a>
+                <a id="instagram_share" href="#" target="_blank" class="sns_button">Instagram</a>
+                <a id="line_share" href="#" target="_blank" class="sns_button">LINE</a>
             </div>
         </div>
-    </main>
+    </div>
+
+    <jsp:include page="/jsp/common/footer.jsp" />
 </body>
 </html>

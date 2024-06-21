@@ -1,16 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // jQuery functions for header interactions can be added here
-
-    // Unlogged user viewer
     var loginChk = '<%=request.getAttribute("loginChk")%>';
+    var header = document.getElementById('header_container');
 
     if (loginChk === 'login') {
-        document.querySelectorAll('#hidden').forEach(function(span) {
+        document.querySelectorAll('#unlogin').forEach(function(span) {
             span.style.display = 'none';
         });
     }
-})
-$(function () {
+
+    header.addEventListener('mouseenter', function() {
+        header.classList.add('hover');
+    });
+
+    header.addEventListener('mouseleave', function() {
+        header.classList.remove('hover');
+    });
 
     // Logo img animation
     $(".header_logo_img").css("transform", "translateX(81%) rotate(1110deg)");
@@ -28,4 +32,33 @@ $(function () {
     setTimeout(function() {
         clearInterval(check);
     }, 5000);
+});
+
+$(function () {
+    // Find Cookie
+    function getCookie(name) {
+        var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return value ? value[2] : null;
+    }
+
+    var jwtToken = getCookie("jwtToken");
+    const spans = document.querySelectorAll('#unlogin'); 
+    var loginElements = document.querySelectorAll('.login');
+
+    // Login
+    if (jwtToken != null) {
+        spans.forEach(function(span) {
+            span.style.display = 'none';
+        });
+        loginElements.forEach(function(element) {
+            element.style.display = 'block';
+        });
+    }
+    // Unlogin
+    if (jwtToken == null) {
+        spans[0].style.display = 'block';
+        loginElements.forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }
 });

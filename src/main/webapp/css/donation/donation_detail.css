@@ -6,75 +6,114 @@ body {
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-    padding-top: 70px; /* Ensure there is space for the fixed header */
+    padding-top: 70px;
+    padding-bottom: 50px;
     animation: fadeIn 1s;
+    overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 /* Header styling */
-.header_container {
+#header_container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+    padding: 20px 40px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    overflow: hidden; /* Ensure no overflow */
 }
 
-.header_container h1 {
-    color: orange;
+.header_title {
+    font-size: 36px;
+    color: #f6a200;
+    text-decoration: none;
 }
 
-.header_container nav {
+.header_categori_ul {
+    list-style-type: none;
     display: flex;
-    align-items: center;
-}
-
-.header_container ul {
-    display: flex;
-    list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.header_container ul li {
-    margin-right: 20px;
+.header_categori_li {
+    margin-left: 20px;
+    position: relative;
+}
+
+.header_categori_li a, .login_link {
+    text-decoration: none;
+    color: black;
     font-size: 18px;
+    transition: color 0.3s;
 }
 
-.user_options {
-    display: flex;
-    align-items: center;
+.header_categori_li a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #4caf50;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
 }
 
-.mypage_button,
-.login_button {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    padding: 5px 15px;
-    margin-left: 10px;
+.header_categori_li a:hover, .login_link:hover {
+    color: #4caf50;
 }
 
-.mypage_button {
+.header_categori_li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
     background-color: #4CAF50;
-    color: white;
+    transform: scaleX(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease-out;
+}
+
+.header.hover::before {
+    transform: scaleX(1);
 }
 
 /* Donation container styling */
 .donation_container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 50px 100px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    max-width: 1200px; /* Adjusted for better layout */
+    margin: 0 auto;
+}
+
+.image_container,
+.details_container {
+    flex: 1;
+    margin: 10px;
 }
 
 .image_container {
-    width: 40%;
     text-align: center;
 }
 
@@ -84,40 +123,46 @@ body {
 }
 
 .details_container {
-    width: 40%;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .amount_container,
 .period_container {
     margin-top: 20px;
+    width: 100%;
 }
 
-.amount_container span {
+.amount_container div {
     display: inline-block;
     margin-right: 10px;
 }
 
-.progress_bar {
-    width: 100%;
+.acorn_icon {
+    width: 20px;
     height: 20px;
-    background-color: #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress {
-    height: 100%;
-    background-color: #4CAF50;
 }
 
 .button_container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     margin-top: 20px;
+}
+
+input#donation_amount {
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 10px;
+    width: 150px;
+    margin: 0 20px;
+    text-align: center;
 }
 
 .share_button,
@@ -126,9 +171,14 @@ body {
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100px; /* Adjusted for round shape */
+    height: 100px; /* Adjusted for round shape */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .share_button:hover,
@@ -141,13 +191,12 @@ body {
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
     animation: fadeIn 0.5s;
 }
@@ -161,6 +210,9 @@ body {
     max-width: 500px;
     border-radius: 10px;
     animation: slideIn 0.5s;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .close {
@@ -177,16 +229,30 @@ body {
     cursor: pointer;
 }
 
+.share_option_button,
+.sns_button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.share_option_button:hover,
+.sns_button:hover {
+    background-color: #45a049;
+}
+
 /* Animation for fadeIn */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-/* Animation for bounceIn */
-@keyframes bounceIn {
-    from { transform: scale(0.5); }
-    to { transform: scale(1); }
 }
 
 /* Animation for slideIn */
@@ -205,5 +271,26 @@ body {
     .image_container,
     .details_container {
         width: 100%;
+        margin: 0;
+    }
+    
+    input#donation_amount {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .button_container {
+        flex-direction: column;
+    }
+
+    .share_button, .donate_button {
+        width: 80px;
+        height: 80px;
+        margin: 10px 0;
+    }
+
+    .modal_content {
+        width: 90%;
+        max-width: 300px;
     }
 }

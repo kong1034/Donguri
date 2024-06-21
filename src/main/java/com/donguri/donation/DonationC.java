@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.UUID;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -18,16 +19,43 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.logging.Logger;
 
 @WebServlet("/DonationC")
 public class DonationC extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(DonationC.class.getName());
     private static final String CHANNEL_ID = "2005457884";
     private static final String CHANNEL_SECRET = "1c9de69727cb9106bbbaea16ad0fcc03";
     private static final String LINE_PAY_URL = "https://sandbox-api-pay.line.me/v3/payments/request";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String amount = request.getParameter("amount");
+        //로그인 체크
+    	//되어있으면 결제 비즈니스 로직으로 넘어간다.
+    	//안되어 있으면
+    	
+        String donationIdStr = request.getParameter("id");
+
+        // Log received parameters
+        logger.info("Received parameter - id: " + donationIdStr);
+
+        // Provide a default donationIdStr if not supplied
+        if (donationIdStr == null || donationIdStr.isEmpty()) {
+            donationIdStr = "defaultId"; // Replace with a valid default ID for testing
+        }
+
+        // Retrieve donation details
+        try {
+            DAODonation.daoDonation(request, response, donationIdStr, 1);
+        } catch (SQLException e) {
+            logger.severe("Database access error: " + e.getMessage());
+            throw new ServletException("Database access error", e);
+        } catch (Exception e) {
+            logger.severe("Unexpected error: " + e.getMessage());
+            throw new ServletException("Unexpected error", e);
+        }
+    	
+    	String amount = request.getParameter("amount");
         String donationId = request.getParameter("id");
 
         // Ensure both id and amount are provided
@@ -39,7 +67,7 @@ public class DonationC extends HttpServlet {
 
         try {
             String nonce = UUID.randomUUID().toString();
-            JsonObject requestBody = createRequestBody(amount);
+            JsonObject requestBody = createRequestBody(amount, donationId);
             String requestBodyString = requestBody.toString();
             String signature = createSignature(requestBodyString, nonce);
 
@@ -80,17 +108,17 @@ public class DonationC extends HttpServlet {
                 response.getWriter().write("{\"status\":\"error\", \"message\":\"Failed to initiate payment\"}");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.severe("Error initiating payment: " + e.getMessage());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("{\"status\":\"error\", \"message\":\"" + e.getMessage() + "\"}");
         }
     }
 
-    private JsonObject createRequestBody(String amount) {
+    private JsonObject createRequestBody(String amount, String donationId) {
         JsonObject requestBody = new JsonObject();
         requestBody.addProperty("amount", Integer.parseInt(amount));
         requestBody.addProperty("currency", "JPY");
-        requestBody.addProperty("orderId", UUID.randomUUID().toString());
+        requestBody.addProperty("orderId", donationId);
 
         JsonObject packages = new JsonObject();
         packages.addProperty("id", "donation_package");
@@ -116,7 +144,8 @@ public class DonationC extends HttpServlet {
     }
 
     private String createSignature(String requestBody, String nonce) throws Exception {
-        String message = CHANNEL_SECRET + LINE_PAY_URL + requestBody + nonce;
+        String uri = "/v3/payments/request";
+        String message = CHANNEL_SECRET + uri + requestBody + nonce;
         Mac mac = Mac.getInstance("HmacSHA256");
         SecretKeySpec secretKeySpec = new SecretKeySpec(CHANNEL_SECRET.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         mac.init(secretKeySpec);

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
@@ -16,30 +15,7 @@ public class DonationDetailC extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String donationIdStr = request.getParameter("id");
-
-        // Log received parameters
-        logger.info("Received parameter - id: " + donationIdStr);
-
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-
-        // If donationIdStr is provided, process the donation
-        if (donationIdStr != null) {
-            try {
-                DAODonation.daoDonation(request, response, donationIdStr, 0);
-
-                if (request.getAttribute("donation") != null) {
-                    out.print("{\"status\":\"success\",\"message\":\"Donation details found\"}");
-                } else {
-                    out.print("{\"status\":\"error\",\"message\":\"Donation not found\"}");
-                }
-            } catch (SQLException e) {
-                throw new ServletException("Database access error", e);
-            }
-        } else {
-            out.print("{\"status\":\"error\",\"message\":\"Donation ID is required\"}");
-        }
-        out.flush();
+        request.setAttribute("content_page", "jsp/donation/donation_detail.jsp");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

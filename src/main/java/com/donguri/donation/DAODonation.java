@@ -28,14 +28,17 @@ public class DAODonation {
                 donation.setD_title(rs.getString("d_title"));
                 donation.setD_content(rs.getString("d_content"));
                 donation.setD_date(rs.getDate("d_date"));
-                donation.setP_no(rs.getInt("p_no")); // Assuming these fields exist in your DB schema
-                donation.setP_price(amount); // Set the donation amount
-                donation.setP_date(rs.getDate("p_date")); // Assuming these fields exist in your DB schema
+                donation.setP_no(rs.getInt("p_no"));
+                donation.setP_price(amount);
+                donation.setP_date(rs.getDate("p_date"));
 
                 request.setAttribute("donation", donation);
+            } else {
+                request.setAttribute("donation", null);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("Error accessing database", e);
         } finally {
             DBManager.close(con, pstmt, rs);
         }
