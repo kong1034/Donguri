@@ -21,7 +21,7 @@
 				success: function (resData){
 					console.log(resData);
 					console.log(JSON.stringify(resData));
-					location.href="HeaderC?result=" +$('#input_id').val();
+					location.href="HC";
 				},
 				error: function (xhr, status, error) {
 		              console.log("서버에러 발생!");
