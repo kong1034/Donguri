@@ -16,7 +16,7 @@
             <li><a href="https://www.2030.go.kr/main">2030</a></li>
             <li><a href="https://www.friendscube.com/">friendscube</a></li>
             <li><a href="https://donation.yahoo.co.jp/">Yahoo ネット募金</a></li>
-            <li><a href="https://together.kakao.com/">カカオ 一緒に価値</a></li>
+            <li><a href="https://together.kakao.com/">カ카オ 一緒に価値</a></li>
         </ul>
         <ul class="footer_links">
             <li><a href="https://github.com/kong1034/Donguri">GitHub</a></li>

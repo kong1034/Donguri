@@ -6,10 +6,14 @@ body {
     background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-    padding-top: 70px;
-    padding-bottom: 50px;
-    animation: fadeIn 1s;
-    overflow-x: hidden; /* Prevent horizontal overflow */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Main content styling */
+main {
+    flex: 1;
 }
 
 /* Header styling */
@@ -25,11 +29,10 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-    overflow: hidden; /* Ensure no overflow */
 }
 
 .header_title {
-    font-size: 36px;
+    font-size: 60px;
     color: #f6a200;
     text-decoration: none;
 }
@@ -94,23 +97,53 @@ body {
 
 /* Donation container styling */
 .donation_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 50px 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 20px;
+    padding: 50px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    flex-wrap: wrap;
-    max-width: 1200px; /* Adjusted for better layout */
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-.image_container,
+.left_first_area {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    height: 300px;
+}
+
+.left_second_area {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    height: 50px;
+}
+
+.donation_goal {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.period_container {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+    height: 50px;
+}
+
 .details_container {
-    flex: 1;
-    margin: 10px;
+    grid-column: 2 / 3;
+    grid-row: 1 / 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 500px;
 }
 
 .image_container {
@@ -120,37 +153,41 @@ body {
 .image_container img {
     max-width: 100%;
     border-radius: 10px;
-}
-
-.details_container {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.amount_container,
-.period_container {
-    margin-top: 20px;
+    background-color: #e0e0e0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: #666;
 }
 
-.amount_container div {
+.categori_tag {
     display: inline-block;
-    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid #4caf50;
+    border-radius: 20px;
+    color: #4caf50;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
-.acorn_icon {
-    width: 20px;
-    height: 20px;
+.donation_goal {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+}
+
+.amount,
+.current {
+    margin-right: 10px;
 }
 
 .button_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     margin-top: 20px;
@@ -161,7 +198,6 @@ input#donation_amount {
     border-radius: 20px;
     padding: 10px;
     width: 150px;
-    margin: 0 20px;
     text-align: center;
 }
 
@@ -174,16 +210,28 @@ input#donation_amount {
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 100px; /* Adjusted for round shape */
-    height: 100px; /* Adjusted for round shape */
+    width: 80px;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.share_button {
+    background-color: #4CAF50;
+}
+
+.donate_button {
+    background-color: #FFA500;
+}
+
 .share_button:hover,
 .donate_button:hover {
     background-color: #45a049;
+}
+
+.donate_button:hover {
+    background-color: #e69500;
 }
 
 /* Modal styling */
@@ -198,21 +246,21 @@ input#donation_amount {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    animation: fadeIn 0.5s;
+    animation: fadeIn 0.3s ease;
 }
 
 .modal_content {
-    background-color: #fefefe;
+    background-color: #fff;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #ddd;
     width: 80%;
-    max-width: 500px;
+    max-width: 400px;
     border-radius: 10px;
-    animation: slideIn 0.5s;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    animation: grow 0.3s ease;
 }
 
 .close {
@@ -249,21 +297,22 @@ input#donation_amount {
     background-color: #45a049;
 }
 
+/* Animation for grow */
+@keyframes grow {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+}
+
 /* Animation for fadeIn */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* Animation for slideIn */
-@keyframes slideIn {
-    from { transform: translateY(-50%); }
-    to { transform: translateY(0); }
-}
-
 /* Responsive styling */
 @media (max-width: 1080px) {
     .donation_container {
+        display: flex;
         flex-direction: column;
         padding: 20px;
     }
@@ -284,13 +333,72 @@ input#donation_amount {
     }
 
     .share_button, .donate_button {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
         margin: 10px 0;
     }
 
     .modal_content {
         width: 90%;
         max-width: 300px;
+    }
+}
+
+/* Footer styles */
+#footer_container {
+    background-color: white; /* Default background color is white */
+    border-top: 1px solid #ddd;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    transition: border-color 0.3s ease;
+    position: relative;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.footer_links {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0; /* Increased margin for more space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer_links li {
+    margin: 0 15px; /* Increased margin for more space */
+}
+
+.footer_links a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.footer_links a:hover {
+    color: #4CAF50;
+}
+
+@media (max-width: 1080px) {
+    #footer_container {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    .footer_links {
+        flex-direction: column;
+    }
+
+    .footer_links li {
+        margin: 10px 0;
     }
 }

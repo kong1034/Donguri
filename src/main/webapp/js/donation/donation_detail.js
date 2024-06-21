@@ -5,17 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var shareCloseBtn = document.getElementById('share_close');
     var loginStatus = "<%=request.getAttribute('loginStatus')%>";
 
-    // Update acorn icons based on percentage
-    var percentageElement = document.querySelector('.percentage');
-    var percentage = parseInt(percentageElement.getAttribute('data-percentage'), 10);
-    var acornCount = Math.floor(percentage / 10);
-    for (var i = 0; i < acornCount; i++) {
-        var img = document.createElement('img');
-        img.src = '${pageContext.request.contextPath}/img/local/icon/acorn_img.png';
-        img.classList.add('acorn_icon');
-        percentageElement.appendChild(img);
-    }
-
     // Handle donation button click
     if (donationBtn) {
         donationBtn.addEventListener('click', function() {
