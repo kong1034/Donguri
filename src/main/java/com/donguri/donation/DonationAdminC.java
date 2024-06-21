@@ -7,21 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.donguri.sign.DAOSign;
-
-@WebServlet("/DonationListC")
-public class DonationListC extends HttpServlet {
+@WebServlet("/DonationAdminC")
+public class DonationAdminC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// For Admin account register Button
-		DAOSign.getUserSession(request, response);
-		
-		DAODonation.RDAO.getAllDonations(request, response);
-		DAODonation.RDAO.paging(1, request);
-		request.setAttribute("contentPage", "jsp/donation/donation_list.jsp");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 	}
 
 }

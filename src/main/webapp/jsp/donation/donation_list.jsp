@@ -19,6 +19,9 @@
 			<li class="donation__list_tags"><a> #環境</a></li>
 			<li class="donation__list_tags"><a> #動物</a></li>
 		</ul>
+		<div class="admin_btn" >
+		<button value="${sessionScope.user.u_no }" class="admin_btn">登録</button>
+		</div>
 		<div class="donation_list_content_container">
 			<ul class="donation_list_content">
 				<c:forEach items="${dItems}" var="donation" varStatus="i">
@@ -58,5 +61,17 @@
 		</div>
 	</section>
 	<script src="js/donation/donation_list.js"></script>
+	<script>
+/* admin register Btn */
+const admin = document.querySelector('.admin_btn button.admin_btn');
+if (admin) {
+    const value = admin.value;
+    if (value == 1) {
+        admin.parentElement.style.display = 'block';
+    } else {
+        admin.parentElement.style.display = 'none';
+    }
+}
+</script>
 </body>
 </html>
