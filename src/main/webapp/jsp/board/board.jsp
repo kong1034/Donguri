@@ -14,7 +14,7 @@
     <div class="container_board">
     <p>Community</p>
       <div class="buttons">
-        <button class="btn_make" onclick="location.href='BoardMakeC?id=${ id}'" >募集</button>
+        <button class="btn_make" onclick="location.href='BoardMakeC?id=${sessionScope.user.u_id }'" >募集</button>
         <button class="btn_epilogue" onclick="location.href='BoardEpilogueC'">後記</button>
       </div>
 
