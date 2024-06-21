@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,19 +17,20 @@
 				<div class="my_id">아이디(닉네임)</div>
 			</div>
 			<div class="my_profile">
-			<div class="image">
-				<img src="" alt="" />
-			</div>
-<button class="my_info_update" onclick="location.href='MyPageUpdateC'">정보수정</button>
+				<div class="image">
+					<img src="" alt="" />
+				</div>
+				<button class="my_info_update"
+					onclick="location.href='MyPageUpdateC'">정보수정</button>
 			</div>
 		</div>
 		<div class="mypage_bottom">
-		<div class="mypage_middle">
-			<div id="all_history" class="middle bar active">전체 내역</div>
-			<div id="donation_history" class="middle bar">기부 내역</div>
-			<div id="participation_history" class="middle bar">참여 내역</div>
-			<div id="current_meetings" class="middle bar">모집중인 모임</div>
-		</div>
+			<div class="mypage_middle">
+				<div id="all_history" class="middle bar active">전체 내역</div>
+				<div id="donation_history" class="middle bar">기부 내역</div>
+				<div id="participation_history" class="middle bar">참여 내역</div>
+				<div id="current_meetings" class="middle bar">모집중인 모임</div>
+			</div>
 			<div id="all_content" class="content-section">
 				<div class="donation_info">
 					<div class="donation_info_left">
@@ -53,7 +54,12 @@
 						<div class="community_history_list">
 							<div class="c_date"></div>
 							<div class="c_title"></div>
+<<<<<<< HEAD
 							<div class="c_epilogue"><a href="BoardEpilogueMakeC">후기 작성하기</a> 
+=======
+							<div class="c_epilogue">
+								<a href="BoardEpilogueMakeC">후기 작성하기</a>
+>>>>>>> a5c9a28ca3cbb141f1df4eb03f568ec11cf2b9f2
 							</div>
 						</div>
 					</div>
@@ -61,12 +67,27 @@
 				<div class="community_ing">
 					<p style="font-size: 18pt">내가 모집중인 모임</p>
 					<div class="community_ing_bottom">
+<<<<<<< HEAD
 					<c:forEach items="${myboard}" var="b">
 						<div class="community_ing_list">
 							<div class="ing_date">${b.date }</div>
 							<div class="ing_title">${b.title }</div>
 							<div class="ing_epilogue"><a href="BoardDetailC?no=${b.no }">상세 내역 보기</a></div>
 						</div>
+=======
+						<c:forEach items="${myboard}" var="b">
+							<div class="community_ing_list">
+								<div class="ing_date">${b.date }</div>
+								<div class="ing_title">${b.title }</div>
+								<div class="ing_epilogue">
+									<form action="BoardDetailC" method="post">
+										<input type="hidden" name="no" value="${b.no}"> 
+										<input type="hidden" name="fromMypage" value="true"> 
+										<input type="submit" value="상세 내역 보기">
+									</form>
+								</div>
+							</div>
+>>>>>>> a5c9a28ca3cbb141f1df4eb03f568ec11cf2b9f2
 						</c:forEach>
 					</div>
 				</div>
@@ -112,12 +133,27 @@
 				<div class="community_ing">
 					<p style="font-size: 18pt">내가 모집중인 모임</p>
 					<div class="community_ing_bottom">
+<<<<<<< HEAD
 					<c:forEach items="${myboard}" var="b">
 						<div class="community_ing_list">
 							<div class="ing_date">${b.date }</div>
 							<div class="ing_title">${b.title }</div>
 							<div class="ing_epilogue"><a href="BoardDetailC?no=${b.no }">상세 내역 보기</a></div>
 						</div>
+=======
+						<c:forEach items="${myboard}" var="b">
+							<div class="community_ing_list">
+								<div class="ing_date">${b.date }</div>
+								<div class="ing_title">${b.title }</div>
+								<div class="ing_epilogue">${b.no}
+									<form action="BoardDetailC" method="post">
+										<input type="hidden" name="no" value="${b.no}"> 
+										<input type="hidden" name="fromMypage" value="true"> 
+										<input type="submit" value="상세 내역 보기">
+									</form>
+								</div>
+							</div>
+>>>>>>> a5c9a28ca3cbb141f1df4eb03f568ec11cf2b9f2
 						</c:forEach>
 					</div>
 				</div>

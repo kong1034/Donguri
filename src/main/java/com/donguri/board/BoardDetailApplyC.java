@@ -1,26 +1,20 @@
-package com.donguri.mypage;
+package com.donguri.board;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.donguri.board.DAOBoard;
-import com.donguri.sign.DAOSign;
-
-@WebServlet("/MyPageC")
-public class MyPageC extends HttpServlet {
+@WebServlet("/BoardDetailApplyC")
+public class BoardDetailApplyC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+	
+		DAOBoard2.applyVolunteer(request);
 		
-		DAOBoard.getMyBoard(request);
-		//Get Session
-		DAOSign.getUserSession(request, response);
-		request.setAttribute("contentPage", "/jsp/mypage/mypage.jsp");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		response.sendRedirect("BoardDetailC");
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
