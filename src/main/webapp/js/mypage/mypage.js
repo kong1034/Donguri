@@ -1,10 +1,21 @@
 
+document.addEventListener("DOMContentLoaded", function() {
+    const bars = document.querySelectorAll('.mypage_middle .middle.bar');
 
+    bars.forEach(bar => {
+        bar.addEventListener('click', function() {
+            // Remove 'active' class from all bars
+            bars.forEach(b => b.classList.remove('active'));
 
-
+            // Add 'active' class to the clicked bar
+            this.classList.add('active');
+        });
+    });
+});
 
   document.getElementById('all_history').addEventListener('click', function() {
    displayContent('all_content');
+   
   });
 
   document.getElementById('donation_history').addEventListener('click', function() {
@@ -27,5 +38,10 @@
     document.getElementById(contentId).style.display = 'block';
   }
 
-  // Initialize the first tab to be displayed
   displayContent('all_content');
+  
+  
+  
+  
+  
+  

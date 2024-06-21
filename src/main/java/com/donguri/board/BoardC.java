@@ -15,6 +15,7 @@ public class BoardC extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		DAOBoard.getAllBoardList(request);
+		DAOBoard.paging(1, request);
 		
 		request.setAttribute("contentPage", "/jsp/board/board.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

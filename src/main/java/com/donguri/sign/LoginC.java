@@ -28,15 +28,13 @@ public class LoginC extends HttpServlet {
 		String loginChk = (String)request.getAttribute("result");
 		System.out.println("check in loginc post");
 		
-		
 		if (loginChk!= "logout") {
-			
 			String jwtToken = (String) request.getAttribute("jwtToken");
 			Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
 			// login status time limit
 			jwtCookie.setMaxAge(3600);
-			response.addCookie(jwtCookie);
-			request.getRequestDispatcher("HeaderC");
+			response.addCookie(jwtCookie); 
+			request.getRequestDispatcher("HC");
 		}else{
 			request.setAttribute("contentPage", "/jsp/sign/login.jsp");
 			System.out.println("Can't Login");

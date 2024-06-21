@@ -8,16 +8,14 @@
 <meta charset="UTF-8">
 <title>Board</title>
      <link rel="stylesheet" href="css/board/board.css" />
-<script src="https://code.jquery.com/jquery-3.7.1.js"
-	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-	crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div class="container_board">
     <p>Community</p>
       <div class="buttons">
-        <button class="btn_make" onclick="location.href='BoardMakeC?id=${ id}'" >募集 作り</button>
-        <button class="btn_epilogue" onclick="location.href='BoardEpilogueC'">後記 見る</button>
+        <button class="btn_make" onclick="location.href='BoardMakeC?id=${ id}'" >募集</button>
+        <button class="btn_epilogue" onclick="location.href='BoardEpilogueC'">後記</button>
       </div>
 
       <div class="tags">
@@ -62,6 +60,22 @@
         </div>
         </c:forEach>
       </div>
+        <div class="number">
+            <button  onclick="goToPage(1)">&lt;</button>
+    	<form id="paginationForm" action="BoardPageC" method="post">
+            <c:forEach begin="1" end="${pageCount}" var="i">
+                <input type="hidden" name="p" value="${i}" />
+                <button type="submit" onclick="goToPage(${i})">${i}</button>
+            </c:forEach>
+   		 </form>
+            <button  onclick="goToPage(${pageCount})">&gt;</button>
+		</div>
     </div>
+    <script>
+    function goToPage(pageNumber) {
+        document.getElementById("paginationForm").querySelector("input[name='p']").value = pageNumber;
+        document.getElementById("paginationForm").submit();
+    }
+</script>
 </body>
 </html>

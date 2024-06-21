@@ -1,0 +1,85 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 16pt;
+}
+p {
+  font-size: 32pt;
+  padding: 0px 10px 20px;
+  letter-spacing: -1px;
+}
+.container_em {
+  display: grid;
+  width: 1100px;
+  height: max-content;
+  margin: 60px auto 60px;
+}
+.epilogue_make_list {
+  border-radius: 20px;
+  border: 1px solid rgb(174, 170, 170);
+  display: grid;
+  justify-content: center;
+  font-size: 18pt;
+  margin: 20px 0 20px;
+  padding: 50px;
+}
+.container_em span {
+  width: 230px;
+  height: 100px;
+  border-right: 1px solid #d9d9d9;
+  align-content: center;
+  text-align: center;
+  float: left;
+  font-size: 20pt;
+}
+input,
+select {
+  height: 40px;
+  margin-left: 10px;
+  font-size: 16pt;
+}
+select {
+  width: 100px;
+  text-align: center;
+}
+.title input {
+  width: 540px;
+}
+.title,
+.tag,
+.img {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  width: 800px;
+  border: 1px solid rgb(174, 170, 170);
+  border-radius: 8px;
+  margin: 3px;
+}
+.content {
+  display: flex;
+  border: 1px solid rgb(174, 170, 170);
+  border-radius: 8px;
+  height: max-content;
+  width: 800px;
+  margin: 3px;
+} 
+.content textarea {
+  margin-left: 10px;
+  font-size: 16pt;
+  padding: 10px;
+}
+.content span {
+  height: 500px;
+  border-right: 1px solid rgb(174, 170, 170);
+}
+.add_btn {
+  width: 200px;
+  height: 50px;
+  margin-bottom: 40px;
+  border-radius: 20px;
+  font-size: 20pt;
+  margin: auto auto 30px;
+  cursor: pointer;
+}
