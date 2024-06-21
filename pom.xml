@@ -6,21 +6,6 @@
 	<artifactId>Donguri</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<release>17</release>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
-			</plugin>
-		</plugins>
-	</build>
 	<dependencies>
 		<!-- gson -->
 		<dependency>
@@ -83,5 +68,11 @@
 	        <artifactId>commons-dbcp</artifactId>
 	        <version>1.4</version>
 	    </dependency>
+	    <!-- org.json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20210307</version>
+		</dependency>
 	</dependencies>
 </project>

@@ -6,33 +6,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Logger;
 
 @WebServlet("/DonationDetailC")
 public class DonationDetailC extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(DonationDetailC.class.getName());
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String donationIdStr = request.getParameter("id");
 
-        DAODonation.model(request, response);
+        // Log received parameters
+        logger.info("Received parameter - id: " + donationIdStr);
 
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+
+        // If donationIdStr is provided, process the donation
         if (donationIdStr != null) {
             try {
-                int donationId = Integer.parseInt(donationIdStr);
+                DAODonation.daoDonation(request, response, donationIdStr, 0);
 
-                DAODonationList daoDonation = new DAODonationList();
-                DTODonationList donation = daoDonation.getDonationById(donationId);
-
-                if (donation != null) {
-                    request.setAttribute("donation", donation);
-                    request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
+                if (request.getAttribute("donation") != null) {
+                    out.print("{\"status\":\"success\",\"message\":\"Donation details found\"}");
                 } else {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Donation not found");
+                    out.print("{\"status\":\"error\",\"message\":\"Donation not found\"}");
                 }
-            } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid donation ID");
+            } catch (SQLException e) {
+                throw new ServletException("Database access error", e);
             }
         } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Donation ID is required");
+            out.print("{\"status\":\"error\",\"message\":\"Donation ID is required\"}");
         }
+        out.flush();
     }
 }

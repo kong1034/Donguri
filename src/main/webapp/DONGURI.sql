@@ -1,4 +1,3 @@
-drop table d_donation_list;
 CREATE TABLE d_donation_list (
     d_no NUMBER PRIMARY KEY,
     u_id VARCHAR2(50) NOT NULL,
@@ -8,7 +7,6 @@ CREATE TABLE d_donation_list (
     FOREIGN KEY (u_id) REFERENCES d_user(u_id)
 );
 
-drop table d_payment;
 CREATE TABLE d_payment (
     p_no NUMBER PRIMARY KEY,
     d_no NUMBER NOT NULL,
@@ -19,9 +17,9 @@ CREATE TABLE d_payment (
     FOREIGN KEY (u_id) REFERENCES d_user(u_id)
 );
 
-
-drop sequence d_donation_list_seq;
 create SEQUENCE d_donation_list_seq;
 
-drop SEQUENCE d_payment_seq;
 create SEQUENCE d_payment_seq;
+
+select * from d_donation_list;
+select * from d_payment;

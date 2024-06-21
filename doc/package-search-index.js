@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.donguri.board"},{"l":"com.donguri.donation"},{"l":"com.donguri.find"},{"l":"com.donguri.info"},{"l":"com.donguri.main"},{"l":"com.donguri.mypage"},{"l":"com.donguri.sign"}];updateSearchResults();
