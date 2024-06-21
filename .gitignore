@@ -27,7 +27,7 @@ nb-configuration.xml
 .classpath
 .project
 .settings/
-Common.java
+
 # Intellij
 .idea/
 *.iml
@@ -45,3 +45,5 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 dependency-reduced-pom.xml
+
+Common.java

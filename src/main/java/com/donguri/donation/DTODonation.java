@@ -2,7 +2,10 @@ package com.donguri.donation;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class DTODonation {
+<<<<<<< HEAD
     private int d_no;
     private String u_id;
     private String d_title;
@@ -97,4 +100,60 @@ public class DTODonation {
         return "DTODonation [d_no=" + d_no + ", u_id=" + u_id + ", d_title=" + d_title + ", d_content=" + d_content
                 + ", d_date=" + d_date + ", p_no=" + p_no + ", p_price=" + p_price + ", p_date=" + p_date + "]";
     }
+=======
+    private String title;
+    private String date;
+    private String thumnail;
+    private int amount;
+    private int sum;
+    
+    public DTODonation() {
+		// TODO Auto-generated constructor stub
+	}
+    
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getThumnail() {
+		return thumnail;
+	}
+
+	public void setThumnail(String thumnail) {
+		this.thumnail = thumnail;
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public int getSum() {
+		return sum;
+	}
+
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
+
+	public String toJson() {
+		Gson g = new Gson();
+		return g.toJson(this);
+	}
+>>>>>>> 5198b3f525911a1f6e8e47f4ba93a9c56d764d4e
 }

@@ -82,10 +82,27 @@ public class DAOSign {
                 .getBody();
     }
 
+<<<<<<< HEAD
     // Get User Session Method
     public static void getUserSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         HttpSession session = request.getSession();
+=======
+	// Logout Method
+	public static void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		// Cookie delete
+		Cookie jwtCookie = new Cookie("jwtToken", "");
+		jwtCookie.setMaxAge(0);
+		
+		System.out.println(jwtCookie.getMaxAge());
+		
+		response.addCookie(jwtCookie);
+		// Session delete
+		HttpSession hs = request.getSession();
+		hs.setAttribute("user", null);
+	}
+>>>>>>> 5198b3f525911a1f6e8e47f4ba93a9c56d764d4e
 
         if (session != null) {
             UserDTO user = (UserDTO) session.getAttribute("user");

@@ -1,25 +1,20 @@
-package com.donguri.mypage;
+package com.donguri.donation;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.donguri.board.DAOBoard;
-import com.donguri.sign.DAOSign;
-
-@WebServlet("/MyPageC")
-public class MyPageC extends HttpServlet {
+@WebServlet("/DonationMovePageC")
+public class DonationMovePageC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		DAODonation.RDAO.getAllDonations(request, response);
+		int p = Integer.parseInt(request.getParameter("p"));
+		DAODonation.RDAO.paging(p, request);
 		
-		DAOBoard.getMyBoard(request);
-		//Get Session
-		DAOSign.getUserSession(request, response);
-		request.setAttribute("contentPage", "/jsp/mypage/mypage.jsp");
+		request.setAttribute("contentPage", "jsp/donation/donation_list.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

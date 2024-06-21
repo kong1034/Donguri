@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+.donation_list_container {
+	width: 100%;
+	height: auto;
+}
+
+.donation_list_container .donation_list_title {
+	display: flex;
+	justify-content: space-between;
+	padding: 2% 12%;
+}
+
+.donation_list_container .donation_list_title p {
+	color: black;
+	font-size: 1.4em;
+	text-decoration: underline;
+}
+
+.donation_list_tags {
+	width: 450px;
+	display: flex;
+	justify-content: space-between;
+	margin: auto;
+	cursor: pointer;
+	list-style: none;
+}
+
+.donation_list_tags .donation__list_tags {
+	border: 3px solid orange;
+	border-radius: 30px;
+	width: 90px;
+	height: 45px;
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	font-weight: 600;
+	font-size: 16pt;
+	letter-spacing: 1px;
+}
+
+.donation__list_tags:hover {
+	background-color: orange;
+	color: #fff;
+}
+
+.donation_list_content_container {
+	width: 80%;
+	height: 80vh;
+	margin: 0 auto;
+}
+
+.donation_list_content_container .donation_list_content {
+	width: 100%;
+	height: 95%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 1% 0 0 0;
+	position: relative;
+}
+
+.donation_list_content_container .donation_list_content .donation_content
+	{
+	width: 20%;
+	height: 45.5%;
+	border: 1px solid orange;
+	margin: 1% 1%;
+	cursor: pointer;
+	position: relative;
+}
+
+.donation_list_content_container .donation_list_content .donation_content .donation_img_box
+	{
+	width: 100%;
+	height: 80%;
+	background-color: purple;
+}
+
+.donation_list_content_container .donation_list_content .donation_content .donation_txt_box
+	{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.donation_list_content_container .donation_list_content .donation_content p
+	{
+	font-size: 1.2em;
+	padding-left: 1%;
+}
+
+.donation_list_content_container .donation_list_content .donation_content .donation_amount_img_box
+	{
+	padding-left: 1%;
+	display: flex;
+}
+
+.donation_amount_img_box img {
+	width: 10%;
+	height: 10%;
+}
+
+.donation_more_btn_box {
+	width: 60%;
+	display: flex;
+	justify-content: center;
+	margin: 1% auto;
+}
+
+.donation_more_btn_box button {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 5px;
+}
