@@ -18,7 +18,7 @@ public class MyPageC extends HttpServlet {
 		
 		DAOBoard.getMyBoard(request);
 		//Get Session
-		DAOSign.RDAO.getUserSession(request, response);
+		DAOSign.getUserSession(request, response);
 		request.setAttribute("contentPage", "/jsp/mypage/mypage.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
