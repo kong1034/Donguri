@@ -102,6 +102,31 @@
 	height: 10%;
 }
 
+.admin_btn{
+	width: 60%;
+	display: flex;
+	justify-content: flex-end;
+	margin: 1% auto;
+}
+
+.admin_btn button{
+	background-color: #4CAF50;
+	width: 100px;
+	position: absolute;
+	top: 198px;
+    right: 300px;
+	color: white;
+	border: none;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
 .donation_more_btn_box {
 	width: 60%;
 	display: flex;

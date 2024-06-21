@@ -258,7 +258,6 @@ public class DAOSign {
 		
 	}
 	
-	// Email Verify Method
 	
 	// EmailVerify method for signIn
 	public static void emailVerify(HttpServletRequest request, HttpServletResponse response) {
@@ -321,8 +320,6 @@ public class DAOSign {
 
 	}
 	
-	//e-mail code Verify Method
-
 	// compare input code and confirmation code for signIn
 	public static void codeVerify(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		try {
@@ -340,11 +337,9 @@ public class DAOSign {
 					System.out.println("조건문 통과");
 			}
 
-	}catch(IOException e)
-	{
-			
-			e.printStackTrace();
-		}
-	}
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+	}	
 
 }
