@@ -186,13 +186,16 @@ public class DAOSign {
 	// Logout Method
 	public static void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		// Cookie delete
 		Cookie jwtCookie = new Cookie("jwtToken", "");
 		jwtCookie.setMaxAge(0);
 		
 		System.out.println(jwtCookie.getMaxAge());
 		
 		response.addCookie(jwtCookie);
-
+		// Session delete
+		HttpSession hs = request.getSession();
+		hs.setAttribute("user", null);
 	}
 
 	// SignUp Method
