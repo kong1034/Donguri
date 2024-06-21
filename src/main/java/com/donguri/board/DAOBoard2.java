@@ -401,6 +401,4 @@ public class DAOBoard2 {
 		
 	}
 
-
-
 }
