@@ -12,7 +12,7 @@ import com.donguri.sign.DAOSign;
 @WebServlet("/MyPageUpdateC")
 public class MyPageUpdateC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAOSign.RDAO.getUserSession(request, response);
+		DAOSign.getUserSession(request, response);
 		request.setAttribute("contentPage", "jsp/mypage/detail_profile.jsp");
 		request.getRequestDispatcher("l_index.jsp").forward(request, response);
 		

@@ -48,27 +48,31 @@ public class DAOSign {
 		}
 	}
 	
-	
 	// SECRET_KEY
-	private static final String SECRET_KEY = Common.SECRET_KEY;
+	private static final byte[] SECRET_KEY = Common.SECRET_KEY.getBytes();
+	
 	// Create RandomNumber for e-maiil Chk
 	static StringBuilder randomNumber = new StringBuilder();
 	
-	//Get User Session
-	public void getUserSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		HttpSession session = request.getSession();
-		
-		if (session != null) {
-			UserDTO user = (UserDTO) session.getAttribute("user");
-			System.out.println("세션 불러오기 성공");
-		}else {
-			System.out.println("로그인 하세요");
-			response.sendRedirect("LoginC");
-		}
-		
-	}
-	
+	// get JWT(Cookie)
+    public static Claims extractAndValidateToken(HttpServletRequest request) throws Exception {
+        String jwtToken = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("jwtToken")) {
+                    jwtToken = cookie.getValue();
+                }
+            }
+        }
+
+        if (jwtToken != null) {
+           return validateToken(jwtToken);
+        } else {
+            throw new Exception("JWT Token not found");
+        }
+    }
+    
 	// JWT Validation Method
     public static Claims validateToken(String token) {
         return Jwts.parserBuilder()
@@ -77,7 +81,18 @@ public class DAOSign {
                 .parseClaimsJws(token)
                 .getBody();
     }
-	
+    
+  //Get User Session Method
+  	public static void getUserSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  		
+  		HttpSession session = request.getSession();
+  		
+  		if (session != null) {
+  			UserDTO user = (UserDTO) session.getAttribute("user");
+  		}
+  		
+  	}
+    
 	// Login Method(JWT Token/Gson)
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -145,7 +160,7 @@ public class DAOSign {
 							.setSubject(id)
 							.setIssuedAt(new Date())
 							.setExpiration(new Date(System.currentTimeMillis()+3600000))
-							.signWith(key)
+							.signWith(Keys.hmacShaKeyFor(SECRET_KEY), SignatureAlgorithm.HS256)
 							.compact();
 					  
 					 request.setAttribute("jwtToken", jwtToken);
@@ -168,19 +183,22 @@ public class DAOSign {
 		request.setAttribute("result", result);
 	}
 
-	// Logout method
+	// Logout Method
 	public static void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
+		// Cookie delete
 		Cookie jwtCookie = new Cookie("jwtToken", "");
 		jwtCookie.setMaxAge(0);
 		
 		System.out.println(jwtCookie.getMaxAge());
 		
 		response.addCookie(jwtCookie);
-
+		// Session delete
+		HttpSession hs = request.getSession();
+		hs.setAttribute("user", null);
 	}
 
-	// SignUp method
+	// SignUp Method
 	public void signUp(HttpServletRequest request) throws IOException {
 		
 		String path = request.getServletContext().getRealPath("img/server");
@@ -239,6 +257,8 @@ public class DAOSign {
 		}
 		
 	}
+	
+	// Email Verify Method
 	
 	// EmailVerify method for signIn
 	public static void emailVerify(HttpServletRequest request, HttpServletResponse response) {
@@ -300,6 +320,8 @@ public class DAOSign {
 		}
 
 	}
+	
+	//e-mail code Verify Method
 
 	// compare input code and confirmation code for signIn
 	public static void codeVerify(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
