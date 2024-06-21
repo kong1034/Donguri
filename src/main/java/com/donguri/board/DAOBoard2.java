@@ -9,12 +9,15 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.donguri.main.DBManager;
+import com.donguri.sign.UserDTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -226,9 +229,13 @@ public class DAOBoard2 {
 
 			con = DBManager.connect();
 			pstmt = con.prepareStatement(sql, new String[] { "C_NO" });
-
+			
+			// User session for get u_id
+			HttpSession session = request.getSession();
+			UserDTO user = (UserDTO) session.getAttribute("user");
+			
 			JSONObject jsonObject = new JSONObject(sb.toString());
-			String userId = jsonObject.getString("userId");
+			String userId = user.getU_id();
 			String reviewId = jsonObject.getString("reviewId");
 			String content = jsonObject.getString("content");
 
@@ -350,6 +357,48 @@ public class DAOBoard2 {
 			pages.add(epilogues.get(i));
 		}
 		request.setAttribute("epilogues", pages);
+	}
+
+	public static List<DTOBoard2> getVolunteerList(HttpServletRequest request) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from volunteer_list where g_no=? order by v_date";
+
+		List<DTOBoard2> volunteerList = new ArrayList<>();
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, Integer.parseInt(request.getParameter("no")));
+			rs = pstmt.executeQuery();
+
+			DTOBoard2 v = null;
+			while (rs.next()) {
+				v = new DTOBoard2();
+				v.setV_no(rs.getInt("v_no"));
+				v.setG_no(rs.getInt("g_no"));
+				v.setId(rs.getString("u_id"));
+				v.setV_date(rs.getDate("v_date"));
+				volunteerList.add(v);
+
+			 request.setAttribute("volunteer", volunteerList);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("서버에러");
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+			return volunteerList;
+		
+		
+	}
+
+	public static void applyVolunteer(HttpServletRequest request) {
+		
 	}
 
 
