@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,36 +21,42 @@
 		</ul>
 		<div class="donation_list_content_container">
 			<ul class="donation_list_content">
-				<li class="donation_content">
-					<div class="donation_status">寄付中</div>
-					<div class="donation_img"></div>
-					<p>寄付金</p>
-					<div class="donation_amount_img_box">
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-						<img class="donation_amount_img" src="img/local/dongguri.svg"/>
-					</div>
-				</li>
-				<li class="donation_content"></li>
-				<li class="donation_content"></li>
-				<li class="donation_content"></li>
-				<li class="donation_content"></li>
-				<li class="donation_content"></li>
-				<li class="donation_content"></li>
-				<li class="donation_content"></li>
+				<c:forEach items="${dItems}" var="donation" varStatus="i">
+					<li class="donation_content">
+						<div class="donation_img_box">
+							<img src="${donation.thumnail}">
+						</div>
+						<div class="donation_txt_box">
+							<p>寄付金</p>
+							<p>目標金額:${donation.amount}</p>
+						</div> <c:forEach begin="0" end="${imgCntList.size() - 1}" var="j">
+							<c:if test="${i.index == j }">
+								<div class="donation_amount_img_box">
+									<c:forEach begin="1" end="${imgCntList[j]}">
+
+										<img src="img/local/dongguri.svg" title="寄付金の10%とどんぐり一つは同じです。">
+
+									</c:forEach>
+
+								</div>
+							</c:if>
+						</c:forEach>
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 		<div class="donation_more_btn_box">
-			<button>もっと見る</button>
+			<c:if test="${curPageNo > 1 }">
+				<button onclick="reviewMovePage(1)">&lt;&lt;</button>
+			</c:if>
+			<c:forEach begin="1" end="${pageCnt }" var="i">
+				<button onclick="reviewMovePage(${i})">${i }</button>
+			</c:forEach>
+			<c:if test="${curPageNo < pageCnt }">
+				<button onclick="reviewMovePage(${ pageCnt})">&gt;&gt;</button>
+			</c:if>
 		</div>
 	</section>
-	<script src="js/donation/donation.js"></script>
+	<script src="js/donation/donation_list.js"></script>
 </body>
 </html>

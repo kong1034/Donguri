@@ -3,78 +3,61 @@ package com.donguri.donation;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class DTODonation {
-    private String id;
-    private String imageUrl;
-    private String tag;
-    private BigDecimal amount;
-    private int progress;
-    private Date startDate;
-    private Date endDate;
-    private String description;
+    private String title;
+    private String date;
+    private String thumnail;
+    private int amount;
+    private int sum;
+    
+    public DTODonation() {
+		// TODO Auto-generated constructor stub
+	}
+    
+	public String getTitle() {
+		return title;
+	}
 
-    // Getters and setters for all fields
-    public String getId() {
-        return id;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getDate() {
+		return date;
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public void setDate(String date) {
+		this.date = date;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public String getThumnail() {
+		return thumnail;
+	}
 
-    public String getTag() {
-        return tag;
-    }
+	public void setThumnail(String thumnail) {
+		this.thumnail = thumnail;
+	}
 
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
+	public int getAmount() {
+		return amount;
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+	public int getSum() {
+		return sum;
+	}
 
-    public int getProgress() {
-        return progress;
-    }
+	public void setSum(int sum) {
+		this.sum = sum;
+	}
 
-    public void setProgress(int progress) {
-        this.progress = progress;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String toJson() {
+		Gson g = new Gson();
+		return g.toJson(this);
+	}
 }
