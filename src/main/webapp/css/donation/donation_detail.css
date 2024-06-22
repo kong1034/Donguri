@@ -1,201 +1,234 @@
-/* Set body styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    animation: fadeIn 1s;
-}
+@charset "UTF-8";
 
-/* Set header styling */
-header {
-    background-color: #fff;
-    border-bottom: 2px solid #ddd;
-    padding: 10px 20px;
+/* Donation Detail Styles */
+.donation_section {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    padding: 2vw;
+    gap: 2vw;
+    height: 70vh;
+    width: 80vw;
+    box-sizing: border-box;
+    border-radius: 1vw;
+    border: 0.2vh solid #ccc;
+    margin: 0 auto;
+    transition: border-color 0.3s ease;
 }
 
-/* Set nav styling */
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.donation_section:hover {
+    border-color: #4caf50;
+}
+
+.left_section, .right_section {
+    flex: 1;
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 1vw;
+    padding: 1vw;
+    width: 40vw;
 }
 
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #4CAF50;
-}
-
-/* Set header right styling */
-.header_right {
-    display: flex;
-    gap: 10px;
-}
-
-.mypage_button,
-.login_button {
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 2px solid #333;
-    border-radius: 5px;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.mypage_button:hover,
-.login_button:hover {
-    background-color: #333;
-    color: #fff;
-}
-
-/* Set donation container styling */
-.donation_container {
+.image_wrapper {
+    width: 100%;
+    height: 50vh;
+    background-color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 0;
-    flex-wrap: wrap;
 }
 
-.image_container {
-    width: 40%;
-    text-align: center;
-    animation: bounceIn 1s;
+.category_tag p {
+    background-color: white;
+    color: black;
+    padding: 0.5vw 1vw;
+    border: 1px solid #4caf50;
+    border-radius: 1vw;
+    width: fit-content;
+    transition: color 0.3s, background-color 0.3s;
 }
 
-.details_container {
-    width: 40%;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    animation: bounceIn 1s;
+.category_tag p:hover {
+    color: #4caf50;
 }
 
-/* Set button container styling */
-.button_container {
+.donation_goal {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 0.5vw;
 }
 
-.share_button,
-.donate_button {
-    background-color: #4CAF50;
+.goal_amount {
+    font-size: 1.8vh;
+}
+
+.goal_percentage img {
+    width: 3vh;
+    height: 3vh;
+}
+
+.donation_period p {
+    font-size: 1.6vh;
+}
+
+.donation_description .section_title {
+    font-size: 2.5vh;
+}
+
+.donation_description p {
+    font-size: 1.6vh;
+}
+
+.donation_actions {
+    display: flex;
+    align-items: flex-end; /* Align buttons to the bottom */
+    gap: 1vw;
+}
+
+#donation_amount {
+    width: 20vw;
+    padding: 0.5vw;
+    font-size: 1.6vh;
+    border-radius: 1vw;
+}
+
+.action_button {
+    background-color: #4caf50;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 0.5vw 1vw;
+    border-radius: 50%;
+    font-size: 1.2vh; /* Adjust font size to fit within the circle */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vh;
+    height: 10vh;
 }
 
-.share_button:hover,
+.donate_button {
+    background-color: #ffa500;
+    color: white;
+    border: none;
+}
+
+.action_button:hover {
+    background-color: #4caf50;
+    color: white;
+}
+
 .donate_button:hover {
-    background-color: #45a049;
+    background-color: #ffa500;
+    color: white;
 }
 
-/* Set modal styling */
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-    animation: fadeIn 0.5s;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 40vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 1vw;
 }
 
 .modal_content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    border-radius: 10px;
-    animation: slideIn 0.5s;
+    background-color: #fff;
+    padding: 2vw;
+    border: 0.2vh solid #4caf50;
+    box-shadow: 0 0.4vw 0.8vw rgba(0, 0, 0, 0.2);
+    border-radius: 1vw;
+    width: 100%;
+    max-width: 40vw;
+    position: relative;
+    animation: modalOpen 0.3s ease-out;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Set social icons styling */
-.social_icons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-/* Add animation for fadeIn */
-@keyframes fadeIn {
+@keyframes modalOpen {
     from {
         opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
     }
     to {
         opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
-/* Add animation for bounceIn */
-@keyframes bounceIn {
-    from {
-        transform: scale(0.5);
-    }
-    to {
-        transform: scale(1);
-    }
+.close_button {
+    color: #aaa;
+    position: absolute;
+    top: 1vw;
+    right: 1vw;
+    font-size: 2vw;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-/* Add animation for slideIn */
-@keyframes slideIn {
-    from {
-        transform: translateY(-50%);
-    }
-    to {
-        transform: translateY(0);
-    }
+.close_button:hover, .close_button:focus {
+    color: #000;
 }
 
-/* Set responsive styling */
-@media (max-width: 768px) {
-    .donation_container {
-        flex-direction: column;
-        padding: 20px;
-    }
+.modal .section_title {
+    font-size: 2.5vh;
+    margin-bottom: 1vw;
+    color: #4caf50;
+}
 
-    .image_container,
-    .details_container {
-        width: 100%;
-    }
+#share_link {
+    width: 90%;
+    padding: 0.5vw;
+    font-size: 1.6vh;
+    border: 0.1vw solid #ddd;
+    border-radius: 0.5vw;
+    margin-bottom: 1vw;
+}
+
+.copy_button {
+    background-color: #ffa500;
+    color: white;
+    border: none;
+    padding: 0.5vw 1vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 1vw;
+    font-size: 1.6vh;
+}
+
+.copy_button:hover {
+    background-color: #ff8c00;
+}
+
+.social_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+}
+
+.social_button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.5vw 1vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.6vh;
+    text-decoration: none;
+}
+
+.social_button:hover {
+    background-color: #45a049;
 }

@@ -1,72 +1,75 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var shareBtn = document.getElementById('share_button');
-    var donateBtn = document.getElementById('donate_button');
-    var shareModal = document.getElementById('share_modal');
-    var donateModal = document.getElementById('donate_modal');
-    var shareCloseBtn = document.getElementById('share_close');
-    var donateCloseBtn = document.getElementById('donate_close');
-    var processDonationBtn = document.getElementById('process_donation_button');
+    const donateButton = document.getElementById('donate_button');
+    const shareButton = document.getElementById('share_button');
+    const shareModal = document.getElementById('share_modal');
+    const closeButton = document.getElementById('modal_close');
+    const loginStatus = "<%=request.getAttribute('loginStatus')%>";
 
-    shareBtn.addEventListener('click', function() {
-        shareModal.style.display = "block";
+    donateButton.addEventListener('click', function() {
+        const amount = document.getElementById('donation_amount').value;
+        const donationId = "<%=request.getParameter('id')%>";
+
+        if (amount && donationId) {
+            const userLoggedIn = (loginStatus === 'loggedIn'); 
+            if (!userLoggedIn) {
+                alert('You need to log in to donate.');
+                window.location.href = '/Donguri/src/main/java/com/donguri/sign/LoginC';
+                return;
+            }
+
+            const popup = window.open('', 'LinePay', 'width=800,height=600');
+
+            fetch('/Donguri/DonationC', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    amount: amount,
+                    id: donationId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    popup.location.href = data.paymentUrl;
+                } else {
+                    alert('Failed to initiate payment.');
+                    popup.close();
+                }
+            })
+            .catch(error => {
+                alert('An error occurred: ' + error.message);
+                popup.close();
+            });
+        } else {
+            alert('Please enter a valid amount.');
+        }
     });
 
-    donateBtn.addEventListener('click', function() {
-        donateModal.style.display = "block";
+    shareButton.addEventListener('click', function(event) {
+        document.getElementById('share_link').value = window.location.href;
+        shareModal.style.display = "flex"; // Show modal with flex display
     });
 
-    shareCloseBtn.addEventListener('click', function() {
+    closeButton.addEventListener('click', function() {
         shareModal.style.display = "none";
     });
 
-    donateCloseBtn.addEventListener('click', function() {
-        donateModal.style.display = "none";
-    });
-
     window.addEventListener('click', function(event) {
-        if (event.target == shareModal) {
+        if (event.target === shareModal) {
             shareModal.style.display = "none";
         }
-        if (event.target == donateModal) {
-            donateModal.style.display = "none";
-        }
     });
 
-    processDonationBtn.addEventListener('click', function() {
-        var amount = document.getElementById('donation_amount').value;
-
-        if (!amount) {
-            alert('Please enter a valid amount.');
-            return;
-        }
-
-        fetch('/Donguri/DonationC', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                modal_amount: amount
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                window.open(data.paymentUrl, '_blank');
-            } else {
-                alert('Payment failed: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred during payment processing.');
-        });
-    });
+    document.getElementById('twitter_share').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`;
+    document.getElementById('instagram_share').href = `https://www.instagram.com/?url=${encodeURIComponent(window.location.href)}`;
+    document.getElementById('line_share').href = `https://line.me/R/msg/text/?${encodeURIComponent(window.location.href)}`;
 });
 
 function copyToClipboard(selector) {
-    var text = document.querySelector(selector).value;
-    var tempInput = document.createElement('input');
+    const text = document.querySelector(selector).value;
+    const tempInput = document.createElement('input');
     tempInput.value = text;
     document.body.appendChild(tempInput);
     tempInput.select();

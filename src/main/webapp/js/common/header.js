@@ -1,18 +1,20 @@
-$(function () {
-  /* logo img animation */
-  $(".header_logo_img").css("transform", "translateX(81%) rotate(1110deg)");
-  $(".header_logo_img").css("transition", "all 3s ease");
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('header_container');
 
-  let check = setInterval(function () {
-    var rect = $(".header_logo_img")[0].getBoundingClientRect();
+    // Check login status
+    const loginStatus = '<%=request.getAttribute("loginStatus")%>';
+    const authLink = document.getElementById('auth_link');
+    const mypageLink = document.getElementById('mypage_link');
 
-    if (rect.right > 282) {
-      $(".header_logo_img").css("transform", "translateX(80%) rotate(1080deg)");
-      $(".header_logo_img").css("transition", "all 3s linear");
+    if (loginStatus === 'loggedIn') {
+        authLink.textContent = 'Logout';
+        authLink.href = '${pageContext.request.contextPath}/LogoutC';
+        authLink.style.display = 'block';
+        mypageLink.style.display = 'block';
+    } else {
+        authLink.textContent = 'Login';
+        authLink.href = '${pageContext.request.contextPath}/LoginC';
+        authLink.style.display = 'block';
+        mypageLink.style.display = 'none';
     }
-  }, 100);
-
-  setTimeout(function () {
-    clearInterval(check);
-  }, 5000);
 });
