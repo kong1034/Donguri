@@ -31,20 +31,9 @@ prefix="c" %>
           <div class="info_b">${boardlists.content }</div>
           <c:if test="${empty fromMypage}">
             <div class="button_wrapper">
-              <button
-                class="btn_share"
-                id="shareTw"
-                onclick="javascript:shareTwitter()"
-              >
-                シェア <br />X
-              </button>
+              <button class="btn_share" id="shareTw" onclick="javascript:shareTwitter()"> シェア <br />X </button>
               <button class="btn_chat" onclick="chatPopUp()">チャット</button>
-              <button
-                class="btn_apply"
-                onclick="confirmApply(${boardlists.no})"
-              >
-                アプライ
-              </button>
+              <button class="btn_apply" onclick="confirmApply('${boardlists.no}','${boardlists.id}', '${sessionScope.user.u_id }')">アプライ</button>
             </div>
           </c:if>
         </div>
@@ -70,5 +59,18 @@ prefix="c" %>
       </c:if>
     </div>
     <script type="text/javascript" src="js/board/board_detail.js"></script>
+    <script type="text/javascript">
+    
+    window.onload = function() {
+        <% if (request.getAttribute("successMessage") != null) { %>
+            alert("<%= request.getAttribute("successMessage") %>");
+            window.location.href = "BoardDetailC?no=<%= request.getParameter("no") %>";
+        <% } %>
+        <% if (request.getAttribute("errorMessage") != null) { %>
+        alert("<%= request.getAttribute("errorMessage") %>");
+            window.location.href = "BoardDetailC?no=<%= request.getParameter("no") %>";
+    <% } %>
+    };
+    </script>
   </body>
 </html>
