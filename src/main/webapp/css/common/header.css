@@ -3,14 +3,15 @@
 /* Header Styles */
 #header_container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-  height: 10%;
-  width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px 40px;
+	background-color: white;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	position: relative;
+	width: 100%;
+	/* border: 1px solid #ccc; */
+	height:10%;
 }
 
 .header_title {
@@ -64,10 +65,9 @@
 
 .header_categori_li a:hover::after {
   transform: scaleX(1);
-  transform-origin: bottom left;
+  transform-origin: bottom center;
 }
-
-#header_container::after {
+/*  #header_container::after {
   content: "";
   position: absolute;
   top: 0;
@@ -79,10 +79,11 @@
   transform-origin: center;
   transition: transform 0.3s ease-out;
   z-index: -1;
-}
+} */
 
-#header_container:hover::after {
-  transform: scale(1);
+#header_container:hover {
+	border-color:#4caf50;
+	transition: border-color 0.3s ease-out;
 }
 
 .header_logo_box {
