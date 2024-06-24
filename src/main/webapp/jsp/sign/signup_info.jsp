@@ -23,12 +23,12 @@ pageEncoding="UTF-8"%>
     </style>
   </head>
   <body>
-    <form action="SignupInfoC" method="post" enctype="multipart/form-data">
+    <form　name="joinForm"  action="SignupInfoC" method="post" enctype="multipart/form-data">
       <div id="signup_info_container">
         <div id="signup_info_content">
           <div class="subtitle">ログインID</div>
           <input type="text" class="input_val input_id" name="u_id" /><br />
-          <div class="ex_text">半角英数字</div>
+          <div class="ex_text">半角英数字4-12字</div>
           <div class="subtitle">email</div>
           <input
             id="openModal"
@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
           /><br />
           <div class="subtitle" style="padding-top: 20px">パスワード</div>
           <input type="password" class="input_val input_pw" name="u_pw" /><br />
-          <div class="ex_text">半角英数字</div>
+          <div class="ex_text">半角英数字4-12字</div>
           <div class="subtitle" style="padding-top: 20px">パスワード(確認)</div>
           <input
             type="password"
@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%>
           /><br />
           <div class="subtitle" style="padding-top: 20px">姓名</div>
           <input type="text" class="input_val input_name" name="u_name" /><br />
-          <div class="ex_text">半角英数字</div>
+          <div class="ex_text">漢字、ひらがな、カタカナのみ</div>
           <div class="subtitle" style="padding-top: 20px">電話番号</div>
           <input
             type="text"
@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
             name="u_birth"
           /><br />
           <div id="next_btn">
-            <button class="btn next" onclick="validation()">次へ</button>
+            <button class="btn next" onclick="Validation()">次へ</button>
           </div>
         </div>
       </div>
@@ -115,7 +115,8 @@ pageEncoding="UTF-8"%>
         </div>
         <!-- 		</form> -->
       </div>
-    </dialog>
     <script src="js/sign/signup_info.js"></script>
+    </dialog>
+    <script src="js/validation.js"></script>
   </body>
 </html>
