@@ -14,7 +14,7 @@
       <div class="group_make_list">
         <div class="group_make title">
           <span>タイトル</span>
-          <input type="text" name="title" id="" />
+          <input type="text" name="title" />
         </div>
         <div class="group_make tag">
           <span>分類</span>

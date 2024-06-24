@@ -26,7 +26,7 @@
       
       <div class="epilogue_wrap">
       <div class="epilogue_list" style="font-weight: bold; font-size:17pt;">
-        <div class="epilogue tag">タグ</div>
+        <div class="epilogue tag">分類</div>
         <div class="epilogue title">タイトル</div>
         <div class="epilogue writer">作成者</div>
         <div class="epilogue date">作成日</div>

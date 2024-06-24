@@ -19,10 +19,10 @@
       </div>
 
       <div class="tags">
-        <div class="tags_list"><a> #子供</a></div>
-        <div class="tags_list"><a> #老人</a></div>
-        <div class="tags_list"><a> #環境</a></div>
-        <div class="tags_list"><a> #動物</a></div>
+        <button class="tags_list" onclick="filterByTag('子供')">#子供</button>
+        <button class="tags_list" onclick="filterByTag('老人')">#老人</button>
+        <button class="tags_list" onclick="filterByTag('環境')">#環境</button>
+        <button class="tags_list" onclick="filterByTag('動物')">#動物</button>
       </div>
 
       <form class="search_wrap" action="BoardC" method="post" >
@@ -36,7 +36,7 @@
         <input class="btn_search" type="submit" value="검색" ></input>
       </form>
 
-      <div class="board_container">
+      <div id="boardContainer" class="board_container">
         <div class="board_list" style="font-weight: bold; font-size:17pt; ">
           <div class="board status">状態</div>
           <div class="board location">場所</div>
@@ -60,6 +60,11 @@
         </div>
         </c:forEach>
       </div>
+      
+      	<div id="go_back_wrap">
+			<button id="go_back">목록으로</button>
+		</div>
+		
         <div class="number">
             <button  onclick="goToPage(1)">&lt;</button>
     	<form id="paginationForm" action="BoardPageC" method="post">
@@ -68,14 +73,9 @@
                 <button type="submit" onclick="goToPage(${i})">${i}</button>
             </c:forEach>
    		 </form>
-            <button  onclick="goToPage(${pageCount})">&gt;</button>
+            <button onclick="goToPage(${pageCount})">&gt;</button>
 		</div>
     </div>
-    <script>
-    function goToPage(pageNumber) {
-        document.getElementById("paginationForm").querySelector("input[name='p']").value = pageNumber;
-        document.getElementById("paginationForm").submit();
-    }
-</script>
+    <script type="text/javascript" src="js/board/board.js"></script>
 </body>
 </html>
