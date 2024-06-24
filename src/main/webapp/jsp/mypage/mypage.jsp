@@ -51,30 +51,20 @@
 				<div class="community_history">
 					<p style="font-size: 18pt">내가 참여한 모임</p>
 					<div class="community_history_bottom">
+					<c:forEach items="${myvolapply }" var="va">
 						<div class="community_history_list">
-							<div class="c_date"></div>
-							<div class="c_title"></div>
-<<<<<<< HEAD
-							<div class="c_epilogue"><a href="BoardEpilogueMakeC">후기 작성하기</a> 
-=======
+							<div class="c_date">${va.v_date }</div>
+							<div class="c_title">${va.title }</div>
 							<div class="c_epilogue">
 								<a href="BoardEpilogueMakeC">후기 작성하기</a>
->>>>>>> a5c9a28ca3cbb141f1df4eb03f568ec11cf2b9f2
 							</div>
 						</div>
+					</c:forEach>
 					</div>
 				</div>
 				<div class="community_ing">
 					<p style="font-size: 18pt">내가 모집중인 모임</p>
 					<div class="community_ing_bottom">
-<<<<<<< HEAD
-					<c:forEach items="${myboard}" var="b">
-						<div class="community_ing_list">
-							<div class="ing_date">${b.date }</div>
-							<div class="ing_title">${b.title }</div>
-							<div class="ing_epilogue"><a href="BoardDetailC?no=${b.no }">상세 내역 보기</a></div>
-						</div>
-=======
 						<c:forEach items="${myboard}" var="b">
 							<div class="community_ing_list">
 								<div class="ing_date">${b.date }</div>
@@ -87,7 +77,6 @@
 									</form>
 								</div>
 							</div>
->>>>>>> a5c9a28ca3cbb141f1df4eb03f568ec11cf2b9f2
 						</c:forEach>
 					</div>
 				</div>
@@ -118,13 +107,11 @@
 				<div class="community_history">
 					<p style="font-size: 18pt">내가 참여한 모임</p>
 					<div class="community_history_bottom">
-					<c:forEach items="" var="">
 						<div class="community_history_list">
 							<div class="c_date"></div>
 							<div class="c_title"></div>
 							<div class="c_epilogue">후기 작성하기</div>
 						</div>
-					</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -133,19 +120,11 @@
 				<div class="community_ing">
 					<p style="font-size: 18pt">내가 모집중인 모임</p>
 					<div class="community_ing_bottom">
-<<<<<<< HEAD
-					<c:forEach items="${myboard}" var="b">
-						<div class="community_ing_list">
-							<div class="ing_date">${b.date }</div>
-							<div class="ing_title">${b.title }</div>
-							<div class="ing_epilogue"><a href="BoardDetailC?no=${b.no }">상세 내역 보기</a></div>
-						</div>
-=======
 						<c:forEach items="${myboard}" var="b">
 							<div class="community_ing_list">
 								<div class="ing_date">${b.date }</div>
 								<div class="ing_title">${b.title }</div>
-								<div class="ing_epilogue">${b.no}
+								<div class="ing_epilogue">
 									<form action="BoardDetailC" method="post">
 										<input type="hidden" name="no" value="${b.no}"> 
 										<input type="hidden" name="fromMypage" value="true"> 
@@ -153,7 +132,6 @@
 									</form>
 								</div>
 							</div>
->>>>>>> a5c9a28ca3cbb141f1df4eb03f568ec11cf2b9f2
 						</c:forEach>
 					</div>
 				</div>
