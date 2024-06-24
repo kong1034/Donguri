@@ -13,7 +13,7 @@ public class CommentUpdateC extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAOBoard2.updateComment(request, response);
+		DAOBoard2.DAOB2.updateComment(request, response);
 	}
 
 }

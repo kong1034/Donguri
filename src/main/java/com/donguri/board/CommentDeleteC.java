@@ -13,7 +13,7 @@ public class CommentDeleteC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		DAOBoard2.deleteComment(request, response);
+		DAOBoard2.DAOB2.deleteComment(request, response);
 		//response.sendRedirect("BoardEpilogueDetailC");
 		
 		
