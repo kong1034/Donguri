@@ -25,6 +25,8 @@ public class DonationDetailC extends HttpServlet {
 //        }
 
         // Set any additional attributes if needed
+    	request.setCharacterEncoding("utf-8");
+    	response.setCharacterEncoding("utf-8");
         request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
 
         request.getRequestDispatcher("index.jsp").include(request, response);

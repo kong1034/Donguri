@@ -1,66 +1,75 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var donationBtn = document.getElementById('process_donation_button');
     var shareBtn = document.getElementById('share_button');
-    var donateBtn = document.getElementById('donate_button');
     var shareModal = document.getElementById('share_modal');
-    var donateModal = document.getElementById('donate_modal');
     var shareCloseBtn = document.getElementById('share_close');
-    var donateCloseBtn = document.getElementById('donate_close');
-    var processDonationBtn = document.getElementById('process_donation_button');
+    var loginStatus = "<%=request.getAttribute('loginStatus')%>";
 
-    shareBtn.addEventListener('click', function() {
-        shareModal.style.display = "block";
-    });
+    // Handle donation button click
+    if (donationBtn) {
+        donationBtn.addEventListener('click', function() {
+            var amount = document.getElementById('donation_amount').value;
+            var donationId = "<%=request.getParameter('id')%>";
 
-    donateBtn.addEventListener('click', function() {
-        donateModal.style.display = "block";
-    });
+            if (amount && donationId) {
+                var userLoggedIn = (loginStatus === 'loggedIn'); // Replace this with your actual login check logic
+                if (!userLoggedIn) {
+                    alert('You need to log in to donate.');
+                    window.location.href = '/Donguri/src/main/java/com/donguri/sign/LoginC';
+                    return;
+                }
 
-    shareCloseBtn.addEventListener('click', function() {
-        shareModal.style.display = "none";
-    });
+                var popup = window.open('', 'LinePay', 'width=800,height=600');
 
-    donateCloseBtn.addEventListener('click', function() {
-        donateModal.style.display = "none";
-    });
+                fetch('/Donguri/DonationC', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        amount: amount,
+                        id: donationId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        popup.location.href = data.paymentUrl;
+                    } else {
+                        alert('Failed to initiate payment.');
+                        popup.close();
+                    }
+                })
+                .catch(error => {
+                    alert('An error occurred: ' + error.message);
+                    popup.close();
+                });
+            } else {
+                alert('Please enter a valid amount.');
+            }
+        });
+    }
 
+    // Handle share button click
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+            document.getElementById('share_link').value = window.location.href;
+            shareModal.style.display = "block";
+        });
+    }
+
+    // Handle close modal
+    if (shareCloseBtn) {
+        shareCloseBtn.addEventListener('click', function() {
+            shareModal.style.display = "none";
+        });
+    }
+
+    // Close modal if clicked outside
     window.addEventListener('click', function(event) {
         if (event.target == shareModal) {
             shareModal.style.display = "none";
         }
-        if (event.target == donateModal) {
-            donateModal.style.display = "none";
-        }
-    });
-
-    processDonationBtn.addEventListener('click', function() {
-        var amount = document.getElementById('donation_amount').value;
-
-        if (!amount) {
-            alert('Please enter a valid amount.');
-            return;
-        }
-
-        fetch('/Donguri/DonationC', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                modal_amount: amount
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                window.open(data.paymentUrl, '_blank');
-            } else {
-                alert('Payment failed: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred during payment processing.');
-        });
     });
 });
 
