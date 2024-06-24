@@ -115,31 +115,4 @@ public class DAODonation {
 		request.setAttribute("curPageNo", page);
 		request.setAttribute("dItems", dItems);
 	}
-
-	public void daoDonation(HttpServletRequest request, HttpServletResponse response, String donationIdStr, int i) {
-		// Implement the logic to retrieve and handle the donation details by ID
-        String sql = "SELECT * FROM d_donation_list WHERE d_no = ?";
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            con = DBManager.connect();
-            pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, donationIdStr);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-                DTODonation donation = new DTODonation();
-                donation.setTitle(rs.getString("d_title"));
-                donation.setDate(rs.getString("d_date"));
-                donation.setThumnail(rs.getString("d_thumnail"));
-                donation.setAmount(rs.getInt("d_amount"));
-                // Set other properties if needed
-                request.setAttribute("donation", donation);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBManager.close(con, pstmt, rs);
-        }
-		
-	}
 }

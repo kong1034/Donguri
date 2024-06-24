@@ -10,16 +10,23 @@ import java.io.IOException;
 @WebServlet("/DonationDetailC")
 public class DonationDetailC extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
+//        String donationId = request.getParameter("id");
+//        if (donationId == null) {
+//            response.sendRedirect("/DonationC");
+//            return;
+//        }
+//
+//        DAODonation daoDonation = new DAODonation();
+//        DTODonation donation = daoDonation.getDonationById(donationId);
+//
+//        if (donation == null) {
+//            response.sendRedirect("/DonationC");
+//            return;
+//        }
 
-        String donationIdStr = request.getParameter("id");
-        DAODonation.RDAO.daoDonation(request, response, donationIdStr, 1);
-        
-        // Set contentPage attribute to point to donation_detail.jsp
+        // Set any additional attributes if needed
         request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
-        
-        // Forward to index.jsp to include header, footer and donation_detail.jsp
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+        request.getRequestDispatcher("index.jsp").include(request, response);
     }
 }
