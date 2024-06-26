@@ -99,7 +99,7 @@ body {
 }
 .bar.active {
   border: 5px solid #fff;
-    background-color: #cfff91;
+  background-color: #cfff91;
     
 }
 .mypage_bottom {
@@ -147,11 +147,12 @@ body {
 .donation_info_right span {
   float: right;
 }
-.community_ing_list a{
-	text-decoration: none;
+.community_ing_list input{
 	color:black;
+	font-size: 14pt;
+	border: none;
+  background-color: #fff;
 }
-
 .community_history {
   margin: 0 auto 8px;
 }
@@ -176,7 +177,8 @@ body {
 }
 .donation_info_right_detail:hover,
 .c_epilogue:hover,
-.ing_epilogue:hover {
+.ing_epilogue input:hover {
   color: #4b4b4b;
   text-shadow: 1px 1px 1px #ccc;
+  cursor: pointer;
 }

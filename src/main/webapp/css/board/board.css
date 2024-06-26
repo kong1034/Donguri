@@ -78,13 +78,11 @@ html, body {
 	font-weight: 600;
 	font-size: 16pt;
 	letter-spacing: 1px;
+	background-color: #fff;
 }
 .tags_list:hover {
 	background-color: #f6a200;
-}
-.tags_list a:hover{
 	color: white;
-	
 }
 .search_wrap {
 	display: flex;
@@ -175,6 +173,7 @@ html, body {
 	padding: 5px;
 	margin: auto;
 }
+
 .number {
   display: flex;
   padding: 20px;
@@ -185,4 +184,14 @@ html, body {
   padding: 5px;
 	background-color: #fff;
 	cursor: pointer;
+}
+#go_back_wrap{
+	display: flex;
+	justify-content: flex-end;
+	width: 1200px;
+}
+#go_back{
+	width: 100px;
+	height: 40px;
+	margin-top: 10px; 
 }

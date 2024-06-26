@@ -22,8 +22,8 @@ public class BoardEpilogueDetailC extends HttpServlet {
 		// ONLY get user session(for user name viewer)
 		DAOSign.getUserSession(request, response);
 		
-		DAOBoard2.getOneEpilogue(request);
-		DAOBoard2.getComment(request);
+		DAOBoard2.DAOB2.getOneEpilogue(request);
+		DAOBoard2.DAOB2.getComment(request);
 		request.setAttribute("contentPage", "/jsp/board/board_epilogue_detail.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 
@@ -36,8 +36,8 @@ public class BoardEpilogueDetailC extends HttpServlet {
 		try {
             Claims claims = DAOSign.extractAndValidateToken(request);			
 			
-			DAOBoard2.insertComment(request, response);
-			DAOBoard2.getComment(request);
+			DAOBoard2.DAOB2.insertComment(request, response);
+			DAOBoard2.DAOB2.getComment(request);
 			request.setAttribute("contentPage", "/jsp/board/board_epilogue_detail.jsp");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -51,13 +51,15 @@
 				<div class="community_history">
 					<p style="font-size: 18pt">내가 참여한 모임</p>
 					<div class="community_history_bottom">
+					<c:forEach items="${myvolapply }" var="va">
 						<div class="community_history_list">
-							<div class="c_date"></div>
-							<div class="c_title"></div>
+							<div class="c_date">${va.v_date }</div>
+							<div class="c_title">${va.title }</div>
 							<div class="c_epilogue">
 								<a href="BoardEpilogueMakeC">후기 작성하기</a>
 							</div>
 						</div>
+					</c:forEach>
 					</div>
 				</div>
 				<div class="community_ing">
@@ -105,13 +107,11 @@
 				<div class="community_history">
 					<p style="font-size: 18pt">내가 참여한 모임</p>
 					<div class="community_history_bottom">
-					<c:forEach items="" var="">
 						<div class="community_history_list">
 							<div class="c_date"></div>
 							<div class="c_title"></div>
 							<div class="c_epilogue">후기 작성하기</div>
 						</div>
-					</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -124,7 +124,7 @@
 							<div class="community_ing_list">
 								<div class="ing_date">${b.date }</div>
 								<div class="ing_title">${b.title }</div>
-								<div class="ing_epilogue">${b.no}
+								<div class="ing_epilogue">
 									<form action="BoardDetailC" method="post">
 										<input type="hidden" name="no" value="${b.no}"> 
 										<input type="hidden" name="fromMypage" value="true"> 

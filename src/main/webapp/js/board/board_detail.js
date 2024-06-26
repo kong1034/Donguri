@@ -15,9 +15,25 @@ function chatPopUp() {
   );
 }
 
-function confirmApply(g_no) {
-  let ok = confirm("정말 지원하시겠습니까?");
-  if (ok) {
-    location.href = "BoradDetailApplyC?no=" + g_no;
+function confirmApply(g_no, boardId, userId) {
+	//apply impossible
+	// if not logged in 
+	if(userId == null){
+	alert("ログインが必要です。ログインしてください。");
+ 	location.href = "LoginC";
+	} else{
+	console.log(boardId)
+	console.log(userId)
+	
+	// apply possible
+	if (boardId != userId) {
+ 	 let ok = confirm("志願しますか?");
+ 	 if (ok) {
+   	 	location.href = "BoardDetailApplyC?no=" + g_no;
+		}
+	} else{
+		alert("同じIDはアプライできません。");
+	}
   }
 }
+

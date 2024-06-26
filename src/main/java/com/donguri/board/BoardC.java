@@ -14,8 +14,8 @@ public class BoardC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
-		DAOBoard.getAllBoardList(request);
-		DAOBoard.paging(1, request);
+		DAOBoard.DAOB.getAllBoardList(request);
+		DAOBoard.DAOB.paging(1, request);
 		
 		request.setAttribute("contentPage", "/jsp/board/board.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -23,7 +23,7 @@ public class BoardC extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		DAOBoard.search(request);
+		DAOBoard.DAOB.search(request);
 		
 		request.setAttribute("contentPage", "/jsp/board/board.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

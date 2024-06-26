@@ -36,20 +36,16 @@ function saveComment(userId, reviewId) {
         response.date +
         "</div>" +
         `<div class="comment_delete">
-								<a class="btn_delete" onclick="deleteComment(` +
+		<a class="btn_delete" onclick="deleteComment(` +
         response.c_no +
-        `)"><img alt=""
-									src="img/local/board/delete_button.png"></a></div>
-							<div class="comment_update">
-							<a class="btn_update" onclick="updateComment(this, ` +
+        `)"><img alt=""src="img/local/board/delete_button.png"></a></div>
+		<div class="comment_update">
+		<a class="btn_update" onclick="updateComment(this, ` +
         response.c_no +
         `, '` +
         response.content +
-        `')">修正</a>
-							</div>`;
-
+        `')">修正</a></div>`;
       $(".top").append(newComment);
-
       $("#add_message").html(response.message);
       $("#content").val("");
     },
@@ -57,14 +53,23 @@ function saveComment(userId, reviewId) {
       console.error("Error: ", error);
       console.log("Status: ", status);
       console.log("Response: ", xhr.responseText);
-      $("#add_message").html(
-        "댓글 저장 중 오류가 발생했습니다. 다시 시도해 주세요."
-      );
+      $("#add_message").html( "ログインが必要です。");
     },
   });
 }
 
-function deleteComment(c_no) {
+function canModifyComment(userId, writerId) {
+  return userId === writerId;
+}
+
+function deleteComment(c_no, writerId) {
+	const userId = $("#user_id").val();
+	
+	 if (!canModifyComment(userId, writerId)) {
+    alert("削除する権限がありません。");
+    return;
+  }
+  
   let ok = confirm("削除しますか？");
   console.log(c_no);
   if (ok) {
@@ -98,13 +103,21 @@ function closeModal() {
 }
 
 let activeContent;
-function updateComment(content, comment_no, comment_content) {
+function updateComment(content, comment_no, comment_content, writerId ) {
+  const userId = $("#user_id").val();
+  //const writerId = $(content).closest(".comment_list").find("#writer_id").val();
+  
+   if (!canModifyComment(userId, writerId)) {
+    alert("修正する権限がありません。");
+  console.log(userId, writerId);
+    return;
+  }
+  
   activeContent = content;
   console.log(activeContent);
   $("#comment_no").val(comment_no);
   $("#comment_text").val(
-    $(content).closest(".comment_list").find(".comment_contents").text()
-  );
+    $(content).closest(".comment_list").find(".comment_contents").text());
   openModal();
 }
 
@@ -118,6 +131,7 @@ $(document).ready(function () {
     };
 
     console.log(comment_no, comment_content);
+    
     if (!confirm("コメントを修正しますか？")) {
       return false;
     } else {

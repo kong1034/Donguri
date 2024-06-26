@@ -18,7 +18,8 @@
 				</div>
 				<div class="epilogue_center">
 					<div class="epilogue tag">
-						<span>タグ</span> <p class="tag_class">
+						<span>タグ</span> 
+						<p class="tag_class">
 						${epilogues.tag }
 						</p> 
 					</div>
@@ -45,14 +46,15 @@
 								<fmt:formatDate value="${c.c_date }" pattern="yy.MM.dd hh:mm" />
 							</div>
 							<div class="comment_delete">
-								<a class="btn_delete" onclick="deleteComment(${c.c_no})"><img
-									alt="" src="img/local/board/delete_button.png"></a> <input
-									type="hidden" id="delete_no" value="${c.c_no}">
+								<a class="btn_delete" onclick="deleteComment('${c.c_no}', '${c.id }')">
+								<img alt="" src="img/local/board/delete_button.png"></a> 
+								<input type="hidden" id="delete_no" value="${c.c_no}">
+								<input type="hidden" id="user_id" value="${sessionScope.user.u_id }">
+								<input type="hidden" id="writer_id" value="${c.id }">
 							</div>
 							<div class="comment_update">
-								<a class="btn_update"
-									onclick="updateComment(this, ${c.c_no}, '${c.c_content}')">修正</a>
-					</div>
+								<a class="btn_update" onclick="updateComment(this, '${c.c_no}', '${c.c_content}', '${c.id }')">修正</a>
+					        </div>
 						</div>
 					</c:forEach>
 						<div id="commentModal_${c.c_no}" class="commentModal" >
@@ -68,7 +70,7 @@
 					<p>コメントをつける</p>
 					<p>${sessionScope.user.u_id }</p>
 					<div class="comment_input">
-						<textarea rows="2" cols="65" placeholder="댓글을 남겨주세요 "
+						<textarea rows="2" cols="65" placeholder="コメントを作成してください"
 							name="reply_contents" id="content"></textarea>
 						<button class="btn_register" id="add_btn"
 							onclick="saveComment('${sessionScope.user.u_id }', '${epilogues.no}')">登錄</button>
