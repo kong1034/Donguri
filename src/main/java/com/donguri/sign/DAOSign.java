@@ -340,6 +340,37 @@ public class DAOSign {
 			}catch(IOException e){
 				e.printStackTrace();
 			}
+	}
+
+	
+	// User Delete Method
+	public void userDel(HttpServletRequest request) {
+		
+		String id = request.getParameter("u_id");
+		String sql = "DELETE FROM d_user WHERE u_ id = ? ";
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			if (pstmt.executeUpdate() == 1) {
+				System.out.println("会員退会成功");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt, null);
+		}
+		
+		
+		
+		
+		
 	}	
 
 }
