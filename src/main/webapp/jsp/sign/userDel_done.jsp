@@ -5,16 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/sign/signup_done.css" />
-    <title>signup_done</title>
+<title>userdel_done</title>
 </head>
 <body>
-      <div id="done_container">
+ <div id="done_container">
         <div id="done_content">
-          <div class="subtitle" style="padding-top: 20px">ようこそ！</div>
+          <div class="subtitle" style="padding-top: 20px">退会完了</div>
           <br />
-          ドングリアカウントを作成していただき<br />
-          ありがとうございます。<br />
-          このアカウントを利用して 希望を作って行きましょう。
+          会員退会できました。<br />
           <div id="done_btn">
             <button class="done_btn btn" onclick="location.href='/Donguri/LoginC'">戻る</button><br />
           </div>
