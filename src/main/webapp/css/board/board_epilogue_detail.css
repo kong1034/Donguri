@@ -194,3 +194,6 @@ body {
 	border-radius: 20px;
 	border: 1px solid #f6a200;
 }
+.hidden {
+	display: none;
+}

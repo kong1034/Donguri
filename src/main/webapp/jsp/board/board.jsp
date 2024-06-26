@@ -25,7 +25,7 @@
         <button class="tags_list" onclick="filterByTag('動物')">#動物</button>
       </div>
 
-      <form class="search_wrap" action="BoardC" method="post" >
+      <form class="search_wrap" action="BoardSearchC" method="post" >
        <div class="selectBox">
       		<select class="select" name="f">
       			<option value="title">タイトル</option>
@@ -48,7 +48,14 @@
         <c:forEach var="b" items="${ boardlists}">
         <div class="board_list">
           <div class="board status">
-            <div class="status_welcome">${b.status }</div>
+            <c:choose>
+              <c:when test="${b.status == '募集終了'}">
+                <div class="status_welcome ended">${b.status}</div>
+              </c:when>
+              <c:otherwise>
+                <div class="status_welcome">${b.status}</div>
+              </c:otherwise>
+            </c:choose>
           </div>
           <div class="board location">${b.place }</div>
           <div class="board group"><span>#${b.tag }</span></div>
@@ -61,10 +68,6 @@
         </c:forEach>
       </div>
       
-      	<div id="go_back_wrap">
-			<button id="go_back">목록으로</button>
-		</div>
-		
         <div class="number">
             <button  onclick="goToPage(1)">&lt;</button>
     	<form id="paginationForm" action="BoardPageC" method="post">
@@ -74,6 +77,10 @@
             </c:forEach>
    		 </form>
             <button onclick="goToPage(${pageCount})">&gt;</button>
+		</div>
+            <div id="go_back_wrap">
+			<button id="go_back" onclick="toList()"><img class="goback_img" alt="" src="img/local/board/back-arrow.png"></button>
+			<img class="goback_img2" alt="" src="img/local/board/goback.png">
 		</div>
     </div>
     <script type="text/javascript" src="js/board/board.js"></script>

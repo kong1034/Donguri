@@ -32,19 +32,20 @@
           <span> 場所 </span>
           <input type="text" name ="place" />
         </div>
-        <div class="group_make date">
-          <span>デート</span>
-          <input name="date" type="date" />
-        </div>
         <div class="group_make during">
           <span>募集期間 </span>
-          <input type="date" /> &nbsp;&nbsp;~&nbsp;&nbsp; <input type="date" />
+          <input type="date" name="start_date"/> &nbsp;&nbsp;~&nbsp;&nbsp; <input type="date" name="end_date" />
+        </div>
+        <div class="group_make date">
+          <span>デート</span>
+          <input name="meet_date" type="date" />
         </div>
         <div class="group_make info_">
           <span>インフォメーション</span>
           <textarea name="info" id="" cols="49" rows="10"></textarea>
         </div>
       </div>
+       <input name="status" type="hidden" value="O" />
       <button class="add_btn">登録</button>
     </div>
     </form>

@@ -8,6 +8,9 @@ public class DTOBoard {
 	private String title;
 	private String content;
 	private Date date;
+	private Date startdate;
+	private Date enddate;
+	private Date meetdate;
 	private String tag;
 	private String status;
 	private String place;
@@ -17,14 +20,17 @@ public class DTOBoard {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DTOBoard(int no, String id, String title, String content, Date date, String tag, String status, String place,
-			String img) {
+	public DTOBoard(int no, String id, String title, String content, Date date, Date startdate, Date enddate,
+			Date meetdate, String tag, String status, String place, String img) {
 		super();
 		this.no = no;
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.date = date;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.meetdate = meetdate;
 		this.tag = tag;
 		this.status = status;
 		this.place = place;
@@ -102,11 +108,37 @@ public class DTOBoard {
 	public void setImg(String img) {
 		this.img = img;
 	}
+	
+	public Date getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
+	}
+
+	public Date getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+	}
+	
+
+	public Date getMeetdate() {
+		return meetdate;
+	}
+
+	public void setMeetdate(Date meetdate) {
+		this.meetdate = meetdate;
+	}
 
 	@Override
 	public String toString() {
 		return "DTOBoard [no=" + no + ", id=" + id + ", title=" + title + ", content=" + content + ", date=" + date
-				+ ", tag=" + tag + ", status=" + status + ", place=" + place + ", img=" + img + "]";
+				+ ", startdate=" + startdate + ", enddate=" + enddate + ", meetdate=" + meetdate + ", tag=" + tag
+				+ ", status=" + status + ", place=" + place + ", img=" + img + "]";
 	}
 
 	

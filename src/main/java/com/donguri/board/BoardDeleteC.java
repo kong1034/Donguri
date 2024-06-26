@@ -7,15 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/BoardDetailApplyC")
-public class BoardDetailApplyC extends HttpServlet {
+@WebServlet("/BoardDeleteC")
+public class BoardDeleteC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		DAOBoard2.DAOB2.applyVolunteer(request);
-		
-		//response.sendRedirect("BoardDetailC");
-	            request.setAttribute("contentPage", "/jsp/board/board_detail.jsp");
-	            request.getRequestDispatcher("index.jsp").forward(request, response);
+	
+		DAOBoard.DAOB.deleteBoard(request);
+	
+		response.sendRedirect("MyPageC");
+	
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

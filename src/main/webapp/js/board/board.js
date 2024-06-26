@@ -1,5 +1,13 @@
 
-
+ //window.onload = function() {
+ //           const statusElements = document.querySelectorAll('.status_welcome');
+   //         statusElements.forEach(function(element) {
+     //           if (element.textContent.trim() === '募集終了') {
+       //             element.classList.add('ended');
+         //       }
+           // });
+       //     }; 
+        
 function filterByTag(tag) {
 	const xhr = new XMLHttpRequest();
 	xhr.open('GET', 'BoardTagC?tag=' + encodeURIComponent(tag), true);
@@ -23,10 +31,11 @@ function filterByTag(tag) {
 			let boardItems = '';
 
 			response.forEach(b => {
+				const statusClass = b.status === '募集終了' ? 'ended' : '';
 				boardItems += `
                         <div class="board_list">
                             <div class="board status">
-                                <div class="status_welcome">`+ b.status + `</div>
+                                <div class="status_welcome `+ statusClass +`">`+ b.status + `</div>
                             </div>
                             <div class="board location">`+ b.place + `</div>
                             <div class="board group"><span>#`+ b.tag + `</span></div>
@@ -46,3 +55,9 @@ function goToPage(pageNumber) {
 	document.getElementById("paginationForm").submit();
 
 }
+
+function toList(){
+	location.href="BoardC";
+}
+
+ 
