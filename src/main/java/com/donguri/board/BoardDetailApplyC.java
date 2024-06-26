@@ -14,13 +14,9 @@ public class BoardDetailApplyC extends HttpServlet {
 		DAOBoard2.DAOB2.applyVolunteer(request);
 		
 		//response.sendRedirect("BoardDetailC");
-		  if (request.getAttribute("errorMessage") != null) {
 	            request.setAttribute("contentPage", "/jsp/board/board_detail.jsp");
 	            request.getRequestDispatcher("index.jsp").forward(request, response);
-	        } else {
-	            request.setAttribute("contentPage", "/jsp/board/board_detail.jsp");
-	            request.getRequestDispatcher("index.jsp").forward(request, response);
-	        }	}
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
