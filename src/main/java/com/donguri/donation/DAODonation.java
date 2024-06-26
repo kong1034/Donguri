@@ -104,27 +104,26 @@ public class DAODonation {
     }
     
     public void paging(int page, HttpServletRequest request) {
-		int cnt = 8; // 한 페이지당 보여줄 개수
-		int total = donations.size(); // 총 데이터 개수
-		int totalPage = (int)Math.ceil((double)total/cnt); // 총 페이지수
-		
-		//시작 데이터 번호2 = 총 데이터 수 - (한 페이지당 보여줄 개수 * (페이지 번호 - 1))
-		int start = total - (cnt * (page - 1));
-		//끝데이터 번호2 = (페이지 번호 == 총 페이지수) ? -1 : 시작데이터번호2 - (한 페이지당 보여줄 개수 +1);
-		int end = (page == totalPage) ? -1 : start - (cnt +1);
-		
-		ArrayList<DTODonation> dItems = new ArrayList<DTODonation>();
-	    ArrayList<Integer> pagedImgCntList = new ArrayList<Integer>();
+    	int cnt = 8; // 한 페이지당 보여줄 개수
+        int total = donations.size(); // 총 데이터 개수
+        int totalPage = (int) Math.ceil((double) total / cnt); // 총 페이지수
 
-		
-		for(int i=start-1; i > end; i--) {
-			dItems.add(donations.get(i));
-			pagedImgCntList.add(imgCntList.get(i));
-		}
-		request.setAttribute("pageCnt", totalPage);
-		request.setAttribute("curPageNo", page);
-		request.setAttribute("dItems", dItems);
-		request.setAttribute("pagedImgCntList", pagedImgCntList);
+        // 시작 인덱스와 끝 인덱스를 계산
+        int start = (page - 1) * cnt;
+        int end = Math.min(start + cnt, total);
+
+        ArrayList<DTODonation> dItems = new ArrayList<DTODonation>();
+        ArrayList<Integer> pagedImgCntList = new ArrayList<Integer>();
+
+        for (int i = start; i < end; i++) {
+            dItems.add(donations.get(i));
+            pagedImgCntList.add(imgCntList.get(i));
+        }
+
+        request.setAttribute("pageCnt", totalPage);
+        request.setAttribute("curPageNo", page);
+        request.setAttribute("dItems", dItems);
+        request.setAttribute("pagedImgCntList", pagedImgCntList); // 페이지 단위 imgCntList 전달
 	}
 
 	public void postDonationMake(HttpServletRequest request, HttpServletResponse response) {
