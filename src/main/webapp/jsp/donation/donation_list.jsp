@@ -26,6 +26,7 @@
 			<ul class="donation_list_content">
 				<c:forEach items="${dItems}" var="donation" varStatus="i">
 					<li class="donation_content" onclick="call(${donation.no})">
+					<button id="admin_revise" value="${sessionScope.user.u_no }">修正</button>
 						<div class="donation_img_box">
 							<img src="img/server/${donation.thumnail}">
 						</div>
@@ -58,12 +59,19 @@
 	<script>
 /* admin register Btn */
 const admin = document.querySelector('.admin_btn button.admin_btn');
+const admin_revise = document.querySelectorAll('#admin_revise');
 if (admin) {
     const value = admin.value;
     if (value == 1) {
-        admin.parentElement.style.display = 'block';
+        admin.style.display = 'block';
+        admin_revise.forEach(button => {
+            button.style.display = 'block';
+        });
     } else {
-        admin.parentElement.style.display = 'none';
+        admin.style.display = 'none';
+        admin_revise.forEach(button => {
+            button.style.display = 'none';
+        });
     }
 }
 </script>
