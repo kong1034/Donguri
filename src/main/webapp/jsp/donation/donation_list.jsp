@@ -25,7 +25,7 @@
 		<div class="donation_list_content_container">
 			<ul class="donation_list_content">
 				<c:forEach items="${dItems}" var="donation" varStatus="i">
-					<li class="donation_content">
+					<li class="donation_content" onclick="call(${donation.no})">
 						<div class="donation_img_box">
 							<img src="img/server/${donation.thumnail}">
 						</div>
