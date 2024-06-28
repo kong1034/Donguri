@@ -104,11 +104,11 @@ public class DAODonation {
     }
     
     public void paging(int page, HttpServletRequest request) {
-    	int cnt = 8; // 한 페이지당 보여줄 개수
-        int total = donations.size(); // 총 데이터 개수
-        int totalPage = (int) Math.ceil((double) total / cnt); // 총 페이지수
+    	int cnt = 8; // show page count
+        int total = donations.size(); // show page data count
+        int totalPage = (int) Math.ceil((double) total / cnt); // total page count
 
-        // 시작 인덱스와 끝 인덱스를 계산
+        // start index & end index
         int start = (page - 1) * cnt;
         int end = Math.min(start + cnt, total);
 
@@ -123,7 +123,7 @@ public class DAODonation {
         request.setAttribute("pageCnt", totalPage);
         request.setAttribute("curPageNo", page);
         request.setAttribute("dItems", dItems);
-        request.setAttribute("pagedImgCntList", pagedImgCntList); // 페이지 단위 imgCntList 전달
+        request.setAttribute("pagedImgCntList", pagedImgCntList);
 	}
 
 	public void postDonationMake(HttpServletRequest request, HttpServletResponse response) {
