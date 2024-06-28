@@ -2,7 +2,6 @@
 function chkCode() {
 	let inputValue = document.querySelector('#input_num').value;
 	let registerEmail = document.querySelector('.input_email');
-	let modal = document.getElementById("myModal"); 
 	
 	let params = {
 	        code: inputValue,
@@ -64,7 +63,7 @@ function chkCode() {
 	const emailChk = document.querySelector("#chk_btn");
 	emailChk.addEventListener("click", async () => {
 		const emailval = document.querySelector("#input_email").value;
-		
+		alert("メールを送りました。");
 		 try {
 		        const response = await fetch("RegEmailC?email=" + encodeURIComponent(emailval), {
 		            method: "GET"
