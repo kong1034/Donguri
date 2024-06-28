@@ -37,3 +37,46 @@ function confirmApply(g_no, boardId, userId) {
   }
 }
 
+function applyDone(no){
+	let ok = confirm("募集終了しますか?");
+	if(ok){
+		location.href='BoardApplyDoneC?no='+ no;
+	}
+}
+
+function boardDelete(no){
+	let ok = confirm("削除しますか?");
+	if(ok){
+		location.href='BoardDeleteC?no='+ no;
+	}
+}
+
+function boardUpdate(no){
+	let ok = confirm("修正しますか?");
+	if(ok){
+		sessionStorage.setItem('boardNo', no);
+		location.href='BoardMakeC';
+	}
+}
+
+function toggleLike(no) {
+  $.ajax({
+    url: 'BoardLikeC',
+    data: { no: no },
+    success: function(response) {
+      if (response.success) {
+        $('#likeCount').text(response.likes);
+      } else {
+        alert('Failed to update likes');
+      }
+    },
+    error: function() {
+      alert('Error occurred while updating likes');
+    }
+  });
+}
+ var btn = document.getElementById("likeButton")
+
+  btn.addEventListener('click',function(){
+            btn.classList.toggle('active')
+    })

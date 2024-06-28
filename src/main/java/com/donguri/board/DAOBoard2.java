@@ -41,7 +41,7 @@ public class DAOBoard2 {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from review order by r_date desc";
+		String sql = "select * from review order by r_date";
 
 		try {
 			con = DBManager.connect();
@@ -161,13 +161,16 @@ public class DAOBoard2 {
 		try {
 			con= DBManager.connect();
 			pstmt= con.prepareStatement(sql);
+
+			HttpSession session = request.getSession();
+			UserDTO user = (UserDTO) session.getAttribute("user");
 			
 			String path = request.getServletContext().getRealPath("img/local/board");
 			MultipartRequest mr = new MultipartRequest(request, path, 1024*1024*20,"utf-8", new DefaultFileRenamePolicy());
 			
 			pstmt.setString(1, mr.getParameter("v_no"));
 			pstmt.setString(2, mr.getParameter("g_no"));
-			pstmt.setString(3, mr.getParameter("yuree"));
+			pstmt.setString(3, mr.getParameter(user.getU_id()));
 			pstmt.setString(4, mr.getParameter("r_tag"));
 			pstmt.setString(5, mr.getParameter("r_title"));
 			pstmt.setString(6, mr.getParameter("r_content"));
@@ -420,7 +423,7 @@ public class DAOBoard2 {
 		        if (rs.getInt(1) > 0) {
 		            // 이미 지원한 경우
 		            System.out.println("이미 지원한 사용자입니다.");
-		            request.setAttribute("errorMessage", "支援したコミュニティです");
+		            request.setAttribute("errorMessage", "重複支援は不可です");
 		        } else {
 		            // 지원 가능
 		            pstmt.close();
@@ -430,7 +433,7 @@ public class DAOBoard2 {
 
 		            if (pstmt.executeUpdate() == 1) {
 		                System.out.println("지원 완료");
-		                request.setAttribute("successMessage", "支援 完了");
+		                request.setAttribute("successMessage", "支援完了");
 		            }
 		        }
 

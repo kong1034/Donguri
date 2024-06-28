@@ -22,12 +22,7 @@ public class BoardC extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		DAOBoard.DAOB.search(request);
 		
-		request.setAttribute("contentPage", "/jsp/board/board.jsp");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
-	
 	}
 
 }
