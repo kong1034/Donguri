@@ -41,12 +41,12 @@ public class DAODonation {
         ResultSet rs = null;
         donations = new ArrayList<DTODonation>();
         imgCntList = new ArrayList<Integer>();
-        String sql = "select dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount, coalesce(sum(dp.p_price), 0) as SUM"
+        String sql = "select dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount, coalesce(sum(dp.p_price), 0) as SUM"
         		+" from d_donation_list dd"
         		+" left join d_payment dp"
         		+" on dd.d_no = dp.d_no"
-        		+" group by dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount"
-        		+" order by d_date asc";
+        		+" group by dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount"
+        		+" order by dd.d_no desc";
         
         try {
             con = DBManager.connect();
@@ -56,6 +56,7 @@ public class DAODonation {
             while(rs.next()) {
             	int imgCnt = 0;
                 DTODonation donation = new DTODonation();
+                donation.setNo(rs.getInt("d_no"));
                 donation.setTitle(rs.getString("d_title"));
                 donation.setDate(rs.getString("d_date"));
                 donation.setThumnail(rs.getString("d_thumnail"));
