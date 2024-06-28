@@ -6,6 +6,7 @@ import java.util.Date;
 import com.google.gson.Gson;
 
 public class DTODonation {
+	private int no;
     private String title;
     private String date;
     private String thumnail;
@@ -16,6 +17,13 @@ public class DTODonation {
 		// TODO Auto-generated constructor stub
 	}
     
+    public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public String getTitle() {
 		return title;
 	}
