@@ -346,8 +346,8 @@ public class DAOSign {
 	// User Delete Method
 	public void userDel(HttpServletRequest request) {
 		
-		String id = request.getParameter("u_id");
-		String sql = "DELETE FROM d_user WHERE u_ id = ? ";
+		String id = request.getParameter("id");
+		String sql = "DELETE FROM d_user WHERE u_id = ? ";
 		PreparedStatement pstmt = null;
 		
 		try {

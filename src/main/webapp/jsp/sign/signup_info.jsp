@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
     </style>
   </head>
   <body>
-    <form　name="joinForm"  action="SignupInfoC" method="post" enctype="multipart/form-data">
+    <form id="signup_form" action="SignupInfoC" method="post" enctype="multipart/form-data">
       <div id="signup_info_container">
         <div id="signup_info_content">
           <div class="subtitle">ログインID</div>
@@ -73,14 +73,13 @@ pageEncoding="UTF-8"%>
             name="u_birth"
           /><br />
           <div id="next_btn">
-            <button class="btn next" onclick="Validation()">次へ</button>
+            <button type="button" class="btn next" onclick="Validation()">次へ</button>
           </div>
         </div>
       </div>
     </form>
     <dialog id="myModal">
       <div>
-        <!-- <form action="RegEmailC" method="post" > -->
         <div id="reg_email_container">
           <div id="reg_email_content">
             <div class="subtitle">メールでID登録</div>
@@ -113,10 +112,9 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </div>
-        <!-- 		</form> -->
       </div>
-    <script src="js/sign/signup_info.js"></script>
     </dialog>
+    <script src="js/sign/signup_info.js"></script>
     <script src="js/validation.js"></script>
   </body>
 </html>

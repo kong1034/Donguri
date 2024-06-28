@@ -78,11 +78,13 @@ function Validation() {
 	}
 	
 	// Profile Img
-	if (!regImg.test(profileimg.value)) {
+	if (profileimg.value &&!regImg.test(profileimg.value)) {
 		alert("png、jpg、jpegのみ添付できます。");
 		profileimg.focus();
 		return false;
 	}
+	    // 모든 검사가 통과하면 폼을 제출합니다.
+      document.getElementById('signup_form').submit();
 }
 
 	// Age
