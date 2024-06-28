@@ -21,7 +21,7 @@ public class InfoAllC extends HttpServlet {
 			} else if(num == 2) {
 				
 			} else if(num == 3) {
-				
+				request.setAttribute("contents", "/jsp/info/info_animal.jsp");
 			} else if(num == 4) {
 				
 			}
