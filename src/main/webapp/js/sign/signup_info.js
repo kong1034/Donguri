@@ -17,22 +17,29 @@ function chkCode() {
 		.then(data => {
 			if (data) {
 				console.log('Code matched');
+				alert('Code matched successfully!');
 				registerEmail = document.querySelector('#input_email').value; // u_email view
 				let openModalInput = document.querySelector('#openModal');
 			    openModalInput.style.pointerEvents = "none";
 		        openModalInput.placeholder = registerEmail;  // placeholder val
 		        openModalInput.setAttribute("value", registerEmail);
+		        modal.close();
 				
 			} else {
 				console.log('Unmatched');
+				alert('Code did not match.');
 			} 
 		}) 
 		.catch(error => {
 			console.error('Fetch ERROR: ', error);
+			alert('An error occurred.');
 		});
 }
 /** modal **/
-// Get the modal
+	 document.getElementById('chk_btn').addEventListener('click', function() {
+      alert('メールを送りました。');
+    });
+	// Get the modal
 	var modal = document.getElementById("myModal");
 
 	// Get the button that opens the modal
@@ -63,7 +70,6 @@ function chkCode() {
 	const emailChk = document.querySelector("#chk_btn");
 	emailChk.addEventListener("click", async () => {
 		const emailval = document.querySelector("#input_email").value;
-		alert("メールを送りました。");
 		 try {
 		        const response = await fetch("RegEmailC?email=" + encodeURIComponent(emailval), {
 		            method: "GET"
