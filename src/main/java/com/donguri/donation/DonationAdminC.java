@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class DonationAdminC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		request.setAttribute("contentPage", "jsp/donation/donation_make.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
