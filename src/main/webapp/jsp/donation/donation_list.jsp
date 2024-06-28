@@ -20,30 +20,24 @@
 			<li class="donation__list_tags"><a> #動物</a></li>
 		</ul>
 		<div class="admin_btn" >
-		<button value="${sessionScope.user.u_no }" class="admin_btn">登録</button>
+		<button value="${sessionScope.user.u_no }" onclick="movePage()" class="admin_btn">登録</button>
 		</div>
 		<div class="donation_list_content_container">
 			<ul class="donation_list_content">
 				<c:forEach items="${dItems}" var="donation" varStatus="i">
 					<li class="donation_content">
 						<div class="donation_img_box">
-							<img src="${donation.thumnail}">
+							<img src="img/server/${donation.thumnail}">
 						</div>
 						<div class="donation_txt_box">
 							<p>寄付金</p>
 							<p>目標金額:${donation.amount}</p>
-						</div> <c:forEach begin="0" end="${imgCntList.size() - 1}" var="j">
-							<c:if test="${i.index == j }">
-								<div class="donation_amount_img_box">
-									<c:forEach begin="1" end="${imgCntList[j]}">
-
-										<img src="img/local/dongguri.svg" title="寄付金の10%とどんぐり一つは同じです。">
-
-									</c:forEach>
-
-								</div>
-							</c:if>
-						</c:forEach>
+						</div> 
+						<div class="donation_amount_img_box">
+                            <c:forEach begin="1" end="${pagedImgCntList[i.index]}">
+                                <img src="img/local/dongguri.svg" title="寄付金の10%とどんぐり一つは同じです。">
+                            </c:forEach>
+                        </div>
 					</li>
 				</c:forEach>
 			</ul>
