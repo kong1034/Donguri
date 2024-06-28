@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -21,10 +22,20 @@
 				href="<%=request.getContextPath()%>/jsp/donation/donation.jsp">ドネーション</a>
 			</li>
 			<li class="header_categori_li"><a href="BoardC">コミュニティ</a></li>
-			<li class="header_categori_li" class="login"><img
-				src="https://item.kakaocdn.net/do/296cc3e891afb5542018b43229eb30ccac8e738cb631e72fdb9a96b36413984e"
+			<c:choose>
+				<c:when test="${sessionScope.user.u_profileimg != null }">
+				<li class="header_categori_li" class="login"><img
+				src="img/server/${sessionScope.user.u_profileimg }"
 				style="width: 2.5em; height: 2.5em; border: 1px solid black; border-radius: 50%;"
 				onclick="location.href='MyPageC'" class="login"></li>
+				</c:when>
+				<c:otherwise>
+				<li class="header_categori_li" class="login"><img
+				src="img/local/default_icon.png"
+				style="width: 2.5em; height: 2.5em; border: 1px solid black; border-radius: 50%;"
+				onclick="location.href='MyPageC'" class="login"></li>
+				</c:otherwise>
+			</c:choose>
 			<li class="header_categori_li"><button
 					onclick="location.href='LogoutC'" class="login"
 					style="width: 4em; height: 2em;">Logout</button>
