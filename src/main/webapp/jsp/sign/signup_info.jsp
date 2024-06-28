@@ -37,6 +37,7 @@ pageEncoding="UTF-8"%>
             placeholder="入力後確認コードの確認が必要です"
             value=""
             name="u_email"
+            tabindex="-1"
           /><br />
           <div class="subtitle" style="padding-top: 20px">パスワード</div>
           <input type="password" class="input_val input_pw" name="u_pw" /><br />
