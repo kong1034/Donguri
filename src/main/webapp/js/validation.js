@@ -8,8 +8,8 @@ function Validation() {
 	var profileimg = document.querySelector('input[name="u_profileimg"]');
 
 	/** Validation method **/
-	/** ID & PW min: 4 max:12 **/
-	var regIdPw = /^[a-zA-Z0-9]{4,12}$/;
+	/** ID & PW min: 4 max:20 **/
+	var regIdPw = /^[a-zA-Z0-9]{4,20}$/;
 	/** NAME only hiragana, katakana, kanzi min: 1 max: 20 **/
 	var regName = /^[\u30a0-\u30ff\u3040-\u309f\u4e00-\u9faf]{1,20}$/;
 	/** e-mail **/
@@ -25,7 +25,7 @@ function Validation() {
 		id.focus();
 		return false;
 	} else if (!regIdPw.test(id.value)) {
-		alert("半角英数字4-12字を入力してください。");
+		alert("半角英数字4-20字を入力してください。");
 		id.focus();
 		return false;
 	}
@@ -36,7 +36,7 @@ function Validation() {
 		pw.focus();
 		return false;
 	} else if (!regIdPw.test(pw.value)) {
-		alert("半角英数字4-12字を入力してください。");
+		alert("半角英数字4-20字を入力してください。");
 		pw.focus();
 		return false;
 	}
