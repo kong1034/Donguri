@@ -143,6 +143,16 @@
 	cursor: pointer;
 	border-radius: 5px;
 }
+#admin_revise{
+	background-color: #4CAF50;
+	width: 100px;
+	height: 50px;
+	position: absolute;
+	color: white;
+	border: none;
+	top: 0px;
+	left: 0px;
+}
 
 .donation_more_btn_box {
 	width: 60%;
