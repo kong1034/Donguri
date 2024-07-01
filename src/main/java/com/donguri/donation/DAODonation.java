@@ -9,11 +9,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.donguri.find.DAOFind;
 import com.donguri.main.DBManager;
 import com.donguri.sign.UserDTO;
 import com.google.gson.Gson;
@@ -34,113 +34,148 @@ public class DAODonation {
 		}
 	}
 
-    public void getDonationById(String id) {
-        
-    }
-    public void getDonationById(HttpServletRequest request) {
-    	 PreparedStatement pstmt = null;
-    	 ResultSet rs = null;
-    	 
-    	 HttpSession session = request.getSession();
-		 UserDTO user = (UserDTO) session.getAttribute("user");
+	// Method to get donation details by ID
+	public void getDonationByOne(HttpServletRequest request) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DTODonation donation = null;
+
+		String sql = "SELECT dd.d_title, dd.d_content, dd.d_date, dd.d_thumnail, dd.d_amount, SUM(dp.p_price) AS sum, dd.d_created_date, dd.d_publisher, dd.d_tags "
+				+ "FROM d_donation_list dd " 
+				+ "LEFT JOIN d_payment dp ON dd.d_no = dp.d_no " 
+				+ "WHERE dd.d_no = ? "
+				+ "GROUP BY dd.d_title, dd.d_content, dd.d_date, dd.d_thumnail, dd.d_amount, dd.d_created_date, dd.d_publisher, dd.d_tags";
+
+		try {
+			System.out.println("check sql => "+sql);
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, request.getParameter("no"));
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				donation = new DTODonation();
+				donation.setTitle(rs.getString("d_title"));
+
+				String content = rs.getString("d_content");
+				content = content.replaceAll("<br>", "\r\n");
+				donation.setContent(content);
+				String[] dateList = rs.getString("d_date").split(" ");
+				donation.setDate(dateList[0]);
+				donation.setThumnail(rs.getString("d_thumnail"));
+				donation.setAmount(rs.getInt("d_amount"));
+				donation.setSum(rs.getInt("sum"));
+				donation.setCreated_date(rs.getString("d_created_date"));
+				donation.setPublisher(rs.getString("d_publisher"));
+				donation.setTag(rs.getString("d_tags"));				
+			}
+			System.out.println("check donation date => "+donation.getDate());
 			
-		 String userid = user.getU_id();
-    	 String sqlSum = "select sum(p_price) as total_donation from d_payment where u_id=?";
-    	 String sqlCount = "select count(*) as count_donation from d_payment where u_id=?";
-    	 String sqlDTitle = "select dp.u_id, dp.d_no, dd.d_title "
-    	 					+ "from d_payment dp "
-    	 					+ "left join d_donation_list dd on dp.d_no = dd.d_no where dp.u_id=?";
-    	 
-    	 try {
-			con= DBManager.connect();
-			 pstmt = con.prepareStatement(sqlSum);
-	            pstmt.setString(1, userid);
-	            rs = pstmt.executeQuery();
-	            if (rs.next()) {
-	                int totalDonation = rs.getInt("total_donation");
-	                request.setAttribute("totalD", totalDonation);
-	            }
-	            
-	            pstmt = con.prepareStatement(sqlCount);
-	            pstmt.setString(1, userid);
-	            rs = pstmt.executeQuery();
-	            if (rs.next()) {
-	                int countDonation = rs.getInt("count_donation");
-	                request.setAttribute("countD", countDonation);
-	            }
-	            pstmt = con.prepareStatement(sqlDTitle);
-	            pstmt.setString(1, userid);
-	            rs = pstmt.executeQuery();
-	            
-	            List<DTODonation> d_title = new ArrayList<>();
-	            DTODonation dn = null;
-	            while (rs.next()) {
-	             dn = new DTODonation();
-	             dn.setTitle(rs.getString("d_title"));
-	             d_title.add(dn);
-	            }
-	            request.setAttribute("dTitle", d_title);
-			
-		} catch (Exception e) {
+			request.setAttribute("selected_info", donation);
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			DBManager.close(con, pstmt, rs);
 		}
-    	 
-    	 
-    }
+	}
 
-    public void getAllDonations(HttpServletRequest request, HttpServletResponse response) {
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        donations = new ArrayList<DTODonation>();
-        imgCntList = new ArrayList<Integer>();
-        String sql = "select dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount, coalesce(sum(dp.p_price), 0) as SUM"
-        		+" from d_donation_list dd"
-        		+" left join d_payment dp"
-        		+" on dd.d_no = dp.d_no"
-        		+" group by dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount"
-        		+" order by dd.d_no desc";
-        
-        try {
-            con = DBManager.connect();
-            pstmt = con.prepareStatement(sql);
-            rs = pstmt.executeQuery();
+	public void getDonationById(HttpServletRequest request) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-            while(rs.next()) {
-            	int imgCnt = 0;
-                DTODonation donation = new DTODonation();
-                donation.setNo(rs.getInt("d_no"));
-                donation.setTitle(rs.getString("d_title"));
-                donation.setDate(rs.getString("d_date"));
-                donation.setThumnail(rs.getString("d_thumnail"));
-                donation.setAmount(rs.getInt("d_amount"));
-                donation.setSum(rs.getInt("SUM"));
-                
-                int amount = rs.getInt("d_amount");
-                int sum = rs.getInt("SUM");
-                
-                System.out.println("==============");
-                System.out.println("check amount => "+amount);
-                System.out.println("check sum => "+sum);
-                
-                double percentage = ((double) sum/amount) * 100;
-                
-                System.out.println("check percentage => "+percentage);
-                
-                imgCnt = (int)(percentage/10);
-                
-                donations.add(donation);
-                System.out.println("check imgCnt => "+imgCnt);
-                System.out.println("==============");
-                imgCntList.add(imgCnt);
-                System.out.println("check imgCntList => "+imgCntList);
-                //request.setAttribute("imgCntList", imgCntList);
-            }
-            
-            
-            
-            //JSON Key, Json Value
+		HttpSession session = request.getSession();
+		UserDTO user = (UserDTO) session.getAttribute("user");
+
+		String userid = user.getU_id();
+		String sqlSum = "select sum(p_price) as total_donation from d_payment where u_id=?";
+		String sqlCount = "select count(*) as count_donation from d_payment where u_id=?";
+		String sqlDTitle = "select dp.u_id, dp.d_no, dd.d_title " + "from d_payment dp "
+				+ "left join d_donation_list dd on dp.d_no = dd.d_no where dp.u_id=?";
+
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sqlSum);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int totalDonation = rs.getInt("total_donation");
+				request.setAttribute("totalD", totalDonation);
+			}
+
+			pstmt = con.prepareStatement(sqlCount);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int countDonation = rs.getInt("count_donation");
+				request.setAttribute("countD", countDonation);
+			}
+			pstmt = con.prepareStatement(sqlDTitle);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+
+			List<DTODonation> d_title = new ArrayList<>();
+			DTODonation dn = null;
+			while (rs.next()) {
+				dn = new DTODonation();
+				dn.setTitle(rs.getString("d_title"));
+				d_title.add(dn);
+			}
+			request.setAttribute("dTitle", d_title);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+
+	}
+
+	public void getAllDonations(HttpServletRequest request, HttpServletResponse response) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		donations = new ArrayList<DTODonation>();
+		imgCntList = new ArrayList<Integer>();
+		String sql = "select dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount, coalesce(sum(dp.p_price), 0) as SUM"
+				+ " from d_donation_list dd" + " left join d_payment dp" + " on dd.d_no = dp.d_no"
+				+ " group by dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount" + " order by dd.d_no desc";
+
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int imgCnt = 0;
+				DTODonation donation = new DTODonation();
+				donation.setNo(rs.getInt("d_no"));
+				donation.setTitle(rs.getString("d_title"));
+				donation.setDate(rs.getString("d_date"));
+				donation.setThumnail(rs.getString("d_thumnail"));
+				donation.setAmount(rs.getInt("d_amount"));
+				donation.setSum(rs.getInt("SUM"));
+
+				int amount = rs.getInt("d_amount");
+				int sum = rs.getInt("SUM");
+
+				System.out.println("==============");
+				System.out.println("check amount => " + amount);
+				System.out.println("check sum => " + sum);
+
+				double percentage = ((double) sum / amount) * 100;
+
+				System.out.println("check percentage => " + percentage);
+
+				imgCnt = (int) (percentage / 10);
+
+				donations.add(donation);
+				System.out.println("check imgCnt => " + imgCnt);
+				System.out.println("==============");
+				imgCntList.add(imgCnt);
+				System.out.println("check imgCntList => " + imgCntList);
+				// request.setAttribute("imgCntList", imgCntList);
+			}
+
+			// JSON Key, Json Value
 //            Gson gson = new Gson();
 //            String donationJson = gson.toJson(donations);
 
@@ -186,6 +221,8 @@ public class DAODonation {
 		String sql = "insert into d_donation_list values(d_donation_list_seq.nextval, default, ?,?,?,?,?,?,?,　default)";
 
 		try {
+			con = DBManager.connect();
+			
 			String path = request.getServletContext().getRealPath("img/server");
 			MultipartRequest mr = new MultipartRequest(request, path, 1024 * 1024 * 20, "utf-8",
 					new DefaultFileRenamePolicy());
@@ -201,8 +238,8 @@ public class DAODonation {
 			LocalDate localDate = LocalDate.parse(end_date);
 			Date date = Date.valueOf(localDate);
 
-			content = content.replaceAll("\r\n", "<br>");
-			;
+			content = content.replaceAll("<br>", "\r\n");
+			
 			System.out.println("check title in dao => " + title);
 			System.out.println("check content in dao => " + content);
 			System.out.println("check thumbnail in dao => " + thumbnail);
@@ -235,21 +272,15 @@ public class DAODonation {
 
 	public void postDonationUpdate(HttpServletRequest request, HttpServletResponse response) {
 		PreparedStatement pstmt = null;
-		String sql = "update d_donation_list set"
-				+ " d_title = ?,"
-				+ " d_content = ?,"
-				+ " d_thumnail = ?,"
-				+ " d_amount = ?,"
-				+ " d_date = ?,"
-				+ " d_publisher = ?,"
-				+ " d_tag = ?,"				
-				+ " where d_no = ?";
+		String sql = "update d_donation_list set" + " d_title = ?," + " d_content = ?," + " d_thumnail = ?,"
+				+ " d_amount = ?," + " d_date = ?," + " d_publisher = ?," + " d_tags = ?" + " where d_no = ?";
 
 		try {
+			con = DBManager.connect();
 			String path = request.getServletContext().getRealPath("img/server");
 			MultipartRequest mr = new MultipartRequest(request, path, 1024 * 1024 * 20, "utf-8",
 					new DefaultFileRenamePolicy());
-
+			
 			int no = Integer.parseInt(mr.getParameter("no"));
 			String title = mr.getParameter("title");
 			String content = mr.getParameter("content");
@@ -263,7 +294,7 @@ public class DAODonation {
 			Date date = Date.valueOf(localDate);
 
 			content = content.replaceAll("\r\n", "<br>");
-			;
+			
 			System.out.println("check no in dao => " + no);
 			System.out.println("check title in dao => " + title);
 			System.out.println("check content in dao => " + content);
@@ -286,11 +317,13 @@ public class DAODonation {
 
 			if (pstmt.executeUpdate() == 1) {
 				System.out.println("수정 성공");
+				response.setStatus(response.SC_OK);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("서버에러");
+			response.setStatus(response.SC_BAD_REQUEST);
 		} finally {
 			DBManager.close(con, pstmt, null);
 		}

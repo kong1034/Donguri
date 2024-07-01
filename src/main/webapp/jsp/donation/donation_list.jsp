@@ -20,7 +20,7 @@
 			<ul class="donation_list_content">
 				<c:forEach items="${dItems}" var="donation" varStatus="i">
 					<li class="donation_content" onclick="call(${donation.no})">
-					<button id="admin_revise" value="${sessionScope.user.u_no }">修正</button>
+					<button id="admin_revise" onclick="moveUpdatePage(${donation.no})" value="${sessionScope.user.u_no }">修正</button>
 						<div class="donation_img_box">
 							<img src="img/server/${donation.thumnail}">
 							<p>${donation.title}</p>
