@@ -3,49 +3,17 @@ document.addEventListener('DOMContentLoaded', function() {
     var shareBtn = document.getElementById('share_button');
     var shareModal = document.getElementById('share_modal');
     var shareCloseBtn = document.getElementById('share_close');
-    var loginStatus = "<%=request.getAttribute('loginStatus')%>";
+    var donationAmountInput = document.getElementById('donation_amount');
+    var userId = document.querySelector('.u_id').value;
 
     // Handle donation button click
     if (donationBtn) {
         donationBtn.addEventListener('click', function() {
-            var amount = document.getElementById('donation_amount').value;
-            var donationId = "<%=request.getParameter('id')%>";
-
-            if (amount && donationId) {
-                var userLoggedIn = (loginStatus === 'loggedIn'); // Replace this with your actual login check logic
-                if (!userLoggedIn) {
-                    alert('You need to log in to donate.');
-                    window.location.href = '/Donguri/src/main/java/com/donguri/sign/LoginC';
-                    return;
-                }
-
-                var popup = window.open('', 'LinePay', 'width=800,height=600');
-
-                fetch('/Donguri/DonationC', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({
-                        amount: amount,
-                        id: donationId
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        popup.location.href = data.paymentUrl;
-                    } else {
-                        alert('Failed to initiate payment.');
-                        popup.close();
-                    }
-                })
-                .catch(error => {
-                    alert('An error occurred: ' + error.message);
-                    popup.close();
-                });
+            if (userId) {
+                processLinePay();
             } else {
-                alert('Please enter a valid amount.');
+                alert('Please log in.');
+                window.location.href = '/login'; // Adjust the login URL as necessary
             }
         });
     }
@@ -71,15 +39,56 @@ document.addEventListener('DOMContentLoaded', function() {
             shareModal.style.display = "none";
         }
     });
+
+    // Process Line Pay
+    function processLinePay() {
+        var amount = donationAmountInput.value;
+        var donationId = 'donation123'; // Set your donation ID
+
+        if (amount && parseFloat(amount) > 0 && donationId) {
+            var width = 800;
+            var height = 600;
+            var left = (screen.width - width) / 2;
+            var top = (screen.height - height) / 2;
+            var popup = window.open('', 'LinePay', `width=${width},height=${height},top=${top},left=${left}`);
+
+            fetch('/Donguri/DonationC', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    id: donationId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server response: ", data);
+                if (data.info && data.info.paymentUrl) {
+                    popup.location.href = data.info.paymentUrl.web;
+                    setTimeout(() => {
+                        popup.close();
+                    }, 10000); // Close the popup after 10 seconds
+                } else {
+                    alert('Failed to initiate payment: ' + (data.message || 'Unknown error'));
+                    popup.close();
+                }
+            })
+            .catch(error => {
+                console.error('An error occurred: ', error);
+                alert('An error occurred: ' + error);
+                popup.close();
+            });
+        } else {
+            alert('Please enter a valid amount.');
+        }
+    }
 });
 
-function copyToClipboard(selector) {
-    var text = document.querySelector(selector).value;
-    var tempInput = document.createElement('input');
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempInput);
-    alert('Link copied to clipboard');
+function copyToClipboard(element) {
+    var copyText = document.querySelector(element);
+    copyText.select();
+    document.execCommand("copy");
+    alert("URLがコピーされました: " + copyText.value);
 }
