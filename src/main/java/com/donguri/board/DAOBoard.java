@@ -541,6 +541,40 @@ public class DAOBoard {
 			DBManager.close(con, pstmt, null);
 		}
 	}
+
+	public void getMyLikes(HttpServletRequest request) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select d.g_title, ul.g_no from user_likes ul join d_group_list d on ul.g_no = d.g_no where ul.u_id= ?";
+		
+		HttpSession session = request.getSession();
+	    UserDTO user = (UserDTO) session.getAttribute("user");
+	    String userId = user.getU_id();
+		
+	    try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			
+			List<DTOBoard> dTitles = new ArrayList<>();
+			DTOBoard dt = null;
+			while (rs.next()) {
+				dt = new DTOBoard();
+				dt.setTitle(rs.getString("g_title"));
+				dt.setNo(rs.getInt("g_no"));
+				dTitles.add(dt);
+			}
+			request.setAttribute("dTitles", dTitles);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+		
+		
+	}
 		
 	}
 	
