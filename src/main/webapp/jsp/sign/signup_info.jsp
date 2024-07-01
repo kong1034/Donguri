@@ -76,7 +76,7 @@ pageEncoding="UTF-8"%>
             class="input_val input_img"
             name="u_profileimg"
           /><br />
-          <div class="ex_text">img, jpg、jpegのみ</div>
+          <div class="ex_text">png、jpg、jpeg、svgのみ</div>
           <div class="subtitle" style="padding-top: 20px">生年月日</div>
           <input
             type="date"

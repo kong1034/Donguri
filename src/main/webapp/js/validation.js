@@ -17,7 +17,7 @@ function Validation() {
 	/** PhoneNum(JP) **/
 	var regTel = /^(0[5-9]0[-]?[0-9]{4}[-]?[0-9]{4}|0120[-]?[0-9]{1,3}[-]?[0-9]{4}|050[-]?[0-9]{4}[-]?[0-9]{4}|0[1-9][0-9]?[-]?[0-9]{1,4}[-]?[0-9]{1,4}[-]?[0-9]{4})$/;
 	/** Img(png,jpg, jpeg) **/
-	var regImg = /(.*?)\.(jpg|jpeg|png)$/;
+	var regImg = /(.*?)\.(jpg|jpeg|png|svg)$/;
 	
 	// ID
 	if (id.value === "") {
@@ -79,7 +79,7 @@ function Validation() {
 	
 	// Profile Img
 	if (profileimg.value &&!regImg.test(profileimg.value)) {
-		alert("png、jpg、jpegのみ添付できます。");
+		alert("png、jpg、jpeg、svgのみ添付できます。");
 		profileimg.focus();
 		return false;
 	}

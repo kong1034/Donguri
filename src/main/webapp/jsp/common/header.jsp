@@ -53,7 +53,6 @@
 	}
 
 	var jwtToken = get_cookie("jwtToken");
-	console.log(jwtToken);
 	const spans = document.querySelectorAll('#unlogin');
 	var loginElements = document.querySelectorAll('.login');
 

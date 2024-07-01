@@ -63,7 +63,10 @@
 		<!-- animal -->
 		<div class="info_animal_container">
 			<div class="info_ul_title_box">
-				<p class="info_title"># 動物</p>
+				<p class="info_title" id="info_title"># 動物</p>
+				<div class="info_title_img_box" id="info_title_img_box">
+					<img class="info_title_img" id="info_title_img" src="img/local/dongguri.svg"/>
+				</div>
 				<button class="info_all" onclick="goInfo(3)">More</button>
 			</div>
 			<ul class="info_ul_container">
