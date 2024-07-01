@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+.donation_container {
+	display: grid;
+	width: 1100px;
+	height: max-content;
+	margin: 60px auto 60px;
+}
+
+.donation_title_txt {
+	font-size: 32pt;
+    padding: 0px 10px 20px;
+    letter-spacing: -1px;
+}
+
+.donatio_update_list {
+	border-radius: 20px;
+	border: 1px solid rgb(174, 170, 170);
+	display: grid;
+	justify-content: center;
+	font-size: 18pt;
+	margin: 20px 0 20px;
+	padding: 50px;
+}
+
+.donation_update {
+	display: flex;
+	align-items: center;
+	height: 120px;
+	width: 800px;
+	border: 1px solid #d9d9d9;
+	border-radius: 8px;
+	margin: 3px;
+	border-color: #d9d9d9;
+}
+
+.donation_update_content {
+	display: flex;
+	align-items: center;
+	height: 500px;
+	width: 800px;
+	border: 1px solid #d9d9d9;
+	border-radius: 8px;
+	margin: 3px;
+	border-color: #d9d9d9;
+}
+
+.donation_update span {
+	width: 230px;
+	height: 100px;
+	border-right: 1px solid #d9d9d9;
+	align-content: center;
+	text-align: center;
+	float: left;
+}
+.donation_content_title {
+	width:360px;
+	height: 480px;
+	border-right: 1px solid #d9d9d9;
+	align-content: center;
+	text-align: center;
+	float: left;
+}
+
+.donation_update input {
+	width: 540px;
+}
+
+input, select {
+    height: 42px;
+    margin-left: 12px;
+    font-size: 16pt;
+}
+
+textarea {
+	width: 860px;
+    height: 420px;
+    margin: 15px;
+    font-size: 16pt;
+}
+.donation_update_btn {
+	width: 100%;
+    height: 5vh;
+    margin-bottom: 10%;
+    border: none;
+    background-color: #45B90E;
+    color: #fff;
+    font-size: 1.3em;
+    border-radius: 5px;
+    cursor:pointer;
+}

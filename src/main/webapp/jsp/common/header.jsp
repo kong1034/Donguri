@@ -14,8 +14,11 @@
 			<img class="header_logo_img" src="img/local/dongguri.svg" />
 		</div>
 		<ul class="header_categori_ul">
-			<li class="header_categori_li"><a href="<%=request.getContextPath()%>/index.jsp">情報一覧</a></li>
-			<li class="header_categori_li"><a href="<%=request.getContextPath()%>/jsp/donation/donation.jsp">ドネーション</a></li>
+			<li class="header_categori_li"><a
+				href="<%=request.getContextPath()%>/InfoC">情報一覧</a></li>
+			<li class="header_categori_li"><a
+				href="<%=request.getContextPath()%>/DonationListC">ドネーション</a>
+			</li>
 			<li class="header_categori_li"><a href="BoardC">コミュニティ</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.user.u_profileimg != null }">

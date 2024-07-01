@@ -13,12 +13,6 @@
 		<div class="donation_list_title">
 			<p>ドネーション</p>
 		</div>
-		<ul class="donation_list_tags">
-			<li class="donation__list_tags"><a> #子供</a></li>
-			<li class="donation__list_tags"><a> #老人</a></li>
-			<li class="donation__list_tags"><a> #環境</a></li>
-			<li class="donation__list_tags"><a> #動物</a></li>
-		</ul>
 		<div class="admin_btn" >
 		<button value="${sessionScope.user.u_no }" onclick="movePage()" class="admin_btn">登録</button>
 		</div>
@@ -26,9 +20,10 @@
 			<ul class="donation_list_content">
 				<c:forEach items="${dItems}" var="donation" varStatus="i">
 					<li class="donation_content" onclick="call(${donation.no})">
-					<button id="admin_revise" value="${sessionScope.user.u_no }">修正</button>
+					<button id="admin_revise" onclick="moveUpdatePage(${donation.no})" value="${sessionScope.user.u_no }">修正</button>
 						<div class="donation_img_box">
 							<img src="img/server/${donation.thumnail}">
+							<p>${donation.title}</p>
 						</div>
 						<div class="donation_txt_box">
 							<p>寄付金</p>

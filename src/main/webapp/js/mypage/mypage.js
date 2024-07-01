@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById('current_meetings').addEventListener('click', function() {
     displayContent('meetings_content');
   });
+  
+  document.getElementById('likes_history').addEventListener('click', function(){
+	  displayContent('likes_content');
+  });
 
   function displayContent(contentId) {
     var contents = document.getElementsByClassName('content-section');

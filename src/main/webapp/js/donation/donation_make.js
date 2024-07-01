@@ -1,5 +1,9 @@
 $(function() {
 	const donation_make_btn = $("#donation_make_btn");
+	let date = new Date().toISOString().split('T')[0];
+	
+	$("#date").attr("min",date);
+	
 	console.log("check donation_make_btn => " + $("#donation_make_btn"));
 
 	$("#donation_form").submit(function(event) {
@@ -27,6 +31,7 @@ $(function() {
 			type: "post",
 			success: function(resData) {
 				alert("success.");
+				location.href="DonationListC";
 			},
 			error: function(errData) {
 				alert("error");

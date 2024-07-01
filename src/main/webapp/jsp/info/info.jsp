@@ -45,10 +45,18 @@
 				<button class="info_all" onclick="goInfo(2)">More</button>
 			</div>
 			<ul class="info_ul_container">
-				<li><img src="" /></li>
-				<li><img src="" /></li>
-				<li><img src="" /></li>
-				<li><img src="" /></li>
+				<li><img src="https://nenrin.or.jp/common/img/logo.gif" onclick="goSite(1)" class="content_img"/></li>
+				<li><img src="https://www.wam.go.jp/content/img/wamnet_logo_top.png" onclick="goSite(2)" class="content_img" /></li>
+				<li><img src="img/local/info_older_3.png" onclick="goSite(3)" class="content_img" /></li>
+				<li><img src="https://www.kyoukaikenpo.or.jp/assets/image/common/logo_01.png" onclick="goSite(4)" class="content_img" /></li>
+				<li><img style="background-color: blue;" src="https://www.sawayakazaidan.or.jp/CMS2/wp-content/themes/sawayaka/assets/img/common/logo.svg" onclick="goSite(5)" class="content_img" /></li>
+				<li><img src="http://www.zenrouren.com/shared/img/title.gif" onclick="goSite(6)" class="content_img" /></li>
+				<li><img src="https://wabas.sakura.ne.jp/image/rogo.gif" onclick="goSite(7)" class="content_img" /></li>
+				<li><img src="https://www.espa.or.jp/common/img/hd_h1.png" onclick="goSite(8)" class="content_img" /></li>
+				<li><img src="https://www.niid.go.jp/eiken/img/eikenlogo.jpg" onclick="goSite(9)" class="content_img" /></li>
+				<li><img src="https://www.gpif.go.jp/resources/images/common/logo.png" onclick="goSite(10)" class="content_img" /></li>
+				<li><img src="https://www.kaigo-shien-kyokai.or.jp/img/logo-kaigo_shien_kyoukai.png" onclick="goSite(11)" class="content_img" /></li>
+				<li><img src="https://www.roushikyo.or.jp/fs_shared/img/top/logo.png" onclick="goSite(12)" class="content_img" /></li>
 			</ul>
 		</div>
 
