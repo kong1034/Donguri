@@ -10,22 +10,28 @@
 						id: $('#input_id').val(),
 						pw: $('#input_pw').val()
 					},
-			beforeSend: function() {
+				beforeSend: function() {
        				loading.show();
       				},
-      		complete: function() {
+      			complete: function() {
        				 loading.hide();
      				 },
 				success: function (resData){
-					console.log(resData);
-					console.log(JSON.stringify(resData));
-					location.href="HC";
+					 if (resData.success) {
+					 console.log(resData);
+                     location.href="HC";
+                    }else{
+					 console.log("ログイン失敗: " + resData.message);
+					 alert(resData.message);
+                     location.href = "LoginC";
+					}
 				},
 				error: function (xhr, status, error) {
-		              console.log("서버에러 발생!");
+		              console.log("ERROR");
 		              console.log("xhr : " + xhr);
 		              console.log("status : " + status);
 		              console.log("error : " + error);
+		              location.href = "LoginC";
 		            },
 			});
 		});
