@@ -14,7 +14,7 @@
 	<div class="container_mp">
 		<div class="mypage_top">
 			<div class="my_info">
-				<div class="my_grade">マイ・ドングリ(等級)</div>
+				<div class="my_grade">マイ・ドングリ <img alt="" src="img/local/mypage_acorn.png"> </div>
 				<div class="my_id">${sessionScope.user.u_id }</div>
 			</div>
 			<div class="my_profile">
@@ -31,6 +31,7 @@
 				<div id="donation_history" class="middle bar">寄付</div>
 				<div id="participation_history" class="middle bar">アプライ</div>
 				<div id="current_meetings" class="middle bar">募集</div>
+				<div id="likes_history" class="middle bar">💖</div>
 			</div>
 			<div id="all_content" class="content-section">
 				<div class="donation_info_wrap">
@@ -50,7 +51,7 @@
 					
 					<div id="donation_title" class="donation_title" style="display: none;">
 						<c:forEach var="donation" items="${dTitle}">
-   						<div>  ${donation.title} </div>
+   						<div>  ${donation.title} </div> <br>
 						</c:forEach>
 					</div>
 				</div>
@@ -69,6 +70,7 @@
 					</c:forEach>
 					</div>
 				</div>
+				
 				<div class="community_ing">
 					<p style="font-size: 18pt">マイ・募集</p>
 					<div class="community_ing_bottom">
@@ -87,11 +89,22 @@
 						</c:forEach>
 					</div>
 				</div>
-
+				
+				<div class="my_likes">
+				<p style="font-size: 18pt">マイ・💖</p>
+					<div class="my_likes_bottom">
+					<c:forEach items="${dTitles }" var="dt">
+					<div>
+					<a href="BoardDetailC?no=${dt.no }">♡ &nbsp  ${dt.title }</a>
+					</div>
+					</c:forEach>
+					</div>
+				</div>
+				
 			</div>
-
-			<div id="donation_content" class="content-section">
-				<div class="donation_info_wrap">
+			
+ 			 <div id="donation_content" class="content-section">
+               <div class="donation_info_wrap">
 				<div class="donation_info">
 					<div class="donation_info_left">
 						<p style="font-size: 18pt">寄付内訳</p>
@@ -112,9 +125,9 @@
 						</c:forEach>
 					</div>
 				</div>
-
-			<div id="participation_content" class="content-section">
-				<div class="community_history">
+            </div>
+            <div id="participation_content" class="content-section">
+                <div class="community_history">
 					<p style="font-size: 18pt">マイ・アプライ</p>
 					<div class="community_history_bottom">
 					<c:forEach items="${myvolapply }" var="va">
@@ -128,10 +141,9 @@
 					</c:forEach>
 					</div>
 				</div>
-			</div>
-
-			<div id="meetings_content" class="content-section">
-				<div class="community_ing">
+            </div>
+            <div id="meetings_content" class="content-section">
+               <div class="community_ing">
 					<p style="font-size: 18pt">マイ・募集</p>
 					<div class="community_ing_bottom">
 						<c:forEach items="${myboard}" var="b">
@@ -149,8 +161,19 @@
 						</c:forEach>
 					</div>
 				</div>
+            </div>
+			<div id="likes_content" class="content-section">
+			<div class="my_likes">
+				<p style="font-size: 18pt">マイ・💖</p>
+					<div class="my_likes_bottom">
+					<c:forEach items="${dTitles }" var="dt">
+					<div>
+					<a href="BoardDetailC?no=${dt.no }">♡ &nbsp  ${dt.title }</a>
+					</div>
+					</c:forEach>
+					</div>
 			</div>
-			</div>
+		</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="js/mypage/mypage.js"></script>
