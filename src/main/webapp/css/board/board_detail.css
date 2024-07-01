@@ -37,6 +37,20 @@
   margin-left: 10px;
   font-weight: 500;
 }
+.like_wrapper{
+	display: flex;
+	justify-content: flex-end;
+}
+#likeButton{
+      width: 50px;
+      fill: #ddd;
+      background-color: #fff;
+}
+
+#likeButton.active{
+      fill: red;
+}
+
 .title_b, .date_b, .during_b  {
   height: 80px;
   margin: 0.5em;
@@ -99,6 +113,27 @@
 }
 .btn_apply {
   background-color: #f6a200;
+}
+.writer_wrapper{
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  padding-left: 30px;
+  margin-top: 30px;
+}
+.writer_wrapper button:hover {
+  box-shadow: 10px 10px 10px #ddd;
+}
+.writer_wrapper button {
+	height: 110px;
+	width: 110px;
+	border-radius: 50%;
+	font-weight: 600;
+	font-size: 18pt;
+ 	float: left;
+    cursor: pointer;
+    margin: 0.5em;
+	background-color: #cfff91;
 }
 .volunteer_list{
   width: 1200px;

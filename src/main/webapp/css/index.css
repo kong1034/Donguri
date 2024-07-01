@@ -263,11 +263,16 @@ footer {
   visibility: hidden;
 }
 .icon_color {
-  visibility: visible;
-  transform: translateY(-60px);
-  transition: transform 2s ease;
-  z-index: -1;
+	visibility: visible;
+	transform: translateY(-60px);
+	transition: transform 2s ease;
+	z-index:-1;
 }
+/* footer {
+  height: 15em;
+  border: 1px solid;
+  background-color: #45b90e;
+} */
 a {
   color: none;
 }

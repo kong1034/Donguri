@@ -147,7 +147,7 @@ body {
 }
 .error-message{
 	color: red;
-    font-size: 20px;
+    font-size: 28px;
 }
 .comment_update{
 	font-size: 15pt;
@@ -193,4 +193,7 @@ body {
 	background-color: #fff;
 	border-radius: 20px;
 	border: 1px solid #f6a200;
+}
+.hidden {
+	display: none;
 }

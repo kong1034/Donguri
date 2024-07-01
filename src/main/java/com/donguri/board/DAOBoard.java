@@ -1,26 +1,43 @@
 package com.donguri.board;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.donguri.main.DBManager;
+import com.donguri.sign.UserDTO;
+import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import twitter4j.JSONObject;
+
 public class DAOBoard {
 	private static ArrayList<DTOBoard> boardlists;
+	public static DAOBoard DAOB = new DAOBoard();
+	private Connection con = null;
+	
+	public DAOBoard() {
+		try {
+			con = DBManager.connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-	public static void getAllBoardList(HttpServletRequest request) {
+	public void getAllBoardList(HttpServletRequest request) {
 
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from d_group_list order by g_date" ;
+		String sql = "select * from d_group_list order by g_date";
 
 		try {
 			con = DBManager.connect();
@@ -37,14 +54,16 @@ public class DAOBoard {
 				b.setContent(rs.getString("g_content"));
 				b.setDate(rs.getDate("g_date"));
 				b.setTag(rs.getString("g_tag"));
-				if (rs.getString("g_status").equals("구")) {
+				if (rs.getString("g_status").equals("O")) {
 					b.setStatus("募集中");
 				}else {
 					b.setStatus("募集終了");
 				}
-				
 				b.setPlace(rs.getString("g_place"));
 				b.setImg(rs.getString("g_img"));
+				b.setStartdate(rs.getDate("g_startdate"));
+				b.setEnddate(rs.getDate("g_enddate"));
+				b.setMeetdate(rs.getDate("g_meetdate"));
 				boardlists.add(b);
 			}
 			request.setAttribute("boardlists", boardlists);
@@ -58,9 +77,8 @@ public class DAOBoard {
 
 	}
 
-	public static void getOneBoardList(HttpServletRequest request) {
-
-		Connection con = null;
+	public void getOneBoardList(HttpServletRequest request) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from d_group_list where g_no=?";
@@ -79,6 +97,9 @@ public class DAOBoard {
 				b.setTitle(rs.getString("g_title"));
 				b.setContent(rs.getString("g_content"));
 				b.setDate(rs.getDate("g_date"));
+				b.setStartdate(rs.getDate("g_startdate"));
+				b.setEnddate(rs.getDate("g_enddate"));
+				b.setMeetdate(rs.getDate("g_meetdate"));
 				b.setTag(rs.getString("g_tag"));
 				b.setStatus(rs.getString("g_status"));
 				b.setPlace(rs.getString("g_place"));
@@ -95,9 +116,8 @@ public class DAOBoard {
 		}
 
 	}
-	public static List<DTOBoard> getMyBoard(HttpServletRequest request) {
+	public List<DTOBoard> getMyBoard(HttpServletRequest request) {
 
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from d_group_list where u_id=? order by g_date desc";
@@ -106,7 +126,14 @@ public class DAOBoard {
 		try {
 			con = DBManager.connect();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "yuree");
+			
+			HttpSession session = request.getSession();
+			UserDTO user = (UserDTO) session.getAttribute("user");
+			
+			System.out.println(user.getU_id());
+			
+			String userid = user.getU_id();
+			pstmt.setString(1, userid);
 			rs = pstmt.executeQuery();
 
 			DTOBoard mb = null;
@@ -117,6 +144,9 @@ public class DAOBoard {
 				mb.setTitle(rs.getString("g_title"));
 				mb.setContent(rs.getString("g_content"));
 				mb.setDate(rs.getDate("g_date"));
+				mb.setStartdate(rs.getDate("g_startdate"));
+				mb.setEnddate(rs.getDate("g_enddate"));
+				mb.setMeetdate(rs.getDate("g_meetdate"));
 				mb.setTag(rs.getString("g_tag"));
 				mb.setStatus(rs.getString("g_status"));
 				mb.setPlace(rs.getString("g_place"));
@@ -134,10 +164,9 @@ public class DAOBoard {
 		}
 			return boardList;
 	}
-	public static void makeBoard(HttpServletRequest request) {
-		Connection con = null;
+	public void makeBoard(HttpServletRequest request) {
 		PreparedStatement pstmt = null;
-		String sql = "insert into d_group_list values(d_group_list_seq.nextval,?,?,?,?,?,?,?,?)";
+		String sql = "insert into d_group_list values(d_group_list_seq.nextval,?,?,?,sysdate,?,?,?,?,?,?,?, DEFAULT)";
 		try {
 			con = DBManager.connect();
 			pstmt = con.prepareStatement(sql);
@@ -145,24 +174,35 @@ public class DAOBoard {
 			String path = request.getServletContext().getRealPath("img/local/board");
 			MultipartRequest mr = new MultipartRequest(request, path, 1024*1024*20,"utf-8", new DefaultFileRenamePolicy());
 			
-			String userid = request.getParameter("id"); 
+			HttpSession session = request.getSession();
+			UserDTO user = (UserDTO) session.getAttribute("user");
+			
+			System.out.println(user.getU_id());
+			
+			String userid = user.getU_id();
 			String title = mr.getParameter("title");
-			String tag = mr.getParameter("tag");
-			String file = mr.getFilesystemName("file");
-			String place = mr.getParameter("place");
-			String date = mr.getParameter("date");
 			String info = mr.getParameter("info");
+			String tag = mr.getParameter("tag");
+			String status = mr.getParameter("status");
+			String place = mr.getParameter("place");
+			String file = mr.getFilesystemName("file");
+			String startDate = mr.getParameter("start_date");
+			String endDate = mr.getParameter("end_date");
+			String meetDate = mr.getParameter("meet_date");
 			
 			System.out.println(userid);
 			
-			pstmt.setString(1, "yuree");
+			pstmt.setString(1, userid);
 			pstmt.setString(2, title);
 			pstmt.setString(3, info);
-			pstmt.setString(4, date);
-			pstmt.setString(5, tag);
-			pstmt.setString(6, "구");
-			pstmt.setString(7, place);
-			pstmt.setString(8, file);
+			pstmt.setString(4, tag);
+			pstmt.setString(5, status);
+			pstmt.setString(6, place);
+			pstmt.setString(7, file);
+			pstmt.setString(8, startDate );
+			pstmt.setString(9, endDate);
+			pstmt.setString(10, meetDate);
+			
 			if (pstmt.executeUpdate() == 1) {
 				System.out.println("등록성공");
 			}
@@ -175,8 +215,8 @@ public class DAOBoard {
 			DBManager.close(con, pstmt, null);
 		}
 	}
-
-	public static void paging(int page, HttpServletRequest request) {
+	
+	public void paging(int page, HttpServletRequest request) {
 		request.setAttribute("curPageNo", page);
 		int cnt = 10;		// 한페이지당 보여줄 개수
 		int total = boardlists.size();	// 총 데이터 개수
@@ -196,17 +236,16 @@ public class DAOBoard {
 		request.setAttribute("boardlists", pages);
 	}
 
-	public static void search(HttpServletRequest request) {
+	public void search(HttpServletRequest request) {
 		String field = request.getParameter("f");
 		String query = request.getParameter("q");
 		
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "select * from d_group_list where g_title like '%'||?||'%' order by g_date desc" ;
+		String sql = "select g_no, u_id, g_title, g_date, g_tag, g_status, g_place from d_group_list where g_title like '%'||?||'%' order by g_date desc" ;
 		if (field.equals("id")) {
-			sql = "select * from d_group_list where u_id like '%'||?||'%' order by g_date desc" ;
+			sql = "select g_no, u_id, g_title, g_date, g_tag, g_status, g_place from d_group_list where u_id like '%'||?||'%' order by g_date desc" ;
 		} 
 		try {
 			con = DBManager.connect();
@@ -224,17 +263,14 @@ public class DAOBoard {
 				b.setNo(rs.getInt("g_no"));
 				b.setId(rs.getString("u_id"));
 				b.setTitle(rs.getString("g_title"));
-				b.setContent(rs.getString("g_content"));
 				b.setDate(rs.getDate("g_date"));
 				b.setTag(rs.getString("g_tag"));
-				if (rs.getString("g_status").equals("구")) {
+				if (rs.getString("g_status").equals("O")) {
 					b.setStatus("募集中");
 				}else {
 					b.setStatus("募集終了");
 				}
-				
 				b.setPlace(rs.getString("g_place"));
-				b.setImg(rs.getString("g_img"));
 				boardlists.add(b);
 			}
 			request.setAttribute("boardlists", boardlists);
@@ -245,11 +281,171 @@ public class DAOBoard {
 		} finally {
 			DBManager.close(con, pstmt, rs);
 		}
+	}
 
+	public List<DTOBoard> tagBoard(HttpServletRequest request, HttpServletResponse response) {
+		 
+			String tag = request.getParameter("tag");
+		    
+		    PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String sql = "select * from d_group_list where g_tag=? order by g_date desc" ;
+			
+			try {
+				con = DBManager.connect();
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setString(1, tag);
+				rs = pstmt.executeQuery();
+				
+				boardlists = new ArrayList<DTOBoard>();
+				DTOBoard b = null;
+				while (rs.next()) {
+					b = new DTOBoard();
+					b.setNo(rs.getInt("g_no"));
+					b.setId(rs.getString("u_id"));
+					b.setTitle(rs.getString("g_title"));
+					b.setContent(rs.getString("g_content"));
+					b.setDate(rs.getDate("g_date"));
+					b.setTag(rs.getString("g_tag"));
+					if (rs.getString("g_status").equals("O")) {
+						b.setStatus("募集中");
+					}else {
+						b.setStatus("募集終了");
+					}
+					b.setPlace(rs.getString("g_place"));
+					b.setImg(rs.getString("g_img"));
+					b.setStartdate(rs.getDate("g_startdate"));
+					b.setEnddate(rs.getDate("g_enddate"));
+					b.setMeetdate(rs.getDate("g_meetdate"));
+					boardlists.add(b);
+				}
+				 response.setContentType("application/json");
+			     response.setCharacterEncoding("UTF-8");
+			        
+				 Gson gson = new Gson();
+			     String json = gson.toJson(boardlists);
+			        
+			    response.getWriter().write(json);
+				return boardlists;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("서버에러");
+			} finally {
+				DBManager.close(con, pstmt, rs);
+			}
+			return boardlists;
+	}
+
+	public void updateStatus(HttpServletRequest request) {
+		PreparedStatement pstmt= null;
+		String sql="update d_group_list set g_status=? where g_no=?";
 		
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, "X");
+			pstmt.setString(2, request.getParameter("no"));
+			
+			if (pstmt.executeUpdate() == 1) {
+				System.out.println("status 모집종료");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(con, pstmt, null);
+		}
+	}
+
+	public void deleteBoard(HttpServletRequest request) {
+		PreparedStatement pstmt = null;
+		String sql = "delete from d_group_list where g_no=?";
+
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, request.getParameter("no"));
+
+			if (pstmt.executeUpdate() == 1) {
+				System.out.println("삭제성공");
+				request.setAttribute("deleteSuccess", "削除完了");
+			} else {
+				request.setAttribute("deleteError", "削除失敗");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(con, pstmt, null);
+		}
+	}
+
+	public void likesBoard(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String sqlUpdateLikes = "update d_group_list set g_likes = g_likes + 1 where g_no = ?";
+	        String sqlGetLikes = "select g_likes from d_group_list where g_no = ?";
+	        JSONObject json = new JSONObject();
+
+	        try {
+	            con = DBManager.connect();
+	            pstmt = con.prepareStatement(sqlUpdateLikes);
+	            pstmt.setString(1, request.getParameter("no"));
+	            
+	            if (pstmt.executeUpdate() == 1) {
+	                pstmt.close();
+
+	                pstmt = con.prepareStatement(sqlGetLikes);
+	                pstmt.setString(1, request.getParameter("no"));
+	                rs = pstmt.executeQuery();
+	                
+	                if (rs.next()) {
+	                    int likes = rs.getInt("g_likes");
+	                    json.put("success", true);
+	                    json.put("likes", likes);
+	                } else {
+	                    json.put("success", false);
+	                }
+	            } else {
+	                json.put("success", false);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            json.put("success", false);
+	        } finally {
+	            DBManager.close(con, pstmt, rs);
+	        }
+
+	        response.setContentType("application/json");
+	        response.getWriter().write(json.toString());
+	    }
+
+	public void updateBoard(HttpServletRequest request) {
+		
+		  PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      String sql = "update d_group_list set  where g_no = ?";
+
+	        try {
+	            con = DBManager.connect();
+	            pstmt = con.prepareStatement(sql);
+	            pstmt.setString(1, request.getParameter("no"));
+	            
+	            if (pstmt.executeUpdate() == 1) {
+	                }
+	        }catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            DBManager.close(con, pstmt, rs);
+	        }
+		}
+	
 	}
 	
 	
 	
 	
-}

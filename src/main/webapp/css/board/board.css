@@ -78,13 +78,11 @@ html, body {
 	font-weight: 600;
 	font-size: 16pt;
 	letter-spacing: 1px;
+	background-color: #fff;
 }
 .tags_list:hover {
 	background-color: #f6a200;
-}
-.tags_list a:hover{
 	color: white;
-	
 }
 .search_wrap {
 	display: flex;
@@ -175,9 +173,12 @@ html, body {
 	padding: 5px;
 	margin: auto;
 }
+.status_welcome.ended {
+    background-color: #ccc;
+}
 .number {
   display: flex;
-  padding: 20px;
+  padding-top: 10px;
   margin: auto;
 }
 .number button{
@@ -185,4 +186,27 @@ html, body {
   padding: 5px;
 	background-color: #fff;
 	cursor: pointer;
+}
+#go_back_wrap{
+	display: flex;
+	position:relative;
+	justify-content: flex-end;
+	width: 1280px;
+	top: -70px;
+}
+#go_back{
+	background-color: #fff;
+	cursor: pointer;
+}
+.goback_img{
+	width: 40px;
+	height: 40px;
+	transition: transform 0.3s ease;
+}
+.goback_img:hover{
+	transform: translateX(-10px);
+}
+.goback_img2{
+	width: 120px;
+	height: 120px;
 }

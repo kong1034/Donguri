@@ -26,12 +26,22 @@ import twitter4j.JSONObject;
 public class DAOBoard2 {
 	private static ArrayList<DTOBoard2> epilogues;
 	private static ArrayList<DTOBoard2> comments;
+	public static DAOBoard2 DAOB2 = new DAOBoard2();
+	private Connection con = null;
+		
+	private DAOBoard2() {
+		try {
+			con = DBManager.connect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+	}
 
-	public static void getAllEpilogue(HttpServletRequest request) {
-		Connection con = null;
+	public void getAllEpilogue(HttpServletRequest request) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "select * from review order by r_date desc";
+		String sql = "select * from review order by r_date";
 
 		try {
 			con = DBManager.connect();
@@ -63,8 +73,7 @@ public class DAOBoard2 {
 		}
 	}
 
-	public static void getOneEpilogue(HttpServletRequest request) {
-		Connection con = null;
+	public void getOneEpilogue(HttpServletRequest request) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from review where r_no=?";
@@ -100,11 +109,10 @@ public class DAOBoard2 {
 
 	}
 
-	public static void search(HttpServletRequest request) {
+	public void search(HttpServletRequest request) {
 		String field = request.getParameter("f");
 		String query = request.getParameter("q");
 
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -147,20 +155,22 @@ public class DAOBoard2 {
 
 	}
 	
-	public static void makeEpilogue(HttpServletRequest request) {
-		Connection con = null;
+	public void makeEpilogue(HttpServletRequest request) {
 		PreparedStatement pstmt = null;
 		String sql ="insert into review values(review.seq.nextval,?,?,?,?,?,?,?)";
 		try {
 			con= DBManager.connect();
 			pstmt= con.prepareStatement(sql);
+
+			HttpSession session = request.getSession();
+			UserDTO user = (UserDTO) session.getAttribute("user");
 			
 			String path = request.getServletContext().getRealPath("img/local/board");
 			MultipartRequest mr = new MultipartRequest(request, path, 1024*1024*20,"utf-8", new DefaultFileRenamePolicy());
 			
 			pstmt.setString(1, mr.getParameter("v_no"));
 			pstmt.setString(2, mr.getParameter("g_no"));
-			pstmt.setString(3, mr.getParameter("yuree"));
+			pstmt.setString(3, mr.getParameter(user.getU_id()));
 			pstmt.setString(4, mr.getParameter("r_tag"));
 			pstmt.setString(5, mr.getParameter("r_title"));
 			pstmt.setString(6, mr.getParameter("r_content"));
@@ -179,8 +189,7 @@ public class DAOBoard2 {
 	}
 
 	
-	public static void getComment(HttpServletRequest request) {
-		Connection con = null;
+	public void getComment(HttpServletRequest request) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from d_comment where r_no=? order by c_date";
@@ -213,8 +222,7 @@ public class DAOBoard2 {
 
 	}
 
-	public static void insertComment(HttpServletRequest request, HttpServletResponse response) {
-		Connection con = null;
+	public void insertComment(HttpServletRequest request, HttpServletResponse response) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "insert into d_comment (C_NO, U_ID, R_NO, C_CONTENT, C_DATE) values (d_comment_seq.nextval,?,?,?,sysdate)";
@@ -269,8 +277,7 @@ public class DAOBoard2 {
 		}
 	}
 
-	public static void deleteComment(HttpServletRequest request, HttpServletResponse response) {
-		Connection con = null;
+	public void deleteComment(HttpServletRequest request, HttpServletResponse response) {
 		PreparedStatement pstmt = null;
 		String sql = "delete from d_comment where c_no=?";
 
@@ -297,8 +304,7 @@ public class DAOBoard2 {
 		}
 	}
 
-	public static void updateComment(HttpServletRequest request, HttpServletResponse response) {
-		Connection con = null;
+	public void updateComment(HttpServletRequest request, HttpServletResponse response) {
 		PreparedStatement pstmt = null;
 		String sql = "update d_comment set c_content=?, c_date=sysdate where c_no=?"; 
 		
@@ -339,16 +345,14 @@ public class DAOBoard2 {
 		}
 	}
 	
-	public static void paging(int page, HttpServletRequest request) {
+	public void paging(int page, HttpServletRequest request) {
 		request.setAttribute("curPageNo", page);
 		int cnt = 4; // 한페이지당 보여줄 개수
 		int total = epilogues.size(); // 총 데이터 개수
 
-		// 총 페이지수 = 곧 마지막페이지
 		int pageCount = (int) Math.ceil((double) total / cnt);
 		request.setAttribute("pageCount", pageCount);
 
-		// 시작, 끝
 		int start = total - (cnt * (page - 1));
 		int end = (page == pageCount) ? -1 : start - (cnt + 1);
 
@@ -359,9 +363,8 @@ public class DAOBoard2 {
 		request.setAttribute("epilogues", pages);
 	}
 
-	public static List<DTOBoard2> getVolunteerList(HttpServletRequest request) {
+	public List<DTOBoard2> getVolunteerList(HttpServletRequest request) {
 
-		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "select * from volunteer_list where g_no=? order by v_date";
@@ -393,11 +396,95 @@ public class DAOBoard2 {
 			DBManager.close(con, pstmt, rs);
 		}
 			return volunteerList;
-		
-		
 	}
 
-	public static void applyVolunteer(HttpServletRequest request) {
+	public void applyVolunteer(HttpServletRequest request) {
+
+		 	PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    String checkSql = "SELECT COUNT(*) FROM volunteer_list WHERE g_no = ? AND u_id = ?";
+		    String insertSql = "insert into volunteer_list values (volunteer_list_seq.nextval, ?, ?, sysdate)";
+
+		    try {
+		        con = DBManager.connect();
+		        pstmt = con.prepareStatement(checkSql);
+
+		        HttpSession session = request.getSession();
+		        UserDTO user = (UserDTO) session.getAttribute("user");
+
+		        int gNo = Integer.parseInt(request.getParameter("no"));
+		        String uId = user.getU_id();
+
+		        pstmt.setInt(1, gNo);
+		        pstmt.setString(2, uId);
+		        rs = pstmt.executeQuery();
+		        rs.next();
+
+		        if (rs.getInt(1) > 0) {
+		            // 이미 지원한 경우
+		            System.out.println("이미 지원한 사용자입니다.");
+		            request.setAttribute("errorMessage", "重複支援は不可です");
+		        } else {
+		            // 지원 가능
+		            pstmt.close();
+		            pstmt = con.prepareStatement(insertSql);
+		            pstmt.setInt(1, gNo);
+		            pstmt.setString(2, uId);
+
+		            if (pstmt.executeUpdate() == 1) {
+		                System.out.println("지원 완료");
+		                request.setAttribute("successMessage", "支援完了");
+		            }
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        System.out.println("에러");
+		    } finally {
+		        DBManager.close(con, pstmt, rs);
+		    }
+	}
+	
+	public List<DTOBoard2> getMyVolApply(HttpServletRequest request) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql ="select v.v_no, v.g_no, v.u_id, v.v_date, g.g_title from volunteer_list v join d_group_list g on v.g_no = g.g_no  where v.u_id = ? order by v.v_date desc";
+
+		List<DTOBoard2> volunteerList = new ArrayList<>();
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			
+			HttpSession session = request.getSession();
+			UserDTO user = (UserDTO) session.getAttribute("user");
+			
+			System.out.println(user.getU_id());
+			
+			pstmt.setString(1, user.getU_id());
+			rs = pstmt.executeQuery();
+
+			DTOBoard2 v = null;
+			while (rs.next()) {
+				v = new DTOBoard2();
+				v.setV_no(rs.getInt("v_no"));
+				v.setG_no(rs.getInt("g_no"));
+				v.setId(rs.getString("u_id"));
+				v.setV_date(rs.getDate("v_date"));
+				v.setTitle(rs.getString("g_title"));
+				volunteerList.add(v);
+
+			 request.setAttribute("myvolapply", volunteerList);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("서버에러");
+		} finally {
+			DBManager.close(con, pstmt, rs);
+		}
+			return volunteerList;
+		
 		
 	}
 

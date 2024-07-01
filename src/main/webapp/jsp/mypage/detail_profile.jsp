@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/sign/signup_info.css" />
 <title>signup_info</title>
+<script type="text/javascript" src="" ></script>
 </head>
 <body>
 	<form action="/Donguri/MyPageUpdateC" method="post" enctype="multipart/form-data">
@@ -33,6 +34,7 @@
 				<div style="font-size: 1.5em;">${sessionScope.user.u_birth }</div><br />
 				<div id="next_btn">
 					<button class="btn next">次へ</button>
+					<button type="button" class="btn" onclick="location.href='UserDeleteC?id=${sessionScope.user.u_id}'">会員退会</button>
 				</div>
 			</div>
 		</div>

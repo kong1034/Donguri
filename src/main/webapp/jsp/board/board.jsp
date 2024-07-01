@@ -19,13 +19,13 @@
       </div>
 
       <div class="tags">
-        <div class="tags_list"><a> #子供</a></div>
-        <div class="tags_list"><a> #老人</a></div>
-        <div class="tags_list"><a> #環境</a></div>
-        <div class="tags_list"><a> #動物</a></div>
+        <button class="tags_list" onclick="filterByTag('子供')">#子供</button>
+        <button class="tags_list" onclick="filterByTag('老人')">#老人</button>
+        <button class="tags_list" onclick="filterByTag('環境')">#環境</button>
+        <button class="tags_list" onclick="filterByTag('動物')">#動物</button>
       </div>
 
-      <form class="search_wrap" action="BoardC" method="post" >
+      <form class="search_wrap" action="BoardSearchC" method="post" >
        <div class="selectBox">
       		<select class="select" name="f">
       			<option value="title">タイトル</option>
@@ -36,7 +36,7 @@
         <input class="btn_search" type="submit" value="검색" ></input>
       </form>
 
-      <div class="board_container">
+      <div id="boardContainer" class="board_container">
         <div class="board_list" style="font-weight: bold; font-size:17pt; ">
           <div class="board status">状態</div>
           <div class="board location">場所</div>
@@ -48,7 +48,14 @@
         <c:forEach var="b" items="${ boardlists}">
         <div class="board_list">
           <div class="board status">
-            <div class="status_welcome">${b.status }</div>
+            <c:choose>
+              <c:when test="${b.status == '募集終了'}">
+                <div class="status_welcome ended">${b.status}</div>
+              </c:when>
+              <c:otherwise>
+                <div class="status_welcome">${b.status}</div>
+              </c:otherwise>
+            </c:choose>
           </div>
           <div class="board location">${b.place }</div>
           <div class="board group"><span>#${b.tag }</span></div>
@@ -60,6 +67,7 @@
         </div>
         </c:forEach>
       </div>
+      
         <div class="number">
             <button  onclick="goToPage(1)">&lt;</button>
     	<form id="paginationForm" action="BoardPageC" method="post">
@@ -68,14 +76,13 @@
                 <button type="submit" onclick="goToPage(${i})">${i}</button>
             </c:forEach>
    		 </form>
-            <button  onclick="goToPage(${pageCount})">&gt;</button>
+            <button onclick="goToPage(${pageCount})">&gt;</button>
+		</div>
+            <div id="go_back_wrap">
+			<button id="go_back" onclick="toList()"><img class="goback_img" alt="" src="img/local/board/back-arrow.png"></button>
+			<img class="goback_img2" alt="" src="img/local/board/goback.png">
 		</div>
     </div>
-    <script>
-    function goToPage(pageNumber) {
-        document.getElementById("paginationForm").querySelector("input[name='p']").value = pageNumber;
-        document.getElementById("paginationForm").submit();
-    }
-</script>
+    <script type="text/javascript" src="js/board/board.js"></script>
 </body>
 </html>

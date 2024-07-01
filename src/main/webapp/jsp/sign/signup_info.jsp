@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,12 +24,23 @@ pageEncoding="UTF-8"%>
     </style>
   </head>
   <body>
-    <form action="SignupInfoC" method="post" enctype="multipart/form-data">
+    <form id="signup_form" action="SignupInfoC" method="post" enctype="multipart/form-data">
       <div id="signup_info_container">
         <div id="signup_info_content">
           <div class="subtitle">ログインID</div>
+          <c:choose>
+		  <c:when test="${sessionScope.twitterUser.x_id != null }">
+          <input type="text" class="input_val input_id" name="u_id"
+           value="${sessionScope.twitterUser.x_id}" 
+           placeholder="${sessionScope.twitterUser.x_id}"
+          readonly="readonly"
+            ><br />
+		  </c:when>	
+          <c:otherwise>
           <input type="text" class="input_val input_id" name="u_id" /><br />
-          <div class="ex_text">半角英数字</div>
+          </c:otherwise>
+          </c:choose>
+          <div class="ex_text">半角英数字4-20字</div>
           <div class="subtitle">email</div>
           <input
             id="openModal"
@@ -37,10 +49,11 @@ pageEncoding="UTF-8"%>
             placeholder="入力後確認コードの確認が必要です"
             value=""
             name="u_email"
+            tabindex="-1"
           /><br />
           <div class="subtitle" style="padding-top: 20px">パスワード</div>
           <input type="password" class="input_val input_pw" name="u_pw" /><br />
-          <div class="ex_text">半角英数字</div>
+          <div class="ex_text">半角英数字4-20字</div>
           <div class="subtitle" style="padding-top: 20px">パスワード(確認)</div>
           <input
             type="password"
@@ -49,7 +62,7 @@ pageEncoding="UTF-8"%>
           /><br />
           <div class="subtitle" style="padding-top: 20px">姓名</div>
           <input type="text" class="input_val input_name" name="u_name" /><br />
-          <div class="ex_text">半角英数字</div>
+          <div class="ex_text">漢字、ひらがな、カタカナのみ</div>
           <div class="subtitle" style="padding-top: 20px">電話番号</div>
           <input
             type="text"
@@ -73,14 +86,13 @@ pageEncoding="UTF-8"%>
             name="u_birth"
           /><br />
           <div id="next_btn">
-            <button class="btn next" onclick="validation()">次へ</button>
+            <button type="button" class="btn next" onclick="Validation()">次へ</button>
           </div>
         </div>
       </div>
     </form>
     <dialog id="myModal">
       <div>
-        <!-- <form action="RegEmailC" method="post" > -->
         <div id="reg_email_container">
           <div id="reg_email_content">
             <div class="subtitle">メールでID登録</div>
@@ -113,9 +125,9 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </div>
-        <!-- 		</form> -->
       </div>
     </dialog>
     <script src="js/sign/signup_info.js"></script>
+    <script src="js/validation.js"></script>
   </body>
 </html>
