@@ -1,5 +1,6 @@
 package com.donguri.find;
 
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,9 @@ import com.donguri.main.DBManager;
 public class DAOFind {
 	private Connection conn = null;
 	public static final DAOFind RDAO = new DAOFind();
+	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final int LENGTH = 10;
+    private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 	
 	private DAOFind() {
 		try {
@@ -107,6 +111,8 @@ public class DAOFind {
 	}
 
 	public void findPw(HttpServletRequest request, HttpServletResponse response) {
+		
+	    
 		// db setting
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -177,7 +183,7 @@ public class DAOFind {
 					message.setFrom(new InternetAddress(username));
 					message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 					message.setSubject("DONGGURI Find PW Result.");
-					message.setText("仮パスワード : " + randomNumber);
+					message.setText("仮パスワード : " + "dong" +randomNumber);
 
 					// send message
 					Transport.send(message);
