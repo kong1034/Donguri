@@ -14,7 +14,7 @@
 	<div class="container_mp">
 		<div class="mypage_top">
 			<div class="my_info">
-				<div class="my_grade">マイ・ドングリ(等級)</div>
+				<div class="my_grade">マイ・ドングリ <img alt="" src="img/local/mypage_acorn.png"> </div>
 				<div class="my_id">${sessionScope.user.u_id }</div>
 			</div>
 			<div class="my_profile">
@@ -51,7 +51,7 @@
 					
 					<div id="donation_title" class="donation_title" style="display: none;">
 						<c:forEach var="donation" items="${dTitle}">
-   						<div>  ${donation.title} </div>
+   						<div>  ${donation.title} </div> <br>
 						</c:forEach>
 					</div>
 				</div>
@@ -94,7 +94,9 @@
 				<p style="font-size: 18pt">マイ・💖</p>
 					<div class="my_likes_bottom">
 					<c:forEach items="${dTitles }" var="dt">
+					<div>
 					<a href="BoardDetailC?no=${dt.no }">♡ &nbsp  ${dt.title }</a>
+					</div>
 					</c:forEach>
 					</div>
 				</div>
@@ -165,11 +167,13 @@
 				<p style="font-size: 18pt">マイ・💖</p>
 					<div class="my_likes_bottom">
 					<c:forEach items="${dTitles }" var="dt">
+					<div>
 					<a href="BoardDetailC?no=${dt.no }">♡ &nbsp  ${dt.title }</a>
+					</div>
 					</c:forEach>
 					</div>
-				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="js/mypage/mypage.js"></script>
