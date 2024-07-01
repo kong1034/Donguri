@@ -107,6 +107,7 @@
   font-size: 16pt;
   border-radius: 20px;
   padding: 20px;
+   overflow-y: auto;
 }
 .button_wrapper {
   height: 200px;

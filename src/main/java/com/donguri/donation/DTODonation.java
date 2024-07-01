@@ -1,8 +1,5 @@
 package com.donguri.donation;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.google.gson.Gson;
 
 public class DTODonation {
@@ -12,6 +9,10 @@ public class DTODonation {
     private String thumnail;
     private int amount;
     private int sum;
+    private String created_date;
+    private String publisher;
+    private String tag;
+    private String content;
     
     public DTODonation() {
 		// TODO Auto-generated constructor stub
@@ -62,6 +63,38 @@ public class DTODonation {
 
 	public void setSum(int sum) {
 		this.sum = sum;
+	}
+
+	public String getCreated_date() {
+		return created_date;
+	}
+
+	public void setCreated_date(String create_date) {
+		this.created_date = create_date;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String toJson() {

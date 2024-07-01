@@ -12,21 +12,27 @@ import com.donguri.sign.UserDTO;
 
 @WebServlet("/DonationUpAdminC")
 public class DonationUpAdminC extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
 		UserDTO user = (UserDTO) session.getAttribute("user");
 		String u_no = user.getU_no();
-		
+
 		if (u_no.equals("1")) {
-			request.setAttribute("contentPage", "");
+			System.out.println("check param => "+request.getParameter("no"));
+			DAODonation.RDAO.getDonationByOne(request);
+			request.setAttribute("contentPage", "jsp/donation/donation_update.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
-		}else {
+		} else {
 			response.setStatus(response.SC_NOT_FOUND);
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		DAODonation.RDAO.postDonationUpdate(request, response);
 	}
 
 }

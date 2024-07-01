@@ -9,3 +9,7 @@ function movePage() {
 function call(num) {
 		console.log("check => "+num);
 }
+
+function moveUpdatePage(no) {
+	location.href = "DonationUpAdminC?no="+no;
+}
