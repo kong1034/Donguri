@@ -1,33 +1,29 @@
-package com.donguri.mypage;
+package com.donguri.board;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.donguri.board.DAOBoard;
-import com.donguri.board.DAOBoard2;
-import com.donguri.donation.DAODonation;
-import com.donguri.sign.DAOSign;
-
-@WebServlet("/MyPageC")
-public class MyPageC extends HttpServlet {
+@WebServlet("/BoardUpdateC")
+public class BoardUpdateC extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+	
+		DAOBoard.DAOB.getOneBoardList(request);
 		
-		DAOBoard.DAOB.getMyBoard(request);
-		DAOBoard2.DAOB2.getMyVolApply(request);
-		DAODonation.RDAO.getDonationById(request);
-		//Get Session
-		DAOSign.getUserSession(request, response);
-		request.setAttribute("contentPage", "/jsp/mypage/mypage.jsp");
+		request.setAttribute("contentPage", "/jsp/board/board_make_update.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DAOBoard.DAOB.updateBoard(request);
+		
+		response.sendRedirect("BoardC");
 	}
 
 }

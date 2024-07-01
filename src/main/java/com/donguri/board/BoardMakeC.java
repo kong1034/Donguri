@@ -36,9 +36,8 @@ public class BoardMakeC extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DAOBoard.DAOB.makeBoard(request);
-		DAOBoard.DAOB.getAllBoardList(request);
-		request.setAttribute("contentPage", "/jsp/board/board.jsp");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
+		response.sendRedirect("BoardC");
 		
 	}
 

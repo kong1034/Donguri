@@ -8,6 +8,9 @@
     <script src="<%=request.getContextPath()%>/js/donation/donation_detail.js"></script>
 </head>
 <body>
+    <header>
+        <!-- Header content if any -->
+    </header>
     <div class="wrapper">
         <main class="donation_main">
             <div class="donation_container">
@@ -15,11 +18,8 @@
                     <div class="image_container">
                         <c:choose>
                             <c:when test="${not empty donation.thumnail}">
-                                <img src="${donation.thumnail}" alt="Donation Image" style="width: 75%;">
+                                <img src="${donation.thumnail}" alt="Donation Image">
                             </c:when>
-                            <c:otherwise>
-                                <div class="placeholder_image"></div>
-                            </c:otherwise>
                         </c:choose>
                     </div>
                     <span class="categori_tag"># 環境</span>
@@ -32,7 +32,9 @@
                             <div class="percentage_img_box">
                                 <img alt="donguri" src="<%=request.getContextPath()%>/img/local/dongguri.svg">
                             </div>
-                            <span data-percentage="${donation.sum / donation.amount * 100}">${not empty donation.sum ? (donation.sum / donation.amount * 100) : 0}%</span>
+                            <span data-percentage="${not empty donation.amount && donation.amount != 0 ? (donation.sum / donation.amount * 100) : 0}%">
+                                ${not empty donation.sum ? (donation.sum / donation.amount * 100) : 0}%
+                            </span>
                         </div>
                     </div>
                     <div class="company_period_container">
@@ -46,7 +48,7 @@
                             <p>
                                 <span>募金期間 </span>
                                 <span>${not empty donation.startDate ? donation.startDate : 'YYYY-MM-DD'}</span>
-                                <span>~</span>
+                                <span style="color: black;">~</span>
                                 <span>${not empty donation.endDate ? donation.endDate : 'YYYY-MM-DD'}</span>
                             </p>
                         </div>
@@ -56,7 +58,7 @@
                     <div class="donation_actions">
                         <div class="right_first_area">
                             <p>寄付する</p>
-                            <p>ここに説明が入ります。</p>
+                            <p>${not empty donation.content ? donation.content : 'ここに説明が入ります。'}</p>
                         </div>
                         <div class="right_second_area">
                             <div class="button_container">
@@ -102,6 +104,5 @@
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>

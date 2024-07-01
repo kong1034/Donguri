@@ -15,6 +15,7 @@
   border: 1px solid rgb(174, 170, 170);
   border-radius: 20px;
   padding: 40px 100px 40px;
+  margin: auto;
 }
 .container_left {
   display: grid;
@@ -24,8 +25,12 @@
   float: left;
   font-size: 16pt;
 }
+.tag_likes{
+	display: flex;
+	justify-content: space-between;
+}
 .tag {
-  border: 2px solid #45b90e;
+  border: 3px solid orange;
   border-radius: 30px;
   width: 90px;
   height: 45px;
@@ -37,24 +42,34 @@
   margin-left: 10px;
   font-weight: 500;
 }
-.like_wrapper{
-	display: flex;
-	justify-content: flex-end;
-}
 #likeButton{
       width: 50px;
       fill: #ddd;
       background-color: #fff;
 }
-
 #likeButton.active{
       fill: red;
 }
-
-.title_b, .date_b, .during_b  {
-  height: 80px;
-  margin: 0.5em;
-  border: 1px solid rgb(174, 170, 170);
+.title_b {
+	width: 950px;
+	margin: auto;
+	font-size: 18pt;
+	border-radius: 20px;
+	 height: 80px;
+  padding: 20px;
+  align-content: center;
+  border: 2px solid #ccc;
+}
+.place_b span, .date_b span, .during_b span{
+  padding: 10px 20px 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 100px;
+}
+.place_b, .date_b, .during_b  {
+  align-content: center;
+  height: 60px;
+  font-size: 14pt;
 }
 .container_right {
   display: grid;
@@ -63,26 +78,35 @@
   height: max-content;
   float: right;
 }
+
 .input_img {
   height: 400px;
   width: 450px;
-  margin: 1em;
+  margin: 1em auto;
   border: 1px solid rgb(174, 170, 170);
   box-shadow: 3px 3px 3px #ddd;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 20px;
+  overflow: hidden; 
 }
-.input_img img{
-  height: 300px;
-  width: 350px;
+
+.input_img img {
+  margin: auto;
+  height: 80%;
+  width: 80%;
+  object-fit: cover;
 }
+
 .info_b {
   width: 450px;
   height: 25em;
   margin: 20px 20px 0px;
   border: 1px solid rgb(174, 170, 170);
   font-size: 16pt;
+  border-radius: 20px;
+  padding: 20px;
 }
 .button_wrapper {
   height: 200px;

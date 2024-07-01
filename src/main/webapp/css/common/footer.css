@@ -8,12 +8,11 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 10vh;
   transition: border-color 0.3s ease;
   text-align: center;
   flex-direction: column;
-  position: relative;
-  bottom: 0;
+  flex-shrink: 0; /* Ensure footer doesn't shrink */
 }
 
 footer:hover {

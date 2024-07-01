@@ -1,14 +1,29 @@
 @charset "UTF-8";
 
-body {
+html, body {
+  margin: 0;
+  padding: 0;
   overflow-x: hidden; /* Disable horizontal scroll */
+  height: 100%; /* Ensure the body takes full height */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header, footer {
+  height: 10vh;
 }
 
 .wrapper {
+  flex: 1; /* Make wrapper grow to fill the remaining space */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5vh 5vh 5vh 5vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  box-sizing: border-box;
 }
 
 .donation_main {
@@ -18,67 +33,44 @@ body {
   padding: 20px;
   box-sizing: border-box;
   border-radius: 10px; /* Border radius for donation_main */
+  flex-grow: 1; /* Allow main to grow */
+  display: flex;
+  flex-direction: column;
 }
 
 .donation_container {
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
-  position: relative;
 }
 
 .left_section, .right_section {
-  flex: 1 1 45%;
+  flex: 1 1 50%; /* Ensure both sections take up 50% of the height */
   box-sizing: border-box;
-  position: relative;
 }
 
-.aspect-ratio-box {
-  width: 100%;
-  padding-top: 100%; /* This creates a 1:1 aspect ratio box */
-  position: relative;
-}
-
-.aspect-ratio-box-inner {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.image_container {
+  height: 30vh; /* Set height to 30vh */
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.image_container {
-  width: 75%;
-  justify-content: center;
-  text-align: center;
-}
-
-.placeholder_image {
-  width: 100%;
-  height: 0;
-  padding-bottom: 75%;
-  background-color: #cccccc;
-}
-
 .categori_tag {
-    border: 3px solid orange;
-    border-radius: 30px;
-    width: 90px;
-    height: 45px;
-    text-align: center;
-    justify-content: center;
-    align-content: center;
-    font-weight: 600;
-    font-size: 16pt;
-    letter-spacing: 1px;
+  display: inline-block;
+  padding: 5px 10px;
+  border: 3px solid orange;
+  border-radius: 20px;
+  color: orange;
+  font-size: 14px;
+  margin: 10px 0;
+  align-self: flex-start;
+  cursor: pointer;
 }
 
 .categori_tag:hover {
-  background-color: #4caf50;
+  background-color: orange;
   color: #fff;
 }
 
@@ -137,6 +129,7 @@ body {
 }
 
 .right_first_area {
+  height: 30vh; /* Set height to 30vh */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -188,6 +181,7 @@ body {
   border-radius: 20px; /* Border radius for donation amount input */
   text-align: center;
   justify-content: center;
+  border: 1px solid #FFA500; /* Border color and width */
 }
 
 .button_box {

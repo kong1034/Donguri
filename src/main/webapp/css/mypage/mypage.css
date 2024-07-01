@@ -60,14 +60,14 @@ body {
   height: 200px;
   border-radius: 50%;
   background-color: #44b90e;
-  margin: auto;
-}
-.my_profile img {
-  width: 120px;
-  height: 120px;
+  display: flex;
   justify-content: center;
-  align-content: center;
   align-items: center;
+}
+
+.image img {
+  width: 140px;
+  height: 140px;
 }
 .my_profile button {
   margin: 20px auto;
@@ -80,7 +80,6 @@ body {
 .mypage_middle {
   width: 760px;
   height: 40px;
-  /* background-color: #cfff91; */
   margin: auto ;
   display: flex;
   justify-content: space-around;
@@ -113,7 +112,7 @@ body {
 .mypage_bottom p {
   padding: 20px;
 }
-.donation_info,
+.donation_info_wrap,
 .community_history,
 .community_ing{
   width: 800px;
@@ -125,10 +124,21 @@ body {
   background-color: #fff;
   padding-bottom: 20px; 
 }
+.donation_info_wrap{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 8px;
+}
+.donation_title{
+	margin: auto;
+	width: 500px;
+}
+.donation_title div{
+	border-bottom: 2px solid orange;
+}
+
 .donation_info {
   display: flex;
-  margin: 0 auto 8px;
-  
 }
 .donation_info_left {
   display: grid;
@@ -140,6 +150,10 @@ body {
   height: 150px;
   align-content: center;
   margin: auto;
+}
+.donation_title{
+	display:flex;
+	flex-direction: column;
 }
 .donation_info_right_detail {
   text-align: end;

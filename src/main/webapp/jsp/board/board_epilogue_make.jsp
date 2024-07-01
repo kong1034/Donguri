@@ -14,11 +14,11 @@
         <div class="epilogue_make_list">
           <div class="epilogue_make title">
             <span>タイトル</span>
-            <input type="text" name="r_title" id="" />
+            <input type="text" name="r_title" />
           </div>
           <div class="epilogue_make tag">
             <span>分類</span>
-            <select name="r_tag" id="">
+            <select name="r_tag" >
               <option value="子供">#子供</option>
               <option value="老人">#老人</option>
               <option value="環境">#環境</option>
@@ -34,8 +34,8 @@
             <textarea name="r_content" id="" cols="47" rows="20"></textarea>
           </div>
         </div>
-        <input type="hidden" name="v_no" value="">
-        <input type="hidden" name="g_no" value="">
+        <input type="hidden" name="v_no" value="${param.v_no }">
+        <input type="hidden" name="g_no" value="${param.g_no }">
         <button class="add_btn">登録</button>
       </div>
     </form>

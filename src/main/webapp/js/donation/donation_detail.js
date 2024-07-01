@@ -6,9 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var donationAmountInput = document.getElementById('donation_amount');
     var userId = document.querySelector('.u_id').value;
 
-    // Handle donation button click
+    // Validate donation amount and handle donation button click
     if (donationBtn) {
         donationBtn.addEventListener('click', function() {
+            const amount = donationAmountInput.value;
+            if (amount < 1 || isNaN(amount)) {
+                alert('有効な金額を入力してください。');
+                return false;
+            }
+
             if (userId) {
                 processLinePay();
             } else {
@@ -39,6 +45,14 @@ document.addEventListener('DOMContentLoaded', function() {
             shareModal.style.display = "none";
         }
     });
+
+    // Copy to clipboard function
+    window.copyToClipboard = function(element) {
+        var copyText = document.querySelector(element);
+        copyText.select();
+        document.execCommand("copy");
+        alert("URLがコピーされました: " + copyText.value);
+    }
 
     // Process Line Pay
     function processLinePay() {
@@ -85,10 +99,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-
-function copyToClipboard(element) {
-    var copyText = document.querySelector(element);
-    copyText.select();
-    document.execCommand("copy");
-    alert("URLがコピーされました: " + copyText.value);
-}

@@ -157,7 +157,7 @@ public class DAOBoard2 {
 	
 	public void makeEpilogue(HttpServletRequest request) {
 		PreparedStatement pstmt = null;
-		String sql ="insert into review values(review.seq.nextval,?,?,?,?,?,?,?)";
+		String sql ="insert into review values(review_seq.nextval,?,?,?,?,?,?,sysdate,?)";
 		try {
 			con= DBManager.connect();
 			pstmt= con.prepareStatement(sql);
@@ -168,14 +168,24 @@ public class DAOBoard2 {
 			String path = request.getServletContext().getRealPath("img/local/board");
 			MultipartRequest mr = new MultipartRequest(request, path, 1024*1024*20,"utf-8", new DefaultFileRenamePolicy());
 			
-			pstmt.setString(1, mr.getParameter("v_no"));
-			pstmt.setString(2, mr.getParameter("g_no"));
-			pstmt.setString(3, mr.getParameter(user.getU_id()));
-			pstmt.setString(4, mr.getParameter("r_tag"));
-			pstmt.setString(5, mr.getParameter("r_title"));
-			pstmt.setString(6, mr.getParameter("r_content"));
-			pstmt.setString(7, mr.getParameter("r_date"));
-			pstmt.setString(8, mr.getFilesystemName("r_file"));
+			int v_no = Integer.parseInt(mr.getParameter("v_no"));
+		    int g_no = Integer.parseInt(mr.getParameter("g_no"));
+			String userid = user.getU_id();
+			String tag = mr.getParameter("r_tag");
+			String title = mr.getParameter("r_title");
+			String content = mr.getParameter("r_content");
+			String file = mr.getFilesystemName("r_file");
+			
+			System.out.println(v_no);
+			System.out.println(g_no);
+			
+				pstmt.setInt(1, v_no);
+		        pstmt.setInt(2, g_no);
+		        pstmt.setString(3, userid);
+		        pstmt.setString(4, tag);
+		        pstmt.setString(5, title);
+		        pstmt.setString(6, content);
+		        pstmt.setString(7, file);
 			
 			if (pstmt.executeUpdate() == 1) {
 				System.out.println("등록성공vv");
