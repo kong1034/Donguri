@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +15,11 @@
 		<div class="mypage_top">
 			<div class="my_info">
 				<div class="my_grade">マイ・ドングリ(等級)</div>
-				<div class="my_id">ID</div>
+				<div class="my_id">${sessionScope.user.u_id }</div>
 			</div>
 			<div class="my_profile">
 				<div class="image">
-					<img src="" alt="" />
+					<img src="img/local/default_icon.png" alt="" />
 				</div>
 				<button class="my_info_update"
 					onclick="location.href='MyPageUpdateC'">情報修正</button>
@@ -32,19 +33,28 @@
 				<div id="current_meetings" class="middle bar">募集</div>
 			</div>
 			<div id="all_content" class="content-section">
+				<div class="donation_info_wrap">
 				<div class="donation_info">
 					<div class="donation_info_left">
 						<p style="font-size: 18pt">寄付内訳</p>
-						<p style="font-size: 28pt">寄付総額</p>
+						<p style="font-size: 28pt">寄付総額 ￥<fmt:formatNumber value="${totalD}" type="number" groupingUsed="true"/></p>
 					</div>
 					<div class="donation_info_right">
 						<div>
-							寄付回数 <span> 00回 </span>
+							寄付回数 <span> ${countD}回 </span>
 						</div>
 						<br />
-						<div class="donation_info_right_detail">記録よく見る</div>
+						<div class="donation_info_right_detail" onclick="toggleDonationTitle()">記録よく見る </div>
 					</div>
 				</div>
+					
+					<div id="donation_title" class="donation_title" style="display: none;">
+						<c:forEach var="donation" items="${dTitle}">
+   						<div>  ${donation.title} </div>
+						</c:forEach>
+					</div>
+				</div>
+				
 				<div class="community_history">
 					<p style="font-size: 18pt">マイ・アプライ</p>
 					<div class="community_history_bottom">
@@ -53,7 +63,7 @@
 							<div class="c_date">${va.v_date }</div>
 							<div class="c_title">${va.title }</div>
 							<div class="c_epilogue">
-								<a href="BoardEpilogueMakeC">後記を書く</a>
+								<a href="BoardEpilogueMakeC?v_no=${va.v_no }&g_no=${va.g_no }">後記を書く</a>
 							</div>
 						</div>
 					</c:forEach>
@@ -81,21 +91,27 @@
 			</div>
 
 			<div id="donation_content" class="content-section">
+				<div class="donation_info_wrap">
 				<div class="donation_info">
 					<div class="donation_info_left">
 						<p style="font-size: 18pt">寄付内訳</p>
-						<p style="font-size: 28pt">寄付総額</p>
+						<p style="font-size: 28pt">寄付総額 ￥<fmt:formatNumber value="${totalD}" type="number" groupingUsed="true"/></p>
 					</div>
-
 					<div class="donation_info_right">
 						<div>
-							寄付回数 <span> 00回 </span>
+							寄付回数 <span> ${countD}回 </span>
 						</div>
 						<br />
-						<div class="donation_info_right_detail">記録よく見る</div>
+						<div class="donation_info_right_detail" onclick="toggleDonationTitle()">記録よく見る </div>
 					</div>
 				</div>
-			</div>
+					
+					<div id="donation_title" class="donation_title" style="display: none;">
+						<c:forEach var="donation" items="${dTitle}">
+   						<div>  ${donation.title} </div>
+						</c:forEach>
+					</div>
+				</div>
 
 			<div id="participation_content" class="content-section">
 				<div class="community_history">
@@ -106,7 +122,7 @@
 							<div class="c_date">${va.v_date }</div>
 							<div class="c_title">${va.title }</div>
 							<div class="c_epilogue">
-								<a href="BoardEpilogueMakeC">後記を書く</a>
+								<a href="BoardEpilogueMakeC?v_no=${va.v_no }&g_no=${va.g_no }">後記を書く</a>
 							</div>
 						</div>
 					</c:forEach>
@@ -133,6 +149,7 @@
 						</c:forEach>
 					</div>
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>
