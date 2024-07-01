@@ -25,9 +25,16 @@
             <option value="動物">#動物</option>
           </select>
         </div>
-        <div class="group_make img">
+       <!--  <div class="group_make img">
           <span>写真</span> <input type="file" name="file" />
-        </div>
+        </div> -->
+        <div class="group_make img">
+    	<span>写真</span> 
+   			 <div  class="img_wrap">	
+  			  <img id="preview" src="#" alt="미리보기 이미지" style="max-width: 300px; max-height: 300px; display: none;" />
+   			 <input type="file" name="file" id="fileInput" accept="image/*" onchange="previewImage(event);" />
+   			 </div>
+		</div>
         <div class="group_make name">
           <span> 場所 </span>
           <input type="text" name ="place" />
@@ -37,7 +44,7 @@
           <input type="date" name="start_date"/> &nbsp;&nbsp;~&nbsp;&nbsp; <input type="date" name="end_date" />
         </div>
         <div class="group_make date">
-          <span>デート</span>
+          <span>募集日</span>
           <input name="meet_date" type="date" />
         </div>
         <div class="group_make info_">
@@ -49,5 +56,6 @@
       <button class="add_btn">登録</button>
     </div>
     </form>
+    <script type="text/javascript" src="js/board/board_make.js"></script>
 </body>
 </html>

@@ -11,9 +11,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.donguri.find.DAOFind;
 import com.donguri.main.DBManager;
+import com.donguri.sign.UserDTO;
 import com.google.gson.Gson;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -34,6 +36,58 @@ public class DAODonation {
 
     public void getDonationById(String id) {
         
+    }
+    public void getDonationById(HttpServletRequest request) {
+    	 PreparedStatement pstmt = null;
+    	 ResultSet rs = null;
+    	 
+    	 HttpSession session = request.getSession();
+		 UserDTO user = (UserDTO) session.getAttribute("user");
+			
+		 String userid = user.getU_id();
+    	 String sqlSum = "select sum(p_price) as total_donation from d_payment where u_id=?";
+    	 String sqlCount = "select count(*) as count_donation from d_payment where u_id=?";
+    	 String sqlDTitle = "select dp.u_id, dp.d_no, dd.d_title "
+    	 					+ "from d_payment dp "
+    	 					+ "left join d_donation_list dd on dp.d_no = dd.d_no where dp.u_id=?";
+    	 
+    	 try {
+			con= DBManager.connect();
+			 pstmt = con.prepareStatement(sqlSum);
+	            pstmt.setString(1, userid);
+	            rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                int totalDonation = rs.getInt("total_donation");
+	                request.setAttribute("totalD", totalDonation);
+	            }
+	            
+	            pstmt = con.prepareStatement(sqlCount);
+	            pstmt.setString(1, userid);
+	            rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                int countDonation = rs.getInt("count_donation");
+	                request.setAttribute("countD", countDonation);
+	            }
+	            pstmt = con.prepareStatement(sqlDTitle);
+	            pstmt.setString(1, userid);
+	            rs = pstmt.executeQuery();
+	            
+	            List<DTODonation> d_title = new ArrayList<>();
+	            DTODonation dn = null;
+	            while (rs.next()) {
+	             dn = new DTODonation();
+	             dn.setTitle(rs.getString("d_title"));
+	             d_title.add(dn);
+	            }
+	            request.setAttribute("dTitle", d_title);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt, rs);
+		}
+    	 
+    	 
     }
 
     public void getAllDonations(HttpServletRequest request, HttpServletResponse response) {

@@ -41,7 +41,13 @@ document.addEventListener("DOMContentLoaded", function() {
   displayContent('all_content');
   
   
-  
-  
+ function toggleDonationTitle() {
+    var donationTitle = document.getElementById('donation_title');
+    if (donationTitle.style.display === 'none' || donationTitle.style.display === '') {
+        donationTitle.style.display = 'block';
+    } else {
+        donationTitle.style.display = 'none';
+    }
+}
   
   
