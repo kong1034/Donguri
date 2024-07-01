@@ -145,7 +145,7 @@ public class DAOSign {
 					// Session
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
-					session.setMaxInactiveInterval(600);
+					session.setMaxInactiveInterval(3600);
 					
 					//JSON Key, Json Value
 			         Gson gson = new Gson();
@@ -367,10 +367,91 @@ public class DAOSign {
 			DBManager.close(con, pstmt, null);
 		}
 		
+	}
+	
+	// checking xUser already sign in
+	public void xUserRegChk(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		XUserDTO xuser = (XUserDTO) session.getAttribute("twitterUser");
+		String xuserID = xuser.getX_id();
 		
+		UserDTO user = null;
 		
+		PreparedStatement pstmt= null;
+		ResultSet rs = null;
+
+		String sql = "select * from d_user where u_id = ?";	
 		
-		
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, xuserID);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				System.out.println("Login successful");
+				
+				user = new UserDTO(
+						rs.getString(1), 
+						rs.getString(2), 
+						rs.getString(3),
+						rs.getString(4), 
+						rs.getString(5), 
+						rs.getString(6), 
+						rs.getString(7), 
+						rs.getString(8), 
+						rs.getDate(9), 
+						rs.getString(10)
+						);
+				
+				response.setContentType("application/json");
+				response.setCharacterEncoding("utf-8");
+				
+				// Session
+				HttpSession session2 = request.getSession();
+				session2.setAttribute("user", user);
+				session2.setMaxInactiveInterval(3600);
+				
+				//JSON Key, Json Value
+//		         Gson gson = new Gson();
+//		         String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
+//		         response.getWriter().print(userJson);
+//		         System.out.println(userJson);
+		         
+			// 256-bit random key
+				Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+			//Generate JST Token
+				String jwtToken = Jwts.builder()
+						.setSubject(xuserID)
+						.setIssuedAt(new Date())
+						.setExpiration(new Date(System.currentTimeMillis()+3600000))
+						.signWith(Keys.hmacShaKeyFor(SECRET_KEY), SignatureAlgorithm.HS256)
+						.compact();
+				  
+				request.setAttribute("jwtToken", jwtToken);
+			
+			//Generate Cookie
+			
+				Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
+				
+			 // login status time limit(1H)
+				
+				jwtCookie.setMaxAge(3600);
+				response.addCookie(jwtCookie); 
+				
+				request.getRequestDispatcher("HC").forward(request, response);
+				 
+			}else {
+				response.sendRedirect("SignupInfoC");
+				System.out.println("Can't find User information in DB. You should signIn first.");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(con, pstmt, rs);
+		}
 	}	
 
 }
