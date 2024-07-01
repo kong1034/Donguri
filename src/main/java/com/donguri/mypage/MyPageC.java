@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.donguri.board.DAOBoard;
 import com.donguri.board.DAOBoard2;
+import com.donguri.donation.DAODonation;
 import com.donguri.sign.DAOSign;
 
 @WebServlet("/MyPageC")
@@ -19,6 +20,7 @@ public class MyPageC extends HttpServlet {
 		
 		DAOBoard.DAOB.getMyBoard(request);
 		DAOBoard2.DAOB2.getMyVolApply(request);
+		DAODonation.RDAO.getDonationById(request);
 		//Get Session
 		DAOSign.getUserSession(request, response);
 		request.setAttribute("contentPage", "/jsp/mypage/mypage.jsp");
