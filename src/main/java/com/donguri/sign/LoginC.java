@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -16,30 +17,20 @@ import com.google.gson.Gson;
 public class LoginC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-        request.setAttribute("contentPage", "/jsp/sign/login.jsp");
-        request.getRequestDispatcher("l_index.jsp").forward(request, response);
+		//Login Chk
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") != null) {
+			response.sendRedirect("HC");
+		}else {
+			request.setAttribute("contentPage", "/jsp/sign/login.jsp");
+			request.getRequestDispatcher("l_index.jsp").forward(request, response);
+		}
 	}
+		
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
-		DAOSign.RDAO.login(request, response);
-		
-		String loginChk = (String)request.getAttribute("result");
-		System.out.println("check in loginc post");
-		
-		if (loginChk!= "logout") {
-			String jwtToken = (String) request.getAttribute("jwtToken");
-			Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
-			// login status time limit
-			jwtCookie.setMaxAge(3600);
-			response.addCookie(jwtCookie); 
-			request.getRequestDispatcher("HC");
-		}else{
-			request.setAttribute("contentPage", "/jsp/sign/login.jsp");
-			System.out.println("Can't Login");
-			request.getRequestDispatcher("l_index.jsp").forward(request, response);
-		}
+ 		DAOSign.RDAO.login(request, response);
 		
 	}
 
