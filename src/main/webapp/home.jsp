@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,75 +35,46 @@
 			</div>
 			<div class="container_items">
 				<div class="item_left">
-					<a href="">
 						<div class="item left"></div>
-					</a> <a href="">
 						<div class="item_left_sub">コミュニティー</div>
-					</a>
 				</div>
 				<div class="centers">
 					<div class="center top">
 						<div class="slogan">All For My Neighbors</div>
 					</div>
 					<div class="center bottom">
-						<a href="">
 							<div class="item center_left"></div>
-						</a> <a href="">
 							<div class="item center_center">情報一覧</div>
-						</a> <a href="">
 							<div class="item center_right"></div>
-						</a>
 					</div>
 				</div>
 				<div class="item_right">
-					<a href="">
 						<div class="item right"></div>
-					</a> <a href="">
 						<div class="item_right_sub">ドネーション</div>
-					</a>
 				</div>
 			</div>
 			<div class="container_community_info">
 				<div class="community_info_top">Community</div>
+			<%-- items에 들어있는 리스트의 크기를 변수로 저장 --%>
+				<c:set var="itemCount" value="${fn:length(boardlists)}" />
+
 				<div class="community_info_wrap">
-					<a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a> <a href="">
-						<div class="community info">
-							<div class="acorn"></div>
-						</div>
-					</a>
-				</div>
+   				 <c:forEach items="${boardlists}" var="b">
+       				 <div class="community info">
+           			 <div class="acorn"></div>
+           			 <a href="BoardDetailC?no=${b.no}">${b.title}</a>
+       				 </div>
+    			</c:forEach>
+    
+    		<%-- items의 크기가 9보다 작은 경우, 빈 공간을 채우기 위해 남은 개수만큼 반복 --%>
+   		 		<c:forEach var="i" begin="${itemCount}" end="8">
+       				 <div class="community info">
+        				<div class="acorn"></div>
+       				 </div>
+   				 </c:forEach>
+        		</div>
+			</div>	
+		
 			</div>
 			<div class="container_aboutus">
 				<div class="aboutus_top">About us</div>
