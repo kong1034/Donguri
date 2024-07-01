@@ -1,5 +1,7 @@
 /* Donguri Login ajax*/
 	$(function(){
+		var loading = $('#load_image').hide();
+		
 		$('.login_don').click(function(){
 			$.ajax({
 					url: 'LoginC',
@@ -8,6 +10,12 @@
 						id: $('#input_id').val(),
 						pw: $('#input_pw').val()
 					},
+			beforeSend: function() {
+       				loading.show();
+      				},
+      		complete: function() {
+       				 loading.hide();
+     				 },
 				success: function (resData){
 					console.log(resData);
 					console.log(JSON.stringify(resData));

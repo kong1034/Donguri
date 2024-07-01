@@ -10,6 +10,9 @@
 <script type="text/javascript" src="js/sign/login.js"></script>
 </head>
 <body>
+	<div id="load_image" style="display: none;">
+      <img src="img/local/loading.gif">
+  </div>
       <div id="login_container">
         <div id="login_content">
           <input type="text" id="input_id" placeholder="ドングリID" name="id"><br />
