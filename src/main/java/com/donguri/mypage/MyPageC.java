@@ -21,6 +21,7 @@ public class MyPageC extends HttpServlet {
 		DAOBoard.DAOB.getMyBoard(request);
 		DAOBoard2.DAOB2.getMyVolApply(request);
 		DAODonation.RDAO.getDonationById(request);
+		DAOBoard.DAOB.getMyLikes(request);
 		//Get Session
 		DAOSign.getUserSession(request, response);
 		request.setAttribute("contentPage", "/jsp/mypage/mypage.jsp");

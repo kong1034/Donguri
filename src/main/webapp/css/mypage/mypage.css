@@ -8,6 +8,10 @@ body {
   height: 100%;
   font-size: 14pt;
 }
+a{
+	text-decoration: none;
+	color: black;
+}
 .mypage_title {
   width: 1000px;
   margin: 60px auto 20px;
@@ -64,7 +68,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .image img {
   width: 140px;
   height: 140px;
@@ -78,7 +81,7 @@ body {
   font-size: 12pt;
 }
 .mypage_middle {
-  width: 760px;
+  width: 770px;
   height: 40px;
   margin: auto ;
   display: flex;
@@ -87,12 +90,12 @@ body {
 }
 .bar {
   border-radius: 30px 30px 0px 0px;
-  width: 180px;
+  width: 150px;
   height: 45px;
   justify-content: center;
   text-align: center;
   align-content: center;
-  border: 3px solid #cfff91;
+  border-bottom: 3px solid #cfff91;
   cursor: pointer;
   background-color: #fff;
 }
@@ -114,7 +117,8 @@ body {
 }
 .donation_info_wrap,
 .community_history,
-.community_ing{
+.community_ing, 
+.my_likes{
   width: 800px;
   min-height: 200px;
   border: 1px solid #ccc;
@@ -136,7 +140,6 @@ body {
 .donation_title div{
 	border-bottom: 2px solid orange;
 }
-
 .donation_info {
   display: flex;
 }
@@ -167,11 +170,13 @@ body {
 	border: none;
   background-color: #fff;
 }
-.community_history {
+.community_history,
+.community_ing {
   margin: 0 auto 8px;
 }
 .community_history_list,
-.community_ing_list {
+.community_ing_list, 
+.my_likes_bottom {
   width: 700px;
   display: flex;
   justify-content: space-between;
@@ -195,4 +200,7 @@ body {
   color: #4b4b4b;
   text-shadow: 1px 1px 1px #ccc;
   cursor: pointer;
+}
+.content-section{
+  display: none;
 }
