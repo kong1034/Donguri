@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -27,8 +28,19 @@ pageEncoding="UTF-8"%>
       <div id="signup_info_container">
         <div id="signup_info_content">
           <div class="subtitle">ログインID</div>
+          <c:choose>
+		  <c:when test="${sessionScope.twitterUser.x_id != null }">
+          <input type="text" class="input_val input_id" name="u_id"
+           value="${sessionScope.twitterUser.x_id}" 
+           placeholder="${sessionScope.twitterUser.x_id}"
+          readonly="readonly"
+            ><br />
+		  </c:when>	
+          <c:otherwise>
           <input type="text" class="input_val input_id" name="u_id" /><br />
-          <div class="ex_text">半角英数字4-12字</div>
+          </c:otherwise>
+          </c:choose>
+          <div class="ex_text">半角英数字4-20字</div>
           <div class="subtitle">email</div>
           <input
             id="openModal"
@@ -41,7 +53,7 @@ pageEncoding="UTF-8"%>
           /><br />
           <div class="subtitle" style="padding-top: 20px">パスワード</div>
           <input type="password" class="input_val input_pw" name="u_pw" /><br />
-          <div class="ex_text">半角英数字4-12字</div>
+          <div class="ex_text">半角英数字4-20字</div>
           <div class="subtitle" style="padding-top: 20px">パスワード(確認)</div>
           <input
             type="password"
