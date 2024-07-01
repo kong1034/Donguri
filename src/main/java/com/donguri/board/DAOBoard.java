@@ -153,8 +153,8 @@ public class DAOBoard {
 				mb.setImg(rs.getString("g_img"));
 				boardList.add(mb);
 
-			 request.setAttribute("myboard", boardList);
 			}
+			request.setAttribute("myboard", boardList);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -383,8 +383,75 @@ public class DAOBoard {
 			DBManager.close(con, pstmt, null);
 		}
 	}
-
 	public void likesBoard(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+
+	    String sqlCheckLike = "SELECT COUNT(*) FROM user_likes WHERE u_id = ? AND g_no = ?";
+	    String sqlUpdateLikes = "UPDATE d_group_list SET g_likes = g_likes + 1 WHERE g_no = ?";
+	    String sqlInsertLike = "INSERT INTO user_likes (u_id, g_no) VALUES (?, ?)";
+	    String sqlGetLikes = "SELECT g_likes FROM d_group_list WHERE g_no = ?";
+	    
+	    HttpSession session = request.getSession();
+	    UserDTO user = (UserDTO) session.getAttribute("user");
+	    
+	    String userId = user.getU_id();
+	    String postNo = request.getParameter("no");
+	    JSONObject json = new JSONObject();
+
+	    try {
+	        con = DBManager.connect();
+
+	        // 사용자가 이미 좋아요 했는지 확인
+	        pstmt = con.prepareStatement(sqlCheckLike);
+	        pstmt.setString(1, userId);
+	        pstmt.setString(2, postNo);
+	        rs = pstmt.executeQuery();
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            json.put("success", false);
+	            json.put("message", "이미 좋아요를 누르셨습니다.");
+	        } else {
+	            // 좋아요 수 업데이트
+	            pstmt.close();
+	            pstmt = con.prepareStatement(sqlUpdateLikes);
+	            pstmt.setString(1, postNo);
+	            if (pstmt.executeUpdate() == 1) {
+	                // user_likes 테이블에 삽입
+	                pstmt.close();
+	                pstmt = con.prepareStatement(sqlInsertLike);
+	                pstmt.setString(1, userId);
+	                pstmt.setString(2, postNo);
+	                pstmt.executeUpdate();
+
+	                // 업데이트된 좋아요 수 가져오기
+	                pstmt.close();
+	                pstmt = con.prepareStatement(sqlGetLikes);
+	                pstmt.setString(1, postNo);
+	                rs = pstmt.executeQuery();
+	                
+	                if (rs.next()) {
+	                    int likes = rs.getInt("g_likes");
+	                    json.put("success", true);
+	                    json.put("likes", likes);
+	                } else {
+	                    json.put("success", false);
+	                }
+	            } else {
+	                json.put("success", false);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        json.put("success", false);
+	    } finally {
+	        DBManager.close(con, pstmt, rs);
+	    }
+
+	    response.setContentType("application/json");
+	    response.getWriter().write(json.toString());
+	}
+	
+	public void likesBoard2(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
 	        String sqlUpdateLikes = "update d_group_list set g_likes = g_likes + 1 where g_no = ?";
@@ -425,25 +492,56 @@ public class DAOBoard {
 	    }
 
 	public void updateBoard(HttpServletRequest request) {
-		
-		  PreparedStatement pstmt = null;
-	      ResultSet rs = null;
-	      String sql = "update d_group_list set  where g_no = ?";
+		PreparedStatement pstmt = null;
+		String sql = "update d_group_list set g_title=?, g_content=?, g_tag=?, g_place=?, "
+				+ "g_img=?, g_startdate=?, g_enddate=?, g_meetdate=? where g_no =?";
+		try {
+			con = DBManager.connect();
+			pstmt = con.prepareStatement(sql);
+			
+			String path = request.getServletContext().getRealPath("img/local/board");
+			MultipartRequest mr = new MultipartRequest(request, path, 1024*1024*20,"utf-8", new DefaultFileRenamePolicy());
+			
+			String title = mr.getParameter("title");
+			String info = mr.getParameter("info");
+			String tag = mr.getParameter("tag");
+			String place = mr.getParameter("place");
+			
+			String newFile = mr.getFilesystemName("newFile");
+			String oldFile = mr.getParameter("oldFile");
+			
+			String file3 = oldFile;
+			if (newFile != null) {
+				file3 = newFile;
+			}
+			String startDate = mr.getParameter("start_date");
+			String endDate = mr.getParameter("end_date");
+			String meetDate = mr.getParameter("meet_date");
+			int no= Integer.parseInt(mr.getParameter("no"));
+			
+			pstmt.setString(1, title);
+			pstmt.setString(2, info);
+			pstmt.setString(3, tag);
+			pstmt.setString(4, place);
+			pstmt.setString(5, file3);
+			pstmt.setString(6, startDate );
+			pstmt.setString(7, endDate);
+			pstmt.setString(8, meetDate);
+			pstmt.setInt(9, no);
+			
+			if (pstmt.executeUpdate() == 1) {
+				System.out.println("등록성공");
+			}
 
-	        try {
-	            con = DBManager.connect();
-	            pstmt = con.prepareStatement(sql);
-	            pstmt.setString(1, request.getParameter("no"));
-	            
-	            if (pstmt.executeUpdate() == 1) {
-	                }
-	        }catch (Exception e) {
-	            e.printStackTrace();
-	        } finally {
-	            DBManager.close(con, pstmt, rs);
-	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("에러 ㅜㅜ");
+			
+		} finally {
+			DBManager.close(con, pstmt, null);
 		}
-	
+	}
+		
 	}
 	
 	

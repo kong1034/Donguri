@@ -1,3 +1,14 @@
+
+ $(document).ready(function(){
+    $('.slider').slick({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      adaptiveHeight: true
+    });
+  });
+
 function shareTwitter() {
   window.open(
     "http://twitter.com/share?url=" +
@@ -15,26 +26,23 @@ function chatPopUp() {
   );
 }
 
-function confirmApply(g_no, boardId, userId) {
-	//apply impossible
-	// if not logged in 
-	if(userId == null){
-	alert("ログインが必要です。ログインしてください。");
- 	location.href = "LoginC";
-	} else{
-	console.log(boardId)
-	console.log(userId)
-	
-	// apply possible
-	if (boardId != userId) {
- 	 let ok = confirm("志願しますか?");
- 	 if (ok) {
-   	 	location.href = "BoardDetailApplyC?no=" + g_no;
-		}
-	} else{
-		alert("同じIDはアプライできません。");
-	}
-  }
+function confirmApply(g_no, userId, boardId) {
+	 console.log("g_no:", g_no, "userId:", userId, "boardId:", boardId);
+	    if (userId == "") {
+        alert("ログインが必要です。ログインしてください。");
+        location.href = "LoginC";
+        return; 
+    }
+    
+    // 신청 가능한 경우
+    if (boardId != userId) {
+        let ok = confirm("志願しますか?");
+        if (ok) {
+            location.href = "BoardDetailApplyC?no=" + g_no;
+        }
+    } else {
+        alert("同じIDはアプライできません。");
+    }
 }
 
 function applyDone(no){
@@ -54,8 +62,7 @@ function boardDelete(no){
 function boardUpdate(no){
 	let ok = confirm("修正しますか?");
 	if(ok){
-		sessionStorage.setItem('boardNo', no);
-		location.href='BoardMakeC';
+		location.href='BoardUpdateC?no='+ no;
 	}
 }
 
@@ -66,17 +73,22 @@ function toggleLike(no) {
     success: function(response) {
       if (response.success) {
         $('#likeCount').text(response.likes);
+         $('#likeButton').addClass('active');
       } else {
-        alert('Failed to update likes');
+        alert('이미 좋아요를 누르셨습니다.');
       }
     },
     error: function() {
-      alert('Error occurred while updating likes');
+      alert('ログインしてください。');
     }
   });
 }
  var btn = document.getElementById("likeButton")
 
-  btn.addEventListener('click',function(){
-            btn.classList.toggle('active')
-    })
+  btn.addEventListener('click', function() {
+  if (!btn.classList.contains('active')) {
+    toggleLike(boardlists.no);
+  } else {
+    alert('이미 좋아요를 누르셨습니다.');
+  }
+});
