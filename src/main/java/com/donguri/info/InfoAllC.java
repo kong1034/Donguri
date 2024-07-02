@@ -15,7 +15,7 @@ public class InfoAllC extends HttpServlet {
 		
 		if(num < 5 && num >= 0){
 			if(num == 0) {
-				
+				request.setAttribute("contents", "/jsp/info/all_info.jsp");
 			} else if(num == 1) {
 				request.setAttribute("contents", "/jsp/info/info_child.jsp");
 			} else if(num == 2) {
