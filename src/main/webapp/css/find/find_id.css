@@ -11,6 +11,7 @@
     border: 1px solid black;
     width: 70%;
     height: 50vh;
+    font-size:1.3em;
 }
 
 .content_container .content_box p{
@@ -35,11 +36,12 @@
 }
 .content_container .content_box .content_main_box input {
 	font-weight: bold;
-	font-size:1em;
+	font-size:1.3em;
 	margin-bottom:15px;
 	width:95%;
 	border-radius:5px;
 	border: 1px solid black;
+	height:4vh;
 }
 .content_container .content_box .content_btn_box {
 	width: 45%;

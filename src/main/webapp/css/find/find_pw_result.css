@@ -11,24 +11,19 @@
     border: 1px solid black;
     width: 70%;
     height: 50vh;
+    font-size:1.8em;
 }
 
 .content_container .content_box .content_announce_box1 {
-	margin-top:8em;
+	margin-top:5em;
 }
 
 .content_container .content_box .content_announce_box1 p{
-	font-size:1.5em;
 	text-align:center;
 }
 
 .content_container .content_box .content_announce_box2 p{
-	font-size:1.1em;
 	text-align:center;
-}
-
-.content_container .content_box .content_btn_box {
-	margin-top:3em;
 }
 
 .content_container .content_box .content_btn_box .prev_btn{
