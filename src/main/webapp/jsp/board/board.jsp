@@ -57,7 +57,7 @@
               </c:otherwise>
             </c:choose>
           </div>
-          <div class="board location">${b.place }</div>
+          <div class="board location" style="font-size: 14pt;">${b.place }</div>
           <div class="board group"><span>#${b.tag }</span></div>
           <div class="board title" ><a href="BoardDetailC?no=${b.no }"><span>${b.title }</span> </a> </div>
           <div class="board writer">${b.id }</div>
