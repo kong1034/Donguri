@@ -111,8 +111,6 @@ public class DAOFind {
 	}
 
 	public void findPw(HttpServletRequest request, HttpServletResponse response) {
-		
-	    
 		// db setting
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -153,7 +151,7 @@ public class DAOFind {
 
 				pstmt2 = conn.prepareStatement(sql2);
 
-				pstmt2.setString(1, randomNumber.toString());
+				pstmt2.setString(1, "dong"+randomNumber.toString());
 				pstmt2.setString(2, id);
 
 				pstmt2.executeQuery();
