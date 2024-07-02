@@ -95,7 +95,7 @@ public class DAOBoard {
 				b.setNo(rs.getInt("g_no"));
 				b.setId(rs.getString("u_id"));
 				b.setTitle(rs.getString("g_title"));
-				b.setContent(rs.getString("g_content"));
+				b.setContent(rs.getString("g_content").replaceAll("\r\n", "<br>"));
 				b.setDate(rs.getDate("g_date"));
 				b.setStartdate(rs.getDate("g_startdate"));
 				b.setEnddate(rs.getDate("g_enddate"));

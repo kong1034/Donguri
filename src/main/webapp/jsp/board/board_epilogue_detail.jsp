@@ -30,6 +30,10 @@
 						<span>作成日</span> ${epilogues.date }
 					</div>
 				</div>
+				<div class="epilogue_img">
+				<img alt="" src="img/local/board/${epilogues.img }">
+					
+				</div>
 				<div class="epilogue content">
 					<span>内容</span>${epilogues.content }
 				</div>
@@ -43,8 +47,11 @@
 							<div class="comment_writer" style="font-size: 16pt;">${c.id }</div>
 							<div class="comment_contents" style="font-size: 16pt;">${c.c_content }</div>
 							<div class="comment_date">
-								<fmt:formatDate value="${c.c_date }" pattern="yy.MM.dd hh:mm" />
+								<fmt:formatDate value="${c.c_date }" pattern="yy.MM.dd HH:mm" />
 							</div>
+<%-- 								<a class="btn_delete" onclick="deleteComment('${c.c_no}', '${c.id }')"> --%>
+								<c:choose>
+								<c:when test="${sessionScope.user.u_id eq c.id}">
 							<div class="comment_delete">
 								<a class="btn_delete" onclick="deleteComment('${c.c_no}', '${c.id }')">
 								<img alt="" src="img/local/board/delete_button.png"></a> 
@@ -55,7 +62,16 @@
 							<div class="comment_update">
 								<a class="btn_update" onclick="updateComment(this, '${c.c_no}', '${c.c_content}', '${c.id }')">修正</a>
 					        </div>
+								</c:when>
+								<c:otherwise>
+<!-- 								<a class="btn_delete"> -->
+<!-- 								<img alt="" src="img/local/board/delete_button.png" style="background-color: gray"> -->
+<!-- 								</a> -->
+								</c:otherwise>
+								</c:choose>
+							
 						</div>
+						
 					</c:forEach>
 						<div id="commentModal_${c.c_no}" class="commentModal" >
 							<p>コメント 修正</p>
@@ -70,7 +86,7 @@
 					<p>コメントをつける</p>
 					<p>${sessionScope.user.u_id }</p>
 					<div class="comment_input">
-						<textarea rows="2" cols="65" placeholder="コメントを作成してください"
+						<textarea rows="2" cols="64" placeholder="コメントを作成してください"
 							name="reply_contents" id="content"></textarea>
 						<button class="btn_register" id="add_btn"
 							onclick="saveComment('${sessionScope.user.u_id }', '${epilogues.no}')">登錄</button>
