@@ -9,6 +9,9 @@
 </head>
 <body>
 <section class="content_container">
+<div id="load_image" style="display: none;">
+      <img src="img/local/loading.gif">
+  </div>
 		<div class="content_box">
 			<div class="content_announce_box">
 				<p>ドングリのIDに登録しているメールアドレスと
