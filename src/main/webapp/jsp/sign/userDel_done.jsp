@@ -14,7 +14,7 @@
           <br />
           会員退会できました。<br />
           <div id="done_btn">
-            <button class="done_btn btn" onclick="location.href='/Donguri/LoginC'">戻る</button><br />
+            <button class="done_btn btn" onclick="location.href='/Donguri/HC'">戻る</button><br />
           </div>
         </div>
       </div>
