@@ -20,7 +20,7 @@ function shareTwitter() {
 
 function chatPopUp() {
   window.open(
-    "https://b9c7-175-192-170-212.ngrok-free.app",
+    "https://436f-121-160-41-223.ngrok-free.app",
     "chatting",
     "width=400, height=600, left=100, top=50"
   );
