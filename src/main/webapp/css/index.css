@@ -90,22 +90,46 @@
   background-image: url("../img/local/children.jpeg");
   background-position: center;
   background-size: cover;
+  opacity: 1;
+	-webkit-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+.left:hover {
+	opacity: .5;
 }
 .center_left { 
   background-image: url("../img/local/old.webp");
   background-position: center;
   background-size: cover;
+   opacity: 1;
+	-webkit-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+.center_left:hover {
+	opacity: .5;
 }
 .center_right {
   background-image: url("../img/local/environment.jpeg");
   background-position: center;
   background-size: cover;
+   opacity: 1;
+	-webkit-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+.center_right:hover{
+	opacity: .5;
 }
 .right {
   margin-top: 50px;
   background-image: url("../img/local/animal4.jpeg");
   background-position: center;
   background-size: cover;
+   opacity: 1;
+	-webkit-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+.right:hover{
+	opacity: .5;
 }
 .centers {
   display: grid;
@@ -116,39 +140,40 @@
   width: 490px;
 }
 .center_center {
-  border: 3px solid orange;
   height: 80px;
   margin-top: 160px;
   align-content: center;
   color: orange;
-  font-size: 18px;
+  font-size: 20px;
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
 }
 .center_center:hover{
 	background-color: orange;
 	color: #fff;
+	transition: all 0.3s ease;
 }
 .item_left_sub,
 .item_right_sub {
-  color: orange;
   height: 80px;
   border: 3px solid;
   border-radius: 30px;
   margin-top: 4px;
-  justify-content: center;
   align-content: center;
   font-size: 14pt;
+  background: rgb(255,151,0);
+  border: none;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
 }
-/* .item:hover {
-  -webkit-filter: blur(1px);
-  -moz-filter: blur(1px);
-  -o-filter: blur(1px);
-  -ms-filter: blur(1px);
-  filter: blur(1px);
-} */
 .item_right_sub:hover, .item_left_sub:hover {
 	background-color: orange;
 	color:#fff;
+    transition: all 0.3s ease;
 }
+
 .container_community_info {
   display: grid;
   margin: auto auto 40px;

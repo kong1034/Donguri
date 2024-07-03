@@ -33,29 +33,32 @@ body {
   height: 100px;
   display: flex;
   justify-content:space-between;
+  align-content: center;
 }
-.epilogue_center div{
+.epilogue_center .tag,
+.writer,
+.date{
   border-right: 1px solid #ccc;
   width: 400px;
-	
+  align-content: center;
 }
-
 .container_ed span {
   width: 200px;
   height: 100px;
   float: left;
   border-right: 1px solid #ccc;
+  align-content: center;
+}
+.container_ed{
+  align-content: center;
 }
 .tag_class {
 	border: 3px solid orange;
 	border-radius: 30px;
 	width: 90px;
 	height: 45px;
-	text-align: center;
 	align-content: center;
-	font-weight: 600;
-	font-size: 16pt;
-	letter-spacing: 1px;
+	margin: auto;
 }
 .container_ed .content {
   height: 200px;
@@ -63,7 +66,14 @@ body {
 .container_ed .content span {
   height: 200px;
 }
-
+.epilogue{
+	display:flex;
+	align-items: center;
+}
+.epilogue div{
+	padding-left: 20px;
+	
+}
 
 /* ---comment--- */
 .comment-group p {
