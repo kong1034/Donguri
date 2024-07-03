@@ -27,6 +27,7 @@ import com.donguri.main.Common;
 import com.donguri.main.DBManager;
 import com.github.scribejava.core.model.Response;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -104,13 +105,13 @@ public class DAOSign {
 		String dbID = "" ;
 		String dbPW = "" ;
 		
-		String result;
-		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		String sql = "select * from d_user where u_id = ?";
 		
+		Gson gson = new Gson();
+		JsonObject resData = new JsonObject();
 		
 		try {
 			con = DBManager.connect();
@@ -118,13 +119,10 @@ public class DAOSign {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			
-			result = "logout";
-			
 			if (rs.next()) {
 				dbPW = rs.getString(3);
 				if (pw.equals(dbPW)) {
 					System.out.println("Login successful");
-					result = id;
 					
 					user = new UserDTO(
 							rs.getString(1), 
@@ -139,48 +137,61 @@ public class DAOSign {
 							rs.getString(10)
 							);
 					
-					response.setContentType("application/json");
-					response.setCharacterEncoding("utf-8");
-					
 					// Session
 					HttpSession session = request.getSession();
 					session.setAttribute("user", user);
 					session.setMaxInactiveInterval(3600);
 					
 					//JSON Key, Json Value
-			         Gson gson = new Gson();
-			         String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
-			         response.getWriter().print(userJson);
-			         System.out.println(userJson);
+			        resData.addProperty("success", true);
+			        resData.add("user", gson.toJsonTree(user));
+			        
+			        response.setContentType("application/json");
+			        response.setCharacterEncoding("utf-8");
+			        response.getWriter().write(gson.toJson(resData));
 			         
-				// 256-bit random key
+			       // 256-bit random key
 					Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-				//Generate JST Token
+				
+				  //Generate JST Token
 					String jwtToken = Jwts.builder()
 							.setSubject(id)
 							.setIssuedAt(new Date())
 							.setExpiration(new Date(System.currentTimeMillis()+3600000))
 							.signWith(Keys.hmacShaKeyFor(SECRET_KEY), SignatureAlgorithm.HS256)
 							.compact();
-					  
-					 request.setAttribute("jwtToken", jwtToken);
+					
+				 //Generate Cookie
+					Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
+				
+				 // login status time limit
+					jwtCookie.setMaxAge(3600);
+					response.addCookie(jwtCookie); 
 					
 				}else {
 					System.out.println("Password error");
-					result = "logout";
+	                resData.addProperty("message", "パスワードが違います。");
+	                resData.addProperty("success", false);
+	                response.setContentType("application/json");
+	                response.setCharacterEncoding("UTF-8");
+	                response.getWriter().write(resData.toString());
+					
 				}
 			}else {
 				System.out.println("Non-existent Account");
-				result = "logout";
+                resData.addProperty("message", "アカウントが存在しません。");
+                resData.addProperty("success", false);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(resData.toString());
 			} 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			result = "logout";
 		}finally {
 			DBManager.close(con, pstmt, rs);
 		}
-		
-		request.setAttribute("result", result);
+
 	}
 
 	// Logout Method
@@ -323,18 +334,16 @@ public class DAOSign {
 	// compare input code and confirmation code for signIn
 	public static void codeVerify(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		try {
-			// Do not remove this 
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json; charset=utf-8");
 			HttpSession session = request.getSession();
 			String randomNumber = (String) session.getAttribute("randomNumber");
 			String code = request.getParameter("code");
-			System.out.println("랜덤 숫자 값: " + randomNumber);
-			System.out.println("입력 숫자 값: " + request.getParameter("code"));
+			System.out.println("確認コード: " + randomNumber);
+			System.out.println("入力番号: " + request.getParameter("code"));
 			if (code.equals(randomNumber)) {
 				// send server(boolean)
 					response.getWriter().print(true);
-					System.out.println("조건문 통과");
 			}
 
 			}catch(IOException e){
@@ -344,7 +353,7 @@ public class DAOSign {
 
 	
 	// User Delete Method
-	public void userDel(HttpServletRequest request) {
+	public void userDel(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
 		String sql = "DELETE FROM d_user WHERE u_id = ? ";
@@ -405,19 +414,10 @@ public class DAOSign {
 						rs.getString(10)
 						);
 				
-				response.setContentType("application/json");
-				response.setCharacterEncoding("utf-8");
-				
 				// Session
 				HttpSession session2 = request.getSession();
 				session2.setAttribute("user", user);
 				session2.setMaxInactiveInterval(3600);
-				
-				//JSON Key, Json Value
-//		         Gson gson = new Gson();
-//		         String userJson = gson.toJson(user);         // 생성된 Json 문자열 출력        System.out.println(jsonStr);
-//		         response.getWriter().print(userJson);
-//		         System.out.println(userJson);
 		         
 			// 256-bit random key
 				Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -439,7 +439,6 @@ public class DAOSign {
 				
 				jwtCookie.setMaxAge(3600);
 				response.addCookie(jwtCookie); 
-				
 				request.getRequestDispatcher("HC").forward(request, response);
 				 
 			}else {

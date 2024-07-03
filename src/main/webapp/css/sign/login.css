@@ -73,3 +73,19 @@ a {
   border-radius: 5px;
   margin-top: 20px;
 }
+#load_image{
+	position:absolute; 
+	top:20%; 
+	left:40%;
+	width:0px;
+	height:0px; 
+	z-index:9999; 
+	background:#f0f0f0; 
+	margin:auto; 
+	padding:0; 
+	text-align:center;
+}
+#load_image img{
+	width: 400px; 
+	height: 400px;
+}

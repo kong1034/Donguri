@@ -9,10 +9,13 @@
 </head>
 <body>
 <section class="content_container">
+<div id="load_image" style="display: none;">
+      <img src="img/local/loading.gif">
+  </div>
 		<div class="content_box">
 			<div class="content_announce_box">
 				<p>ドングリのIDに登録しているメールアドレスと
-					ユーザー名を入力して下さい。。</p>
+					ユーザー名を入力して下さい。</p>
 			</div>
 			<div class="content_main_box">
 				<p>メールアドレス</p>

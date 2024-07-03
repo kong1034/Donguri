@@ -38,12 +38,16 @@ function saveComment(userId, reviewId) {
         `<div class="comment_delete">
 		<a class="btn_delete" onclick="deleteComment(` +
         response.c_no +
-        `)"><img alt=""src="img/local/board/delete_button.png"></a></div>
+        `, '` +
+        response.userId +
+        `')"><img alt=""src="img/local/board/delete_button.png"></a></div>
 		<div class="comment_update">
 		<a class="btn_update" onclick="updateComment(this, ` +
         response.c_no +
         `, '` +
         response.content +
+         `', '` +
+         response.userId +
         `')">修正</a></div>`;
       $(".top").append(newComment);
       $("#add_message").html(response.message);
@@ -64,8 +68,10 @@ function canModifyComment(userId, writerId) {
 
 function deleteComment(c_no, writerId) {
 	const userId = $("#user_id").val();
-	
+	//const writerId = $(content).closest(".comment_list").find("#writer_id").val();
+
 	 if (!canModifyComment(userId, writerId)) {
+		 console.log(userId, writerId);
     alert("削除する権限がありません。");
     return;
   }
@@ -105,7 +111,6 @@ function closeModal() {
 let activeContent;
 function updateComment(content, comment_no, comment_content, writerId ) {
   const userId = $("#user_id").val();
-  //const writerId = $(content).closest(".comment_list").find("#writer_id").val();
   
    if (!canModifyComment(userId, writerId)) {
     alert("修正する権限がありません。");

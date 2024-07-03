@@ -43,10 +43,9 @@
         return value ? value[2] : null;
     }
 
-    var jwtToken = get_cookie("jwtToken");
-    console.log(jwtToken);
-    const spans = document.querySelectorAll('#unlogin');
-    var loginElements = document.querySelectorAll('.login');
+	var jwtToken = get_cookie("jwtToken");
+	const spans = document.querySelectorAll('#unlogin');
+	var loginElements = document.querySelectorAll('.login');
 
     // login
     if (jwtToken != null) {

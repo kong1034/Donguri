@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class UserDeleteC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		DAOSign.RDAO.userDel(request);
+		DAOSign.RDAO.userDel(request,response);
+		DAOSign.logout(request, response);
 		request.setAttribute("contentPage", "/jsp/sign/userDel_done.jsp");
 		request.getRequestDispatcher("l_index.jsp").forward(request, response);
 	

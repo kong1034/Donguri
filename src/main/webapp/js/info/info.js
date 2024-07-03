@@ -16,6 +16,24 @@ $(function() {
 		$("#info_title_img").css('transition', 'all 2s ease');
 		$("#info_title_img").css('transform', 'translateX(0px) rotate(0deg)');
 	})
+	$("#info_older").mouseenter(function() {
+		$("#info_title_img2").css('transition', 'all 2s ease');
+		$("#info_title_img2").css('transform', 'translateX(1150px) rotate(1800deg)');		
+	})
+	
+	$("#info_older").mouseleave(function() {
+		$("#info_title_img2").css('transition', 'all 2s ease');
+		$("#info_title_img2").css('transform', 'translateX(0px) rotate(0deg)');
+	})
+	$("#info_animal").mouseenter(function() {
+		$("#info_title_img3").css('transition', 'all 2s ease');
+		$("#info_title_img3").css('transform', 'translateX(1150px) rotate(1800deg)');		
+	})
+	
+	$("#info_animal").mouseleave(function() {
+		$("#info_title_img3").css('transition', 'all 2s ease');
+		$("#info_title_img3").css('transform', 'translateX(0px) rotate(0deg)');
+	})
 })
 function goInfo(number) {
 	location.href = "InfoAllC?num=" + number;

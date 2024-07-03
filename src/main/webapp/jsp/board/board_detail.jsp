@@ -16,7 +16,7 @@ prefix="c" %>
   <body>
     <div class="container_b">
       <div class="container_b_wrapper">
-       <div class="group title_b"><span>タイトル</span>&nbsp ${boardlists.title }</div>
+       <div class="group title_b">&nbsp ${boardlists.title }</div>
         <div class="container_left">
          <div class="input_img slider">
    		 <div>

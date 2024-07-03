@@ -41,8 +41,11 @@
 		<!-- older -->
 		<div class="info_older_container">
 			<div class="info_ul_title_box">
-				<p class="info_title"># 老人</p>
-				<button class="info_all" onclick="goInfo(2)">More</button>
+				<p class="info_title" id="info_title"># 老人</p>
+				<div class="info_title_img_box" id="info_title_img_box">
+					<img class="info_title_img" id="info_title_img2" src="img/local/dongguri.svg"/>
+				</div>
+				<button class="info_all" id="info_older" onclick="goInfo(2)">More</button>
 			</div>
 			<ul class="info_ul_container">
 				<li><img src="https://nenrin.or.jp/common/img/logo.gif" onclick="goSite(1)" class="content_img"/></li>
@@ -63,8 +66,11 @@
 		<!-- animal -->
 		<div class="info_animal_container">
 			<div class="info_ul_title_box">
-				<p class="info_title"># 動物</p>
-				<button class="info_all" onclick="goInfo(3)">More</button>
+				<p class="info_title" id="info_title"># 動物</p>
+				<div class="info_title_img_box" id="info_title_img_box">
+					<img class="info_title_img" id="info_title_img3" src="img/local/dongguri.svg"/>
+				</div>
+				<button class="info_all" id="info_animal" onclick="goInfo(3)">More</button>
 			</div>
 			<ul class="info_ul_container">
 <li><img src="https://www.jaws.or.jp/wp-content/themes/jaws/images/contents01-img01.jpg" onclick="goSite(1)" class="content_img"></li>

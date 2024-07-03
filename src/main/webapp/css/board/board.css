@@ -145,9 +145,7 @@ html, body {
 .container_board .status, .location, .group, .writer {
 	width: 140px;
 }
-.location{
-	font-size: 14pt;
-}
+
 .container_board .title {
 	width: 450px;
 }
