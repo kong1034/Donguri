@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         donationBtn.addEventListener('click', function() {
             const amount = donationAmountInput.value;
             if (amount < 1 || isNaN(amount)) {
-                alert('有効な金額を入力してください。');
+                alert('Please enter a valid amount.');
                 return false;
             }
 
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var copyText = document.querySelector(element);
         copyText.select();
         document.execCommand("copy");
-        alert("URLがコピーされました: " + copyText.value);
+        alert("URL copied: " + copyText.value);
     }
 
     // Process Line Pay

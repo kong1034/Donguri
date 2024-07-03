@@ -23,11 +23,13 @@ public class DonationDetailC extends HttpServlet {
             request.setAttribute("userId", null);
         }
 
-        // Retrieve donation ID from request
         String donationId = request.getParameter("id");
         if (donationId != null && !donationId.isEmpty()) {
-            DTODonation donation = DAODonation.RDAO.getDonationById(donationId);
-            request.setAttribute("donation", donation);
+            request.setAttribute("donationId", donationId);
+            request.setAttribute("no", donationId);
+            DAODonation.RDAO.getDonationByOne(request);
+        } else {
+            request.setAttribute("selected_info", new DTODonation()); // 빈 객체로 초기화
         }
 
         request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");

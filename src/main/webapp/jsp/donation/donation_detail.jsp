@@ -8,48 +8,45 @@
     <script src="<%=request.getContextPath()%>/js/donation/donation_detail.js"></script>
 </head>
 <body>
-    <header>
-        <!-- Header content if any -->
-    </header>
     <div class="wrapper">
         <main class="donation_main">
             <div class="donation_container">
                 <div class="left_section">
                     <div class="image_container">
                         <c:choose>
-                            <c:when test="${not empty donation.thumnail}">
-                                <img src="${donation.thumnail}" alt="Donation Image">
+                            <c:when test="${not empty selected_info.thumnail}">
+                                <img src="${selected_info.thumnail}" alt="Donation Image" style="width: 75%;">
                             </c:when>
                         </c:choose>
                     </div>
                     <span class="categori_tag"># 環境</span>
                     <div class="donation_goal">
                         <div class="amount">
-                            <span>${not empty donation.amount ? donation.amount : 0}</span>
+                            <span>${not empty selected_info.amount ? selected_info.amount : 0}</span>
                             <span>円</span>
                         </div>
                         <div class="percentage">
                             <div class="percentage_img_box">
                                 <img alt="donguri" src="<%=request.getContextPath()%>/img/local/dongguri.svg">
                             </div>
-                            <span data-percentage="${not empty donation.amount && donation.amount != 0 ? (donation.sum / donation.amount * 100) : 0}%">
-                                ${not empty donation.sum ? (donation.sum / donation.amount * 100) : 0}%
+                            <span data-percentage="${not empty selected_info.amount && selected_info.amount != 0 ? (selected_info.sum / selected_info.amount * 100) : 0}%">
+                                ${not empty selected_info.sum ? (selected_info.sum / selected_info.amount * 100) : 0}%
                             </span>
                         </div>
                     </div>
                     <div class="company_period_container">
                         <div class="company_container">
                             <p>
-                                <span>募金機関 </span>
-                                <span>${not empty donation.organization ? donation.organization : '募金機関'}</span>
+                                <span>募金機関</span>
+                                <span>${not empty selected_info.publisher ? selected_info.publisher : '募金機関'}</span>
                             </p>
                         </div>
                         <div class="period_container">
                             <p>
-                                <span>募金期間 </span>
-                                <span>${not empty donation.startDate ? donation.startDate : 'YYYY-MM-DD'}</span>
-                                <span style="color: black;">~</span>
-                                <span>${not empty donation.endDate ? donation.endDate : 'YYYY-MM-DD'}</span>
+                                <span>募金期間</span>
+                                <span>${not empty selected_info.created_date ? selected_info.created_date : 'YYYY-MM-DD'}</span>
+                                <span>~</span>
+                                <span>${not empty selected_info.d_date ? selected_info.d_date : 'YYYY-MM-DD'}</span>
                             </p>
                         </div>
                     </div>
@@ -58,7 +55,7 @@
                     <div class="donation_actions">
                         <div class="right_first_area">
                             <p>寄付する</p>
-                            <p>${not empty donation.content ? donation.content : 'ここに説明が入ります。'}</p>
+                            <p>${not empty selected_info.content ? selected_info.content : 'ここに説明が入ります。'}</p>
                         </div>
                         <div class="right_second_area">
                             <div class="button_container">
@@ -94,8 +91,10 @@
             <span id="share_close" class="close">&times;</span>
             <div class="share_container">
                 <div class="share_title">共有する</div>
-                <input type="text" value="" id="share_link" readonly>
-                <button onclick="copyToClipboard('#share_link')" class="copy_button">コピー</button>
+                <div class="share_link_container">
+                    <input type="text" value="" id="share_link" readonly>
+                    <button onclick="copyToClipboard('#share_link')" class="copy_button">コピー</button>
+                </div>
             </div>
             <div class="sns_links">
                 <button class="sns_button" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + document.getElementById('share_link').value, '_blank')">Share on Facebook</button>

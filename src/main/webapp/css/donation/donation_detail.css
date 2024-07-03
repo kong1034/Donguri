@@ -1,60 +1,71 @@
 @charset "UTF-8";
 
-html, body {
+* {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Disable horizontal scroll */
-  height: 100%; /* Ensure the body takes full height */
+  box-sizing: border-box;
+}
+
+/* html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   display: flex;
   flex-direction: column;
-}
+  min-height: 100vh;
+} */
 
-header, footer {
-  height: 10vh;
-}
-
-.wrapper {
-  flex: 1; /* Make wrapper grow to fill the remaining space */
+.i_contents {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  box-sizing: border-box;
+  min-height: calc(100vh - 20vh);
 }
 
 .donation_main {
-  border: 1px solid #ddd;
-  width: 60vw;
-  max-width: 1920px;
-  padding: 20px;
-  box-sizing: border-box;
-  border-radius: 10px; /* Border radius for donation_main */
-  flex-grow: 1; /* Allow main to grow */
   display: flex;
-  flex-direction: column;
+  flex-flow: nowrap;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 80%;
+  padding: 5vh;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin: 4vh auto;
+  flex: 1;
 }
 
 .donation_container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 100%;
 }
 
 .left_section, .right_section {
-  flex: 1 1 50%; /* Ensure both sections take up 50% of the height */
+  flex: 1;
   box-sizing: border-box;
+  padding: 2.5vw;
 }
 
 .image_container {
-  height: 30vh; /* Set height to 30vh */
+  height: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.placeholder_image {
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%;
+  background-color: #cccccc;
 }
 
 .categori_tag {
@@ -82,7 +93,7 @@ header, footer {
 
 .amount {
   font-size: 24px;
-  text-align: right; /* Align amount text to right */
+  text-align: right;
 }
 
 .amount span {
@@ -129,7 +140,7 @@ header, footer {
 }
 
 .right_first_area {
-  height: 30vh; /* Set height to 30vh */
+  height: 30vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,7 +151,7 @@ header, footer {
 .right_second_area {
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* Align to bottom */
+  align-items: flex-end;
   height: 100%;
   flex-grow: 1;
 }
@@ -163,7 +174,7 @@ header, footer {
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-top: 5px;
-  width: 150px; /* Match the width of the input */
+  width: 150px;
   z-index: 1;
 }
 
@@ -178,16 +189,20 @@ header, footer {
 }
 
 #donation_amount {
-  border-radius: 20px; /* Border radius for donation amount input */
+  height: 3em;
+  width: 20em;
+  border-radius: 20px;
   text-align: center;
-  justify-content: center;
-  border: 1px solid #FFA500; /* Border color and width */
+  border: 1px solid #FFA500;
+}
+
+#donation_amount::placeholder {
+  text-align: center;
 }
 
 .button_box {
   display: flex;
   align-items: center;
-  margin-top: 10px;
 }
 
 .share_button, .donate_button {
@@ -198,8 +213,8 @@ header, footer {
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 75px;
-  height: 75px;
+  width: 100px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -218,7 +233,6 @@ header, footer {
   background-color: #e69500;
 }
 
-/* Modal styling */
 .modal {
   display: none;
   position: fixed;
@@ -229,7 +243,7 @@ header, footer {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8); /* Darker background */
+  background-color: rgba(0, 0, 0, 0.8);
   animation: fadeIn 0.3s ease;
 }
 
