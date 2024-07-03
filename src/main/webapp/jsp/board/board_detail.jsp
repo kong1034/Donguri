@@ -43,7 +43,7 @@ prefix="c" %>
           <c:if test="${empty fromMypage}">
             <div class="button_wrapper">
               <button class="btn_share" id="shareTw" onclick="javascript:shareTwitter()"> シェア <br />X </button>
-              <button class="btn_chat" onclick="chatPopUp()">チャット</button>
+              <button class="btn_chat" onclick="chatPopUp('${sessionScope.user.u_id }')">チャット</button>
               <button class="btn_apply" onclick="confirmApply('${boardlists.no}','${sessionScope.user.u_id }','${boardlists.id}')">アプライ</button>
             </div>
           </c:if>

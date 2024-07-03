@@ -14,28 +14,28 @@
 		<div class="epilogue_wrap">
 			<div class="epilogue_list" style="font-weight: bold; font-size: 18pt">
 				<div class="epilogue title">
-					<span>タイトル</span>${epilogues.title }
+						<span>タイトル</span>
+						<div>${epilogues.title }</div>
+					
 				</div>
 				<div class="epilogue_center">
 					<div class="epilogue tag">
-						<span>タグ</span> 
-						<p class="tag_class">
-						${epilogues.tag }
-						</p> 
+					<span>分類</span> 
+					<p class="tag_class">
+						${epilogues.tag } </p>
 					</div>
 					<div class="epilogue writer">
-						<span>作成者</span> ${epilogues.id }
+						<span>作成者</span> <div>${epilogues.id }</div>   
 					</div>
 					<div class="epilogue date">
-						<span>作成日</span> ${epilogues.date }
+						<span>作成日</span> <div>${epilogues.date }</div> 
 					</div>
 				</div>
 				<div class="epilogue_img">
 				<img alt="" src="img/local/board/${epilogues.img }">
-					
 				</div>
 				<div class="epilogue content">
-					<span>内容</span>${epilogues.content }
+					<span>内容</span><div>${epilogues.content }</div> 
 				</div>
 			</div>
 
