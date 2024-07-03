@@ -36,7 +36,9 @@
 			<div class="container_items">
 				<div class="item_left">
 						<div class="item left"></div>
-						<div class="item_left_sub">コミュニティー</div>
+						<a href="BoardC">
+						<div class="item_left_sub">コミュニティー<div class="dot"></div></div>
+						</a>
 				</div>
 				<div class="centers">
 					<div class="center top">
@@ -44,13 +46,17 @@
 					</div>
 					<div class="center bottom">
 							<div class="item center_left"></div>
+							<a href="InfoC">
 							<div class="item center_center">情報一覧</div>
+							</a>
 							<div class="item center_right"></div>
 					</div>
 				</div>
 				<div class="item_right">
 						<div class="item right"></div>
+						<a href="DonationListC">
 						<div class="item_right_sub">ドネーション</div>
+						</a>
 				</div>
 			</div>
 			<div class="container_community_info">

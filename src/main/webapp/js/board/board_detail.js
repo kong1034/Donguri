@@ -18,18 +18,23 @@ function shareTwitter() {
   );
 }
 
-function chatPopUp() {
+function chatPopUp(userId) {
+	 if (userId == "") {
+        alert("ログインしてください。");
+         location.href = "LoginC";
+        }else{
   window.open(
-    "https://436f-121-160-41-223.ngrok-free.app",
+    "https://619d-121-160-41-223.ngrok-free.app",
     "chatting",
     "width=400, height=600, left=100, top=50"
   );
+		}
 }
 
 function confirmApply(g_no, userId, boardId) {
 	 console.log("g_no:", g_no, "userId:", userId, "boardId:", boardId);
 	    if (userId == "") {
-        alert("ログインが必要です。ログインしてください。");
+        alert("ログインしてください。");
         location.href = "LoginC";
         return; 
     }
