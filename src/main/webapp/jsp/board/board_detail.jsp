@@ -20,7 +20,7 @@ prefix="c" %>
         <div class="container_left">
          <div class="input_img slider">
    		 <div>
-     	 <img alt="" src="img/local/board/${boardlists.img}" />
+     	 <img alt="" src="img/local/${boardlists.img}" />
    		 </div>
 		</div>
 		<div class="tag_likes">
