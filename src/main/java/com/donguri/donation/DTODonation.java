@@ -15,8 +15,10 @@ public class DTODonation {
     private String content;
 
     public DTODonation() {
-        // TODO Auto-generated constructor stub
+        // Default constructor
     }
+
+    // Getters and setters for all properties
 
     public int getNo() {
         return no;
@@ -25,6 +27,7 @@ public class DTODonation {
     public void setNo(int no) {
         this.no = no;
     }
+
     public String getTitle() {
         return title;
     }
@@ -69,8 +72,8 @@ public class DTODonation {
         return created_date;
     }
 
-    public void setCreated_date(String create_date) {
-        this.created_date = create_date;
+    public void setCreated_date(String created_date) {
+        this.created_date = created_date;
     }
 
     public String getPublisher() {
@@ -98,7 +101,7 @@ public class DTODonation {
     }
 
     public String toJson() {
-        Gson g = new Gson();
-        return g.toJson(this);
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }
