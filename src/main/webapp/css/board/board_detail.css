@@ -93,7 +93,7 @@
 }
 
 .input_img img {
-  margin: auto;
+	margin-left: 40px;
   height: 80%;
   width: 80%;
   object-fit: cover;
