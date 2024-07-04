@@ -1,14 +1,4 @@
 
- $(document).ready(function(){
-    $('.slider').slick({
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      adaptiveHeight: true
-    });
-  });
-
 function shareTwitter() {
   window.open(
     "http://twitter.com/share?url=" +
@@ -24,7 +14,7 @@ function chatPopUp(userId) {
          location.href = "LoginC";
         }else{
   window.open(
-    "https://619d-121-160-41-223.ngrok-free.app",
+    "https://7814-121-160-41-223.ngrok-free.app",
     "chatting",
     "width=400, height=600, left=100, top=50"
   );
