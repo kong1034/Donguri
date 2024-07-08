@@ -52,6 +52,9 @@ function saveComment(userId, reviewId) {
       $(".top").append(newComment);
       $("#add_message").html(response.message);
       $("#content").val("");
+      location.reload();
+
+      
     },
     error: function (xhr, status, error) {
       console.error("Error: ", error);
