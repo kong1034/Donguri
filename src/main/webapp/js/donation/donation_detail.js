@@ -1,76 +1,101 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var donationBtn = document.getElementById('process_donation_button');
     var shareBtn = document.getElementById('share_button');
-    var donateBtn = document.getElementById('donate_button');
     var shareModal = document.getElementById('share_modal');
-    var donateModal = document.getElementById('donate_modal');
     var shareCloseBtn = document.getElementById('share_close');
-    var donateCloseBtn = document.getElementById('donate_close');
-    var processDonationBtn = document.getElementById('process_donation_button');
+    var donationAmountInput = document.getElementById('donation_amount');
+    var userId = document.querySelector('.u_id').value;
 
-    shareBtn.addEventListener('click', function() {
-        shareModal.style.display = "block";
-    });
+    // Validate donation amount and handle donation button click
+    if (donationBtn) {
+        donationBtn.addEventListener('click', function() {
+            const amount = donationAmountInput.value;
+            if (amount < 1 || isNaN(amount)) {
+                alert('Please enter a valid amount.');
+                return false;
+            }
 
-    donateBtn.addEventListener('click', function() {
-        donateModal.style.display = "block";
-    });
+            if (userId) {
+                processLinePay();
+            } else {
+                alert('Please log in.');
+                window.location.href = '/login'; // Adjust the login URL as necessary
+            }
+        });
+    }
 
-    shareCloseBtn.addEventListener('click', function() {
-        shareModal.style.display = "none";
-    });
+    // Handle share button click
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+            document.getElementById('share_link').value = window.location.href;
+            shareModal.style.display = "block";
+        });
+    }
 
-    donateCloseBtn.addEventListener('click', function() {
-        donateModal.style.display = "none";
-    });
+    // Handle close modal
+    if (shareCloseBtn) {
+        shareCloseBtn.addEventListener('click', function() {
+            shareModal.style.display = "none";
+        });
+    }
 
+    // Close modal if clicked outside
     window.addEventListener('click', function(event) {
         if (event.target == shareModal) {
             shareModal.style.display = "none";
         }
-        if (event.target == donateModal) {
-            donateModal.style.display = "none";
-        }
     });
 
-    processDonationBtn.addEventListener('click', function() {
-        var amount = document.getElementById('donation_amount').value;
+    // Copy to clipboard function
+    window.copyToClipboard = function(element) {
+        var copyText = document.querySelector(element);
+        copyText.select();
+        document.execCommand("copy");
+        alert("URL copied: " + copyText.value);
+    }
 
-        if (!amount) {
-            alert('Please enter a valid amount.');
-            return;
-        }
+    // Process Line Pay
+    function processLinePay() {
+        var amount = donationAmountInput.value;
+        var donationId = 'donation123'; // Set your donation ID
 
-        fetch('/Donguri/DonationC', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                modal_amount: amount
+        if (amount && parseFloat(amount) > 0 && donationId) {
+            var width = 800;
+            var height = 600;
+            var left = (screen.width - width) / 2;
+            var top = (screen.height - height) / 2;
+            var popup = window.open('', 'LinePay', `width=${width},height=${height},top=${top},left=${left}`);
+
+            fetch('/Donguri/DonationC', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    amount: amount,
+                    id: donationId
+                })
             })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                window.open(data.paymentUrl, '_blank');
-            } else {
-                alert('Payment failed: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred during payment processing.');
-        });
-    });
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server response: ", data);
+                if (data.info && data.info.paymentUrl) {
+                    popup.location.href = data.info.paymentUrl.web;
+                    setTimeout(() => {
+                        popup.close();
+                    }, 10000); // Close the popup after 10 seconds
+                } else {
+                    alert('Failed to initiate payment: ' + (data.message || 'Unknown error'));
+                    popup.close();
+                }
+            })
+            .catch(error => {
+                console.error('An error occurred: ', error);
+                alert('An error occurred: ' + error);
+                popup.close();
+            });
+        } else {
+            alert('Please enter a valid amount.');
+        }
+    }
 });
-
-function copyToClipboard(selector) {
-    var text = document.querySelector(selector).value;
-    var tempInput = document.createElement('input');
-    tempInput.value = text;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempInput);
-    alert('Link copied to clipboard');
-}

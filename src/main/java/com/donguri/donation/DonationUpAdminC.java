@@ -21,7 +21,7 @@ public class DonationUpAdminC extends HttpServlet {
 
 		if (u_no.equals("1")) {
 			System.out.println("check param => "+request.getParameter("no"));
-			DAODonation.RDAO.getDonationByOne(request);
+			DAODonation.RDAO.getDonationByOne(request, response);
 			request.setAttribute("contentPage", "jsp/donation/donation_update.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {

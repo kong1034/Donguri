@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class InfoC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		request.setAttribute("contentPage", "/jsp/info/info.jsp");
+		request.setAttribute("contentPage", "jsp/info/info.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

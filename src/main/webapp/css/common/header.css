@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 /* Header Styles */
 #header_container {
   display: flex;
@@ -7,16 +5,21 @@
   align-items: center;
   padding: 20px 40px;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd;
   position: relative;
-  height: 10%;
   width: 100%;
+  height: 10%;
 }
 
 .header_title {
   font-size: 36px;
   color: #f6a200;
   text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.header_title:hover {
+  transform: translateY(-10px); /* Move up by 10px on hover */
 }
 
 .header_categori_ul {
@@ -43,11 +46,11 @@
   position: absolute;
   width: 100%;
   height: 2px;
-  bottom: -2px;
+  bottom: -5px;
   left: 0;
   background-color: #4caf50;
   transform: scaleX(0);
-  transform-origin: bottom right;
+  transform-origin: bottom center;
   transition: transform 0.3s ease-out;
 }
 
@@ -64,25 +67,12 @@
 
 .header_categori_li a:hover::after {
   transform: scaleX(1);
-  transform-origin: bottom left;
+  transform-origin: bottom center;
 }
 
-#header_container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 2px solid #4caf50;
-  transform: scale(0);
-  transform-origin: center;
-  transition: transform 0.3s ease-out;
-  z-index: -1;
-}
-
-#header_container:hover::after {
-  transform: scale(1);
+#header_container:hover {
+  border-color: #4caf50;
+  transition: border-color 0.3s ease-out;
 }
 
 .header_logo_box {

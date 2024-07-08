@@ -23,7 +23,7 @@ public class InfoAllC extends HttpServlet {
 			} else if(num == 3) {
 				request.setAttribute("contents", "/jsp/info/info_animal.jsp");
 			} else if(num == 4) {
-				
+				request.setAttribute("contents", "/jsp/info/info_environment.jsp");
 			}
 			request.setAttribute("contentPage", "/jsp/info/info_all.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);

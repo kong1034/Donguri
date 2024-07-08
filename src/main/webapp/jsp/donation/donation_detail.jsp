@@ -1,67 +1,109 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Donation Detail Page</title>
-    <link rel="stylesheet" href="<c:url value='css/donation/donation_detail.css'/>">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/donation/donation_detail.css" />
+    <script src="<%=request.getContextPath()%>/js/donation/donation_detail.js"></script>
 </head>
 <body>
-    <header>
-        <h1>寄付詳細ページ</h1>
-        <nav>
-            <ul>
-                <li><a href="home.jsp">ホーム</a></li>
-                <li><a href="about.jsp">紹介</a></li>
-                <li><a href="contact.jsp">連絡先</a></li>
-            </ul>
-        </nav>
-        <div class="header_right">
-            <a href="mypage.jsp" class="mypage_button">マイページ</a>
-            <a href="login.jsp" class="login_button">ログイン</a>
-        </div>
-    </header>
-    <main>
-        <div class="donation_container">
-            <div class="image_container">
-                <img src="<c:out value='${donation.imageUrl}'/>" alt="Donation Image">
-            </div>
-            <div class="details_container">
-                <h2><c:out value="${donation.tag}"/></h2>
-                <p><c:out value="${donation.description}"/></p>
-                <div class="button_container">
-                    <button id="share_button" class="share_button">共有する</button>
-                    <button id="donate_button" class="donate_button">寄付する</button>
+    <div class="wrapper">
+        <main class="donation_main">
+            <div class="donation_container">
+                <div class="left_section">
+                    <div class="image_container">
+                        <img src="${selected_info.thumnail}" alt="Donation Image" style="width: 75%;">
+                    </div>
+                    <span class="categori_tag"># 環境</span>
+                    <div class="donation_goal">
+                        <div class="amount">
+                            <span>${selected_info.amount}</span>
+                            <span>円</span>
+                        </div>
+                        <div class="percentage">
+                            <div class="percentage_img_box">
+                                <img alt="donguri" src="<%=request.getContextPath()%>/img/local/dongguri.svg">
+                            </div>
+                            <span data-percentage="${percentage}%">
+                                ${percentage}%
+                            </span>
+                            <div class="acorns">
+                                <c:forEach var="i" begin="1" end="${imgCnt}">
+                                    <img alt="donguri" src="<%=request.getContextPath()%>/img/local/dongguri.svg">
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="company_period_container">
+                        <div class="company_container">
+                            <p>
+                                <span>募金機関</span>
+                                <span>${selected_info.publisher}</span>
+                            </p>
+                        </div>
+                        <div class="period_container">
+                            <p>
+                                <span>募金期間</span>
+                                <span>${selected_info.created_date}</span>
+                                <span>~</span>
+                                <span>${selected_info.date}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right_section">
+                    <div class="donation_actions">
+                        <div class="right_first_area">
+                            <p>寄付する</p>
+                            <p>${selected_info.content}</p>
+                        </div>
+                        <div class="right_second_area">
+                            <div class="button_container">
+                                <div class="button_box">
+                                    <input type="number" id="donation_amount" name="amount" min="1" placeholder="金額を入力" required>
+                                    <button id="process_donation_button" class="donate_button">寄付する</button>
+                                    <button id="share_button" class="share_button">共有する</button>
+                                </div>
+                                <div id="amount_options" class="amount_options">
+                                    <div class="amount_option">直接入力</div>
+                                    <div class="amount_option">100円</div>
+                                    <div class="amount_option">500円</div>
+                                    <div class="amount_option">1000円</div>
+                                    <div class="amount_option">5000円</div>
+                                    <div class="amount_option">10000円</div>
+                                    <div class="amount_option">50000円</div>
+                                    <div class="amount_option">100000円</div>
+                                    <div class="amount_option">500000円</div>
+                                    <div class="amount_option">1000000円</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+        <input class="u_id" type="hidden" value="<%=session.getAttribute("user.u_id")%>"/>
+    </div>
 
     <!-- Share Modal -->
     <div id="share_modal" class="modal">
         <div class="modal_content">
             <span id="share_close" class="close">&times;</span>
-            <h2>共有リンク</h2>
-            <p>以下のリンクをコピーして共有してください。</p>
-            <div>
-                <input type="text" value="https://yourdomain.com/donation/${donation.id}" id="share_link" readonly>
-                <button onclick="copyToClipboard('#share_link')">コピー</button>
+            <div class="share_container">
+                <div class="share_title">共有する</div>
+                <div class="share_link_container">
+                    <input type="text" value="" id="share_link" readonly>
+                    <button onclick="copyToClipboard('#share_link')" class="copy_button">コピー</button>
+                </div>
+            </div>
+            <div class="sns_links">
+                <button class="sns_button" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + document.getElementById('share_link').value, '_blank')">Share on Facebook</button>
+                <button class="sns_button" onclick="window.open('https://twitter.com/intent/tweet?url=' + document.getElementById('share_link').value + '&text=Check%20out%20this%20donation%20page!', '_blank')">Share on Twitter</button>
+                <button class="sns_button" onclick="window.open('https://social-plugins.line.me/lineit/share?url=' + document.getElementById('share_link').value, '_blank')">Share on LINE</button>
             </div>
         </div>
     </div>
-
-    <!-- Donate Modal -->
-    <div id="donate_modal" class="modal">
-        <div class="modal_content">
-            <span id="donate_close" class="close">&times;</span>
-            <h2>寄付する</h2>
-            <form id="donation_form">
-                <label for="donation_amount">金額:</label>
-                <input type="number" id="donation_amount" name="amount" required>
-                <button type="button" id="process_donation_button">寄付</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="<c:url value='js/donation/donation_detail.js'/>"></script>
 </body>
 </html>
