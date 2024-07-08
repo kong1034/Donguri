@@ -101,7 +101,16 @@ public class DTODonation {
     }
 
     public String toJson() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        Gson g = new Gson();
+        return g.toJson(this);
     }
+
+	@Override
+	public String toString() {
+		return "DTODonation [no=" + no + ", title=" + title + ", date=" + date + ", thumnail=" + thumnail + ", amount="
+				+ amount + ", sum=" + sum + ", created_date=" + created_date + ", publisher=" + publisher + ", tag="
+				+ tag + ", content=" + content + "]";
+	}
+    
+    
 }

@@ -5,20 +5,23 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.donguri.main.DBManager;
+import com.donguri.sign.UserDTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class DAODonation {
     private Connection con = null;
+    private List<DTODonation> donations;
+    private List<Integer> imgCntList;
     public static final DAODonation RDAO = new DAODonation();
 
     private DAODonation() {
@@ -29,12 +32,11 @@ public class DAODonation {
         }
     }
 
-    // Method to get a single donation by ID
     public void getDonationByOne(HttpServletRequest request, HttpServletResponse response) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         DTODonation donation = null;
-        String donationId = request.getParameter("no");
+        String donationNo = request.getParameter("no");
 
         String sql = "SELECT dd.d_title, dd.d_content, dd.d_date, dd.d_thumnail, dd.d_amount, COALESCE(SUM(dp.p_price), 0) AS sum, dd.d_created_date, dd.d_publisher, dd.d_tags "
                    + "FROM d_donation_list dd "
@@ -44,10 +46,10 @@ public class DAODonation {
 
         try {
             System.out.println("Executing SQL: " + sql);
-            System.out.println("Donation ID: " + donationId);
+
             con = DBManager.connect();
             pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, donationId);
+            pstmt.setString(1, donationNo);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -68,33 +70,27 @@ public class DAODonation {
                 donation.setPublisher(rs.getString("d_publisher"));
                 donation.setTag(rs.getString("d_tags"));
 
-                System.out.println(rs.getString("d_title"));
-                System.out.println(rs.getString("d_content"));
-                System.out.println(rs.getString("d_date"));
-                System.out.println(rs.getString("d_thumnail"));
-                System.out.println(rs.getInt("d_amount"));
-                System.out.println(rs.getInt("sum"));
-                System.out.println(rs.getString("d_created_date"));
-                System.out.println(rs.getString("d_publisher"));
-                System.out.println(rs.getString("d_tags"));
-
-                // Calculate percentage and number of images
+                // Calculate the percentage and imgCnt here
                 int amount = rs.getInt("d_amount");
                 int sum = rs.getInt("sum");
-                double percentage = amount != 0 ? ((double) sum / amount) * 100 : 0;
-                int imgCnt = amount != 0 ? sum / (amount / 10) : 0;
 
                 System.out.println("==============");
                 System.out.println("check amount => " + amount);
                 System.out.println("check sum => " + sum);
+
+                double percentage = ((double) sum / amount) * 100;
+
                 System.out.println("check percentage => " + percentage);
+
+                int imgCnt = (int) (percentage / 10);
+
                 System.out.println("check imgCnt => " + imgCnt);
                 System.out.println("==============");
 
                 // Set attributes for the request
-                request.setAttribute("selected_info", donation);
                 request.setAttribute("percentage", percentage);
                 request.setAttribute("imgCnt", imgCnt);
+                request.setAttribute("selected_info", donation);
             } else {
                 // Prevent further null pointer exceptions
                 request.setAttribute("selected_info", new DTODonation());
@@ -108,12 +104,64 @@ public class DAODonation {
         }
     }
 
+    // Method to get donation details by user ID
+    public void getDonationById(HttpServletRequest request) {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("user");
+
+        String userId = user.getU_id();
+        String sqlSum = "SELECT SUM(p_price) AS total_donation FROM d_payment WHERE u_id=?";
+        String sqlCount = "SELECT COUNT(*) AS count_donation FROM d_payment WHERE u_id=?";
+        String sqlDTitle = "SELECT dp.u_id, dp.d_no, dd.d_title "
+                + "FROM d_payment dp "
+                + "LEFT JOIN d_donation_list dd ON dp.d_no = dd.d_no WHERE dp.u_id=?";
+
+        try {
+            con = DBManager.connect();
+            pstmt = con.prepareStatement(sqlSum);
+            pstmt.setString(1, userId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int totalDonation = rs.getInt("total_donation");
+                request.setAttribute("totalD", totalDonation);
+            }
+
+            pstmt = con.prepareStatement(sqlCount);
+            pstmt.setString(1, userId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int countDonation = rs.getInt("count_donation");
+                request.setAttribute("countD", countDonation);
+            }
+            pstmt = con.prepareStatement(sqlDTitle);
+            pstmt.setString(1, userId);
+            rs = pstmt.executeQuery();
+
+            List<DTODonation> d_title = new ArrayList<>();
+            DTODonation dn = null;
+            while (rs.next()) {
+                dn = new DTODonation();
+                dn.setTitle(rs.getString("d_title"));
+                d_title.add(dn);
+            }
+            request.setAttribute("dTitle", d_title);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBManager.close(con, pstmt, rs);
+        }
+    }
+
     // Method to get all donations
     public void getAllDonations(HttpServletRequest request, HttpServletResponse response) {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        List<DTODonation> donations = new ArrayList<DTODonation>();
-        List<Integer> imgCntList = new ArrayList<Integer>();
+        donations = new ArrayList<DTODonation>();
+        imgCntList = new ArrayList<Integer>();
         String sql = "select dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount, coalesce(sum(dp.p_price), 0) as SUM"
                 + " from d_donation_list dd" + " left join d_payment dp" + " on dd.d_no = dp.d_no"
                 + " group by dd.d_no, dd.d_title, dd.d_date, dd.d_thumnail, dd.d_amount" + " order by dd.d_no desc";
@@ -140,11 +188,11 @@ public class DAODonation {
                 System.out.println("check amount => " + amount);
                 System.out.println("check sum => " + sum);
 
-                double percentage = amount != 0 ? ((double) sum / amount) * 100 : 0;
+                double percentage = ((double) sum / amount) * 100;
 
                 System.out.println("check percentage => " + percentage);
 
-                imgCnt = amount != 0 ? (int) (percentage / 10) : 0;
+                imgCnt = (int) (percentage / 10);
 
                 donations.add(donation);
                 System.out.println("check imgCnt => " + imgCnt);
@@ -163,8 +211,6 @@ public class DAODonation {
 
     // Method for pagination
     public void paging(int page, HttpServletRequest request) {
-        List<DTODonation> donations = (List<DTODonation>) request.getAttribute("donationList");
-        List<Integer> imgCntList = (List<Integer>) request.getAttribute("imgCntList");
 
         int cnt = 8; // show page count
         int total = donations.size(); // show page data count
@@ -208,8 +254,8 @@ public class DAODonation {
             String publisher = mr.getParameter("publisher");
             String tag = mr.getParameter("tag");
 
-            LocalDateTime localDateTime = LocalDateTime.parse(end_date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            Date date = Date.valueOf(localDateTime.toLocalDate());
+            LocalDate localDateTime = LocalDate.parse(end_date);
+            Date date = Date.valueOf(localDateTime);
 
             content = content.replaceAll("<br>", "\r\n");
             
@@ -264,8 +310,8 @@ public class DAODonation {
             String publisher = mr.getParameter("publisher");
             String tag = mr.getParameter("tag");
 
-            LocalDateTime localDateTime = LocalDateTime.parse(end_date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            Date date = Date.valueOf(localDateTime.toLocalDate());
+            LocalDate localDate = LocalDate.parse(end_date);
+            Date date = Date.valueOf(localDate);
 
             content = content.replaceAll("\r\n", "<br>");
             

@@ -12,17 +12,17 @@ import com.donguri.sign.DAOSign;
 @WebServlet("/DonationDetailC")
 public class DonationDetailC extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String donationId = request.getParameter("id");
-        System.out.println("Received Donation ID: " + donationId);
+        String donationNo = request.getParameter("no");
+        System.out.println("Received Donation No: " + donationNo);
 
-        if (donationId == null || donationId.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Donation ID is missing");
+        if (donationNo == null || donationNo.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Donation No is missing");
             return;
         }
 
-		DAOSign.getUserSession(request, response);
+        DAOSign.getUserSession(request, response);
         DAODonation.RDAO.getDonationByOne(request, response);
-		request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
+        request.setAttribute("contentPage", "jsp/donation/donation_detail.jsp");
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

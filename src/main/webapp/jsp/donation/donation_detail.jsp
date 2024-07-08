@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,43 +14,41 @@
             <div class="donation_container">
                 <div class="left_section">
                     <div class="image_container">
-                        <c:choose>
-                            <c:when test="${not empty selected_info.thumnail}">
-                                <img src="${selected_info.thumnail}" alt="Donation Image" style="width: 75%;">
-                            </c:when>
-                            <c:otherwise>
-                                <img src="<%=request.getContextPath()%>/img/default.png" alt="No Image Available" style="width: 75%;">
-                            </c:otherwise>
-                        </c:choose>
+                        <img src="${selected_info.thumnail}" alt="Donation Image" style="width: 75%;">
                     </div>
                     <span class="categori_tag"># 環境</span>
                     <div class="donation_goal">
                         <div class="amount">
-                            <span>${not empty selected_info.amount ? selected_info.amount : ''}</span>
-                            <span>${not empty selected_info.amount ? '円' : ''}</span>
+                            <span>${selected_info.amount}</span>
+                            <span>円</span>
                         </div>
                         <div class="percentage">
                             <div class="percentage_img_box">
                                 <img alt="donguri" src="<%=request.getContextPath()%>/img/local/dongguri.svg">
                             </div>
-                            <span data-percentage="${not empty selected_info.amount && selected_info.amount != 0 ? (selected_info.sum / selected_info.amount * 100) : 0}%">
-                                ${not empty selected_info.sum && selected_info.amount != 0 ? (selected_info.sum / selected_info.amount * 100) : 0}%
+                            <span data-percentage="${percentage}%">
+                                ${percentage}%
                             </span>
+                            <div class="acorns">
+                                <c:forEach var="i" begin="1" end="${imgCnt}">
+                                    <img alt="donguri" src="<%=request.getContextPath()%>/img/local/dongguri.svg">
+                                </c:forEach>
+                            </div>
                         </div>
                     </div>
                     <div class="company_period_container">
                         <div class="company_container">
                             <p>
                                 <span>募金機関</span>
-                                <span>${not empty selected_info.publisher ? selected_info.publisher : ''}</span>
+                                <span>${selected_info.publisher}</span>
                             </p>
                         </div>
                         <div class="period_container">
                             <p>
                                 <span>募金期間</span>
-                                <span>${not empty selected_info.created_date ? selected_info.created_date : ''}</span>
-                                <span>${not empty selected_info.date ? '~' : ''}</span>
-                                <span>${not empty selected_info.date ? selected_info.date : ''}</span>
+                                <span>${selected_info.created_date}</span>
+                                <span>~</span>
+                                <span>${selected_info.date}</span>
                             </p>
                         </div>
                     </div>
@@ -58,7 +57,7 @@
                     <div class="donation_actions">
                         <div class="right_first_area">
                             <p>寄付する</p>
-                            <p>${not empty selected_info.content ? selected_info.content : 'ここに説明が入ります。'}</p>
+                            <p>${selected_info.content}</p>
                         </div>
                         <div class="right_second_area">
                             <div class="button_container">

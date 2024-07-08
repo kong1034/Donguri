@@ -8,7 +8,7 @@ function movePage() {
 
 function call(num) {
     console.log("check => " + num);
-    location.href = "DonationDetailC?id=" + num;
+    location.href = "DonationDetailC?no=" + num;
 }
 
 function moveUpdatePage(no) {
