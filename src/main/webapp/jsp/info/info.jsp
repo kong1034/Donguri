@@ -48,18 +48,18 @@
 				<button class="info_all" id="info_older" onclick="goInfo(2)">More</button>
 			</div>
 			<ul class="info_ul_container">
-				<li><img src="https://nenrin.or.jp/common/img/logo.gif" onclick="goSite(1)" class="content_img"/></li>
-				<li><img src="https://www.wam.go.jp/content/img/wamnet_logo_top.png" onclick="goSite(2)" class="content_img" /></li>
-				<li><img src="img/local/info_older_3.png" onclick="goSite(3)" class="content_img" /></li>
-				<li><img src="https://www.kyoukaikenpo.or.jp/assets/image/common/logo_01.png" onclick="goSite(4)" class="content_img" /></li>
-				<li><img style="background-color: blue;" src="https://www.sawayakazaidan.or.jp/CMS2/wp-content/themes/sawayaka/assets/img/common/logo.svg" onclick="goSite(5)" class="content_img" /></li>
-				<li><img src="http://www.zenrouren.com/shared/img/title.gif" onclick="goSite(6)" class="content_img" /></li>
-				<li><img src="https://wabas.sakura.ne.jp/image/rogo.gif" onclick="goSite(7)" class="content_img" /></li>
-				<li><img src="https://www.espa.or.jp/common/img/hd_h1.png" onclick="goSite(8)" class="content_img" /></li>
-				<li><img src="https://www.niid.go.jp/eiken/img/eikenlogo.jpg" onclick="goSite(9)" class="content_img" /></li>
-				<li><img src="https://www.gpif.go.jp/resources/images/common/logo.png" onclick="goSite(10)" class="content_img" /></li>
-				<li><img src="https://www.kaigo-shien-kyokai.or.jp/img/logo-kaigo_shien_kyoukai.png" onclick="goSite(11)" class="content_img" /></li>
-				<li><img src="https://www.roushikyo.or.jp/fs_shared/img/top/logo.png" onclick="goSite(12)" class="content_img" /></li>
+				<li><img src="https://nenrin.or.jp/common/img/logo.gif" onclick="goSite2(1)" class="content_img"/></li>
+				<li><img src="https://www.wam.go.jp/content/img/wamnet_logo_top.png" onclick="goSite2(2)" class="content_img" /></li>
+				<li><img src="img/local/info_older_3.png" onclick="goSite2(3)" class="content_img" /></li>
+				<li><img src="https://www.kyoukaikenpo.or.jp/assets/image/common/logo_01.png" onclick="goSite2(4)" class="content_img" /></li>
+				<li><img style="background-color: blue;" src="https://www.sawayakazaidan.or.jp/CMS2/wp-content/themes/sawayaka/assets/img/common/logo.svg" onclick="goSite2(5)" class="content_img" /></li>
+				<li><img src="http://www.zenrouren.com/shared/img/title.gif" onclick="goSite2(6)" class="content_img" /></li>
+				<li><img src="https://wabas.sakura.ne.jp/image/rogo.gif" onclick="goSite2(7)" class="content_img" /></li>
+				<li><img src="https://www.espa.or.jp/common/img/hd_h1.png" onclick="goSite2(8)" class="content_img" /></li>
+				<li><img src="https://www.niid.go.jp/eiken/img/eikenlogo.jpg" onclick="goSite2(9)" class="content_img" /></li>
+				<li><img src="https://www.gpif.go.jp/resources/images/common/logo.png" onclick="goSite2(10)" class="content_img" /></li>
+				<li><img src="https://www.kaigo-shien-kyokai.or.jp/img/logo-kaigo_shien_kyoukai.png" onclick="goSite2(11)" class="content_img" /></li>
+				<li><img src="https://www.roushikyo.or.jp/fs_shared/img/top/logo.png" onclick="goSite2(12)" class="content_img" /></li>
 			</ul>
 		</div>
 
@@ -73,17 +73,17 @@
 				<button class="info_all" id="info_animal" onclick="goInfo(3)">More</button>
 			</div>
 			<ul class="info_ul_container">
-<li><img src="https://www.jaws.or.jp/wp-content/themes/jaws/images/contents01-img01.jpg" onclick="goSite(1)" class="content_img"></li>
-<li><img src="https://www.animaldonation.org/anidone/wp-content/themes/storefront_v2/common/images/sp_logo.svg" onclick="goSite(2)" class="content_img"></li>
-<li><img src="https://dtj.or.jp/common/img/img_18.jpg" onclick="goSite(3)" class="content_img"></li>
-<li><img src="https://kaws.jp/wp/wp-content/themes/kaws/img/logo1.svg" onclick="goSite(4)" class="content_img"></li>
-<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxHJbHUcb2q6xcSW1k5wdEtqS5LbJO_c_oOA&s" onclick="goSite(5)" class="content_img"></li>
-<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU6AdDYUrp-0rC2c8gzUgBh67B5EJlOGmAhg&s" onclick="goSite(6)" class="content_img"></li>
-<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaSofD0S1hs3pMVWNPJUT86ebQjVDNnj0I8v1goOvYjuDErkqthmvtYA2zUcBDERYy3CQ&usqp=CAU" onclick="goSite(7)" class="content_img"></li>
-<li><img src="https://www.j-animal.com/wp/wp-content/uploads/2018/12/logo-tate-green02.png" onclick="goSite(8)" class="content_img"></li>
-<li><img src="https://arcj.org/wp-content/uploads/2019/01/logo1.png" onclick="goSite(9)" class="content_img"></li>
-<li><img src="https://www.nihondoubutukaigo.com/img/logo-pc.png" onclick="goSite(10)" class="content_img"></li>
-<li><img src="https://kspca.jp/wp-content/uploads/2021/01/logo1958.jpg" onclick="goSite(11)" class="content_img"></li>
+<li><img src="https://www.jaws.or.jp/wp-content/themes/jaws/images/contents01-img01.jpg" onclick="goSite3(1)" class="content_img"></li>
+<li><img src="https://www.animaldonation.org/anidone/wp-content/themes/storefront_v2/common/images/sp_logo.svg" onclick="goSite3(2)" class="content_img"></li>
+<li><img src="https://dtj.or.jp/common/img/img_18.jpg" onclick="goSite3(3)" class="content_img"></li>
+<li><img src="https://kaws.jp/wp/wp-content/themes/kaws/img/logo1.svg" onclick="goSite3(4)" class="content_img"></li>
+<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxHJbHUcb2q6xcSW1k5wdEtqS5LbJO_c_oOA&s" onclick="goSite3(5)" class="content_img"></li>
+<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU6AdDYUrp-0rC2c8gzUgBh67B5EJlOGmAhg&s" onclick="goSite3(6)" class="content_img"></li>
+<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaSofD0S1hs3pMVWNPJUT86ebQjVDNnj0I8v1goOvYjuDErkqthmvtYA2zUcBDERYy3CQ&usqp=CAU" onclick="goSite3(7)" class="content_img"></li>
+<li><img src="https://www.j-animal.com/wp/wp-content/uploads/2018/12/logo-tate-green02.png" onclick="goSite3(8)" class="content_img"></li>
+<li><img src="https://arcj.org/wp-content/uploads/2019/01/logo1.png" onclick="goSite3(9)" class="content_img"></li>
+<li><img src="https://www.nihondoubutukaigo.com/img/logo-pc.png" onclick="goSite3(10)" class="content_img"></li>
+<li><img src="https://kspca.jp/wp-content/uploads/2021/01/logo1958.jpg" onclick="goSite3(11)" class="content_img"></li>
 			</ul>
 		</div>
 
