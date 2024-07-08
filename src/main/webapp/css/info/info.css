@@ -10,7 +10,9 @@
 	justify-content: space-between;
 	padding: 2% 12%;
 }
-
+.info_title_box h1{
+	font-size: 28pt;
+}
 .info_container .info_title_box a {
 	color: #45B90E;
 	font-size: 1.4em;
@@ -35,11 +37,11 @@
 }
 
 .info_container .info_ul_title_box .info_title {
-	border: 1px solid #F6A200;
-    padding: 1% 2%;
+	border: 3px solid #F6A200;
+    padding: 0.5% 1%;
     border-radius: 2em;
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 .info_container .info_ul_title_box .info_title:hover {
@@ -66,7 +68,8 @@
 
 .info_container .info_ul_container {
 	width: 75%;
-	border: 1px solid #A3A4A3;
+	border: 1px solid #ccc;
+	border-radius: 20px;
 	height: 35%;
 	display: flex;
 	justify-content: space-around;

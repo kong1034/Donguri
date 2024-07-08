@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/* @charset "UTF-8"; */
 * {
   margin: 0;
   padding: 0;
@@ -51,9 +51,8 @@
       fill: red;
 }
 .title_b {
-  width: 980px;
-  margin: auto;
-  font-size: 18pt;
+/*   width: 1000px; */
+/*   font-size: 18pt; */
   border-radius: 20px;
   height: 80px;
   padding-left: 30px;
@@ -102,7 +101,7 @@
 .info_b {
   width: 450px;
   height: 25em;
-  margin: 20px 20px 0px;
+  margin: 20px 0px 0px;
   border: 1px solid rgb(174, 170, 170);
   font-size: 15pt;
   font-weight: 100;
