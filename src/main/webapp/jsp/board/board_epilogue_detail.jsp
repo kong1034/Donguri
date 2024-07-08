@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="epilogue_img">
-				<img alt="" src="img/local/board/${epilogues.img }">
+				<img alt="" src="img/local/${epilogues.img }">
 				</div>
 				<div class="epilogue content">
 					<span>内容</span><div>${epilogues.content }</div> 

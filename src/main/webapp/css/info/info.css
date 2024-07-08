@@ -2,7 +2,7 @@
 
 .info_container {
 	width: 100%;
-	height: 100%;
+	height: auto;
 }
 
 .info_container .info_title_box {

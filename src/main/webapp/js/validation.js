@@ -9,7 +9,7 @@ function Validation() {
 
 	/** Validation method **/
 	/** ID & PW min: 4 max:20 **/
-	var regIdPw = /^[a-zA-Z0-9]{4,20}$/;
+	var regIdPw = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9]{4,20}$/;
 	/** NAME only hiragana, katakana, kanzi min: 1 max: 20 **/
 	var regName = /^[\u30a0-\u30ff\u3040-\u309f\u4e00-\u9faf]{1,20}$/;
 	/** e-mail **/
