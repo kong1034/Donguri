@@ -14,7 +14,7 @@ function chatPopUp(userId) {
          location.href = "LoginC";
         }else{
   window.open(
-    "https://7814-121-160-41-223.ngrok-free.app",
+    "https://e9d0-121-160-41-223.ngrok-free.app",
     "chatting",
     "width=400, height=600, left=100, top=50"
   );
