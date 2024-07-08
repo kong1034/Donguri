@@ -22,7 +22,7 @@
   width: 50em;
   height: 25em;
   border-radius: 100px;
-  margin: 40px 0px 0px;
+  margin: 40px auto 0px;
   position: relative;
 }
 .container_slide img {

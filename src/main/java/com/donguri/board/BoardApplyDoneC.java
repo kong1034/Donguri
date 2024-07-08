@@ -10,11 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/BoardApplyDoneC")
 public class BoardApplyDoneC extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	DAOBoard.DAOB.updateStatus(request);
+		request.setCharacterEncoding("utf-8");
+		DAOBoard.DAOB.updateStatus(request);
 	
-	request.setAttribute("contentPage", "/jsp/board/board_detail.jsp");
-	request.getRequestDispatcher("index.jsp").forward(request, response);
-	
+		response.sendRedirect("BoardC");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
